@@ -6,9 +6,10 @@
 
 grammar InfixToPostfix;
 
-//expr : expr'+'term | expr'+'term | term ;
-//term : term'*'factor| term'/'factor | factor ;
-//factor : signedno | '('expr')' ;
-//signedno : digits ;
-//digits : digit+ ;
-digit : '0' ;
+expr : expr '+' term | expr '-' term | term ;
+term : term '*' factor| term '/' factor | factor ;
+factor : signedno | '('expr')' | expr ;
+signedno : digits ;
+digits : digit+ ;
+digit : '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
+WS : [ \t\r\n]+ -> skip ;
