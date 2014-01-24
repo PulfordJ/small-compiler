@@ -20,11 +20,11 @@ grammar InfixToPostfix;
 start : expr                             #printExpr
      ;
 
-expr : left=expr op=('*'|'/') right=expr #MulDivAddSub
-     | left=expr op=('+'|'-') right=expr #MulDivAddSub
+expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
+     | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
      | FLOAT                               #float
-     | INT                                 #int
-     | '(' expr ')'                      #parens
+     | OPTIONALLYSIGNEDINT                 #optionallySignedInt
+     | LEFTPAREN expr RIGHTPAREN           #parens
      ;
 
 
@@ -33,7 +33,10 @@ MUL : '*' ;
 DIV : '/' ;
 ADD : '+' ;
 SUB : '-' ;
+LEFTPAREN : '(' ;
+RIGHTPAREN : ')' ;
 FLOATEXPONENT : 'e' ;
-FLOAT : INT FLOATEXPONENT INT? ;
+FLOAT : OPTIONALLYSIGNEDINT FLOATEXPONENT OPTIONALLYSIGNEDINT? ;
+OPTIONALLYSIGNEDINT : ('-'|'+')? INT ;
 INT : [0-9]+ ;
 WS : [ \t\r\n]+ -> skip ;

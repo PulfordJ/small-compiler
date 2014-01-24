@@ -1,4 +1,4 @@
-// Generated from src/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from src/main/java/InfixToPostfix.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -14,11 +14,11 @@ public class InfixToPostfixParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__1=1, T__0=2, MUL=3, DIV=4, ADD=5, SUB=6, FLOATEXPONENT=7, FLOAT=8, 
-		INT=9, WS=10;
+		MUL=1, DIV=2, ADD=3, SUB=4, LEFTPAREN=5, RIGHTPAREN=6, FLOATEXPONENT=7, 
+		FLOAT=8, OPTIONALLYSIGNEDINT=9, INT=10, WS=11;
 	public static final String[] tokenNames = {
-		"<INVALID>", "')'", "'('", "'*'", "'/'", "'+'", "'-'", "'e'", "FLOAT", 
-		"INT", "WS"
+		"<INVALID>", "'*'", "'/'", "'+'", "'-'", "'('", "')'", "'e'", "FLOAT", 
+		"OPTIONALLYSIGNEDINT", "INT", "WS"
 	};
 	public static final int
 		RULE_start = 0, RULE_expr = 1;
@@ -119,6 +119,8 @@ public class InfixToPostfixParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
+		public TerminalNode SUB() { return getToken(InfixToPostfixParser.SUB, 0); }
+		public TerminalNode ADD() { return getToken(InfixToPostfixParser.ADD, 0); }
 		public MulDivAddSubContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -134,27 +136,12 @@ public class InfixToPostfixParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class IntContext extends ExprContext {
-		public TerminalNode INT() { return getToken(InfixToPostfixParser.INT, 0); }
-		public IntContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterInt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitInt(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitInt(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class ParensContext extends ExprContext {
+		public TerminalNode RIGHTPAREN() { return getToken(InfixToPostfixParser.RIGHTPAREN, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
+		public TerminalNode LEFTPAREN() { return getToken(InfixToPostfixParser.LEFTPAREN, 0); }
 		public ParensContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -187,6 +174,23 @@ public class InfixToPostfixParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class OptionallySignedIntContext extends ExprContext {
+		public TerminalNode OPTIONALLYSIGNEDINT() { return getToken(InfixToPostfixParser.OPTIONALLYSIGNEDINT, 0); }
+		public OptionallySignedIntContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterOptionallySignedInt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitOptionallySignedInt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitOptionallySignedInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 
 	public final ExprContext expr(int _p) throws RecognitionException {
 		ParserRuleContext _parentctx = _ctx;
@@ -211,22 +215,22 @@ public class InfixToPostfixParser extends Parser {
 				setState(7); match(FLOAT);
 				}
 				break;
-			case INT:
+			case OPTIONALLYSIGNEDINT:
 				{
-				_localctx = new IntContext(_localctx);
+				_localctx = new OptionallySignedIntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(8); match(INT);
+				setState(8); match(OPTIONALLYSIGNEDINT);
 				}
 				break;
-			case 2:
+			case LEFTPAREN:
 				{
 				_localctx = new ParensContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(9); match(2);
+				setState(9); match(LEFTPAREN);
 				setState(10); expr(0);
-				setState(11); match(1);
+				setState(11); match(RIGHTPAREN);
 				}
 				break;
 			default:
@@ -314,11 +318,11 @@ public class InfixToPostfixParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\f\35\4\2\t\2\4\3"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r\35\4\2\t\2\4\3"+
 		"\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\20\n\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\3\2\4\2\4\2\4\3\2\5\6\3\2\7\b\36"+
+		"\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\3\2\4\2\4\2\4\3\2\3\4\3\2\5\6\36"+
 		"\2\6\3\2\2\2\4\17\3\2\2\2\6\7\5\4\3\2\7\3\3\2\2\2\b\t\b\3\1\2\t\20\7\n"+
-		"\2\2\n\20\7\13\2\2\13\f\7\4\2\2\f\r\5\4\3\2\r\16\7\3\2\2\16\20\3\2\2\2"+
+		"\2\2\n\20\7\13\2\2\13\f\7\7\2\2\f\r\5\4\3\2\r\16\7\b\2\2\16\20\3\2\2\2"+
 		"\17\b\3\2\2\2\17\n\3\2\2\2\17\13\3\2\2\2\20\31\3\2\2\2\21\22\6\3\2\3\22"+
 		"\23\t\2\2\2\23\30\5\4\3\2\24\25\6\3\3\3\25\26\t\3\2\2\26\30\5\4\3\2\27"+
 		"\21\3\2\2\2\27\24\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32"+

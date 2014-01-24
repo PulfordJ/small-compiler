@@ -1,4 +1,4 @@
-// Generated from src/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from src/main/java/InfixToPostfix.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -33,14 +33,6 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitInt(@NotNull InfixToPostfixParser.IntContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -50,4 +42,12 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) { return visitChildren(ctx); }
 }

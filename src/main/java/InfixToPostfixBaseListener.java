@@ -1,4 +1,4 @@
-// Generated from src/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from src/main/java/InfixToPostfix.g4 by ANTLR 4.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -42,19 +42,6 @@ public class InfixToPostfixBaseListener implements InfixToPostfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterInt(@NotNull InfixToPostfixParser.IntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitInt(@NotNull InfixToPostfixParser.IntContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterParens(@NotNull InfixToPostfixParser.ParensContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -75,6 +62,19 @@ public class InfixToPostfixBaseListener implements InfixToPostfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

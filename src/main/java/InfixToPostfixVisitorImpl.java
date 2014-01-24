@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.misc.NotNull;
  * Time: 12:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public class InfixToPostfixBaseImpl extends InfixToPostfixBaseVisitor<String> {
+public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String> {
 
     @Override
     public String visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) {
@@ -44,10 +44,17 @@ public class InfixToPostfixBaseImpl extends InfixToPostfixBaseVisitor<String> {
     }
 
     @Override
+    public String visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) {
+        return ctx.OPTIONALLYSIGNEDINT().getText()+'e';
+    }
+    /*
+    @Override
     public String visitInt(@NotNull InfixToPostfixParser.IntContext ctx) {
+        System.out.println("whole number, bitches.");
         //System.out.println();
         return ctx.INT().getText()+'e';
     }
+    */
 
     @Override
     public String visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) {

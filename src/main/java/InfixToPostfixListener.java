@@ -1,4 +1,4 @@
-// Generated from src/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from src/main/java/InfixToPostfix.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -30,17 +30,6 @@ public interface InfixToPostfixListener extends ParseTreeListener {
 	void exitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixToPostfixParser#int}.
-	 * @param ctx the parse tree
-	 */
-	void enterInt(@NotNull InfixToPostfixParser.IntContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixToPostfixParser#int}.
-	 * @param ctx the parse tree
-	 */
-	void exitInt(@NotNull InfixToPostfixParser.IntContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 */
@@ -61,4 +50,15 @@ public interface InfixToPostfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFloat(@NotNull InfixToPostfixParser.FloatContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixToPostfixParser#optionallySignedInt}.
+	 * @param ctx the parse tree
+	 */
+	void enterOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixToPostfixParser#optionallySignedInt}.
+	 * @param ctx the parse tree
+	 */
+	void exitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx);
 }

@@ -1,4 +1,4 @@
-// Generated from src/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from src/main/java/InfixToPostfix.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -25,13 +25,6 @@ public interface InfixToPostfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixToPostfixParser#int}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInt(@NotNull InfixToPostfixParser.IntContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -44,4 +37,11 @@ public interface InfixToPostfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFloat(@NotNull InfixToPostfixParser.FloatContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixToPostfixParser#optionallySignedInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx);
 }

@@ -1,10 +1,9 @@
-import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.UnbufferedCharStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.io.*;
 
@@ -13,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * Created by john on 24/01/14.
  */
-public class InfixToPostfixBaseImplTest {
+public class InfixToPostfixVisitorImplTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -42,7 +41,7 @@ public class InfixToPostfixBaseImplTest {
         InfixToPostfixParser p = new InfixToPostfixParser(tokens);
 
         ParseTree tree = p.start();
-        InfixToPostfixBaseImpl visitor = new InfixToPostfixBaseImpl();
+        InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
         visitor.visit(tree);
     }
 
@@ -80,6 +79,34 @@ public class InfixToPostfixBaseImplTest {
     }
 
     @org.junit.Test
+    public void testPlusSignedNumber() throws Exception {
+
+        runCompiler("+2");
+        assertEquals("+2e f.\n", outContent.toString());
+    }
+
+    @org.junit.Test
+    public void testMinusSignedNumber() throws Exception {
+
+        runCompiler("-20");
+        assertEquals("-20e f.\n", outContent.toString());
+    }
+
+    @Test
+    public void testParensNum() throws Exception {
+
+        runCompiler("(-20)");
+        assertEquals("-20e f.\n", outContent.toString());
+    }
+
+    @Test
+    public void testParensPrecedence() throws Exception {
+        runCompiler("(-20 + 30) / 2");
+        assertEquals("-20e 30e f+ 2e f/ f.\n", outContent.toString());
+    }
+
+
+    @org.junit.Test
     public void testFloatWithE() throws Exception {
 
         runCompiler("3e");
@@ -99,8 +126,4 @@ public class InfixToPostfixBaseImplTest {
         assertEquals("2e f.\n", outContent.toString());
     }
 
-    @org.junit.Test
-    public void testVisitParens() throws Exception {
-
-    }
 }
