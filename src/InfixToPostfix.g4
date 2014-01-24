@@ -17,10 +17,23 @@ grammar InfixToPostfix;
 //digit : '0'|'9' ;
 //WS : [ \t\r\n]+ -> skip ;
 
-start : expr ;
-expr : left=expr op=('*'|'/') right=expr #opExpr 
-     | left=expr op=('+'|'-') right=expr #opExpr
-     | atom=factor #atomExpr ;
-factor : INT ;
+start : expr                             #printExpr
+     ;
+
+expr : left=expr op=('*'|'/') right=expr #MulDivAddSub
+     | left=expr op=('+'|'-') right=expr #MulDivAddSub
+     | FLOAT                               #float
+     | INT                                 #int
+     | '(' expr ')'                      #parens
+     ;
+
+
+
+MUL : '*' ;
+DIV : '/' ;
+ADD : '+' ;
+SUB : '-' ;
+FLOATEXPONENT : 'e' ;
+FLOAT : INT FLOATEXPONENT INT? ;
 INT : [0-9]+ ;
 WS : [ \t\r\n]+ -> skip ;

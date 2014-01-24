@@ -17,7 +17,7 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitOpExpr(@NotNull InfixToPostfixParser.OpExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -25,7 +25,7 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitStart(@NotNull InfixToPostfixParser.StartContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -33,7 +33,7 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitAtomExpr(@NotNull InfixToPostfixParser.AtomExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInt(@NotNull InfixToPostfixParser.IntContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -41,5 +41,13 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitFactor(@NotNull InfixToPostfixParser.FactorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { return visitChildren(ctx); }
 }

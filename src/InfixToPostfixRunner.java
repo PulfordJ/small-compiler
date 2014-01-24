@@ -18,12 +18,14 @@ public class InfixToPostfixRunner {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         InfixToPostfixParser p = new InfixToPostfixParser(tokens);
 
-        ParserRuleContext tree = p.start();
-        InfixToPostfixBaseImpl visitor = new InfixToPostfixBaseImpl();
+        //ParserRuleContext tree = p.start();
 
         //p.setBuildParseTree(true);
         //p.addParseListener(new InfixToPostfixListenerImpl());
-        ParserRuleContext t = p.start();
+        ParseTree tree = p.start();
+        InfixToPostfixBaseImpl visitor = new InfixToPostfixBaseImpl();
+        visitor.visit(tree);
+        //ParserRuleContext t = p.start();
 
     }
 }

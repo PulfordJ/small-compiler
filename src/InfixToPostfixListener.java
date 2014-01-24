@@ -8,46 +8,57 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface InfixToPostfixListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link InfixToPostfixParser#opExpr}.
+	 * Enter a parse tree produced by {@link InfixToPostfixParser#MulDivAddSub}.
 	 * @param ctx the parse tree
 	 */
-	void enterOpExpr(@NotNull InfixToPostfixParser.OpExprContext ctx);
+	void enterMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixToPostfixParser#opExpr}.
+	 * Exit a parse tree produced by {@link InfixToPostfixParser#MulDivAddSub}.
 	 * @param ctx the parse tree
 	 */
-	void exitOpExpr(@NotNull InfixToPostfixParser.OpExprContext ctx);
+	void exitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixToPostfixParser#start}.
+	 * Enter a parse tree produced by {@link InfixToPostfixParser#printExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterStart(@NotNull InfixToPostfixParser.StartContext ctx);
+	void enterPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixToPostfixParser#start}.
+	 * Exit a parse tree produced by {@link InfixToPostfixParser#printExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitStart(@NotNull InfixToPostfixParser.StartContext ctx);
+	void exitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixToPostfixParser#atomExpr}.
+	 * Enter a parse tree produced by {@link InfixToPostfixParser#int}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomExpr(@NotNull InfixToPostfixParser.AtomExprContext ctx);
+	void enterInt(@NotNull InfixToPostfixParser.IntContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixToPostfixParser#atomExpr}.
+	 * Exit a parse tree produced by {@link InfixToPostfixParser#int}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomExpr(@NotNull InfixToPostfixParser.AtomExprContext ctx);
+	void exitInt(@NotNull InfixToPostfixParser.IntContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixToPostfixParser#factor}.
+	 * Enter a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 */
-	void enterFactor(@NotNull InfixToPostfixParser.FactorContext ctx);
+	void enterParens(@NotNull InfixToPostfixParser.ParensContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixToPostfixParser#factor}.
+	 * Exit a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 */
-	void exitFactor(@NotNull InfixToPostfixParser.FactorContext ctx);
+	void exitParens(@NotNull InfixToPostfixParser.ParensContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixToPostfixParser#float}.
+	 * @param ctx the parse tree
+	 */
+	void enterFloat(@NotNull InfixToPostfixParser.FloatContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixToPostfixParser#float}.
+	 * @param ctx the parse tree
+	 */
+	void exitFloat(@NotNull InfixToPostfixParser.FloatContext ctx);
 }

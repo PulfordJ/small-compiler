@@ -11,30 +11,37 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface InfixToPostfixVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link InfixToPostfixParser#opExpr}.
+	 * Visit a parse tree produced by {@link InfixToPostfixParser#MulDivAddSub}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOpExpr(@NotNull InfixToPostfixParser.OpExprContext ctx);
+	T visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixToPostfixParser#start}.
+	 * Visit a parse tree produced by {@link InfixToPostfixParser#printExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStart(@NotNull InfixToPostfixParser.StartContext ctx);
+	T visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixToPostfixParser#atomExpr}.
+	 * Visit a parse tree produced by {@link InfixToPostfixParser#int}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomExpr(@NotNull InfixToPostfixParser.AtomExprContext ctx);
+	T visitInt(@NotNull InfixToPostfixParser.IntContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixToPostfixParser#factor}.
+	 * Visit a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFactor(@NotNull InfixToPostfixParser.FactorContext ctx);
+	T visitParens(@NotNull InfixToPostfixParser.ParensContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixToPostfixParser#float}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloat(@NotNull InfixToPostfixParser.FloatContext ctx);
 }

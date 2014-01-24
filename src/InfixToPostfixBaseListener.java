@@ -16,52 +16,65 @@ public class InfixToPostfixBaseListener implements InfixToPostfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterOpExpr(@NotNull InfixToPostfixParser.OpExprContext ctx) { }
+	@Override public void enterMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitOpExpr(@NotNull InfixToPostfixParser.OpExprContext ctx) { }
+	@Override public void exitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterStart(@NotNull InfixToPostfixParser.StartContext ctx) { }
+	@Override public void enterPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitStart(@NotNull InfixToPostfixParser.StartContext ctx) { }
+	@Override public void exitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterAtomExpr(@NotNull InfixToPostfixParser.AtomExprContext ctx) { }
+	@Override public void enterInt(@NotNull InfixToPostfixParser.IntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitAtomExpr(@NotNull InfixToPostfixParser.AtomExprContext ctx) { }
+	@Override public void exitInt(@NotNull InfixToPostfixParser.IntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterFactor(@NotNull InfixToPostfixParser.FactorContext ctx) { }
+	@Override public void enterParens(@NotNull InfixToPostfixParser.ParensContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitFactor(@NotNull InfixToPostfixParser.FactorContext ctx) { }
+	@Override public void exitParens(@NotNull InfixToPostfixParser.ParensContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
