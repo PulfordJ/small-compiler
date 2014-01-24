@@ -14,7 +14,7 @@ public class InfixToPostfixBaseImpl extends InfixToPostfixBaseVisitor<String> {
         String left = visit (ctx.expr(0));
         String right = visit (ctx.expr(1));
 
-        String formatString = "%s %s %s";
+        String formatString = "%s %s f%s";
         switch (ctx.op.getType()) {
             case InfixToPostfixParser.MUL:
                 return String.format(formatString, left, right, "*");
@@ -34,7 +34,7 @@ public class InfixToPostfixBaseImpl extends InfixToPostfixBaseVisitor<String> {
     @Override
     public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
         String value = visit(ctx.expr());
-        System.out.println(value+" .");
+        System.out.println(value+" f.");
         return "";
     }
 
@@ -46,7 +46,7 @@ public class InfixToPostfixBaseImpl extends InfixToPostfixBaseVisitor<String> {
     @Override
     public String visitInt(@NotNull InfixToPostfixParser.IntContext ctx) {
         //System.out.println();
-        return ctx.INT().getText();
+        return ctx.INT().getText()+'e';
     }
 
     @Override

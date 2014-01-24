@@ -25,6 +25,7 @@ public class InfixToPostfixRunner {
         ParseTree tree = p.start();
         InfixToPostfixBaseImpl visitor = new InfixToPostfixBaseImpl();
         visitor.visit(tree);
+        System.out.println("Blah: "+visitor);
         //ParserRuleContext t = p.start();
 
     }
