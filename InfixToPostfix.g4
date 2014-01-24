@@ -11,4 +11,4 @@ grammar InfixToPostfix;
 //factor : signedno | '('expr')' ;
 //signedno : digits ;
 //digits : digit+ ;
-digit : '0'|'1'|'2'|'3' ;
+digit : '0' ;
