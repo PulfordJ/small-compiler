@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
  */
 public class InfixToPostfixRunner {
     public static void main(String[] args) throws Exception {
+        try {
         InfixToPostfixLexer lexer = new InfixToPostfixLexer(new ANTLRFileStream(args[0])); //TODO handle incorrect file.
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         InfixToPostfixParser p = new InfixToPostfixParser(tokens);
@@ -22,8 +23,12 @@ public class InfixToPostfixRunner {
         ParseTree tree = p.start();
         InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
         visitor.visit(tree);
-        System.out.println("Blah: "+visitor);
+        System.out.println(tree.toStringTree(p));
         //ParserRuleContext t = p.start();
+        }
+        catch (ArrayIndexOutOfBoundsException exception) {
+            System.out.println("No arguments given, please supply input file path.");
+        }
 
     }
 }
