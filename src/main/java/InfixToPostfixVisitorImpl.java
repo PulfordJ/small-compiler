@@ -47,14 +47,6 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     public String visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) {
         return ctx.OPTIONALLYSIGNEDINT().getText()+'e';
     }
-    /*
-    @Override
-    public String visitInt(@NotNull InfixToPostfixParser.IntContext ctx) {
-        System.out.println("whole number, bitches.");
-        //System.out.println();
-        return ctx.INT().getText()+'e';
-    }
-    */
 
     @Override
     public String visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) {
