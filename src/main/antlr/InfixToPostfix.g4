@@ -25,6 +25,8 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | FLOAT                               #float
      | OPTIONALLYSIGNEDINT                 #optionallySignedInt
      | LEFTPAREN expr RIGHTPAREN           #parens
+     | ADD LEFTPAREN expr RIGHTPAREN           #parens
+     | SUB LEFTPAREN expr RIGHTPAREN           #parensWithMinus
      ;
 
 

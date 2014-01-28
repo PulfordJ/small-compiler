@@ -100,6 +100,20 @@ public class InfixToPostfixVisitorImplTest {
     }
 
     @Test
+    public void testParensWithPlus() throws Exception {
+
+        runCompiler("+(-20)");
+        assertEquals("-20e f.\n", outContent.toString());
+    }
+
+    @Test
+    public void testParensWithMinus() throws Exception {
+
+        runCompiler("-(-20)");
+        assertEquals("0e -20e f- f.\n", outContent.toString());
+    }
+
+    @Test
     public void testParensPrecedence() throws Exception {
         runCompiler("(-20 + 30) / 2");
         assertEquals("-20e 30e f+ 2e f/ f.\n", outContent.toString());
