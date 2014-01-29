@@ -40,6 +40,8 @@ public class InfixToPostfixVisitorImplTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         InfixToPostfixParser p = new InfixToPostfixParser(tokens);
 
+
+
         ParseTree tree = p.start();
         InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
         visitor.visit(tree);

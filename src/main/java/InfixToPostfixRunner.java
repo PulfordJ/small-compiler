@@ -1,7 +1,7 @@
-import com.sun.org.apache.xpath.internal.SourceTree;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.tool.DOTGenerator;
 
 import java.io.FileNotFoundException;
 
@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 public class InfixToPostfixRunner {
     public static void main(String[] args) throws Exception {
         try {
+
         InfixToPostfixLexer lexer = new InfixToPostfixLexer(new ANTLRFileStream(args[0])); //TODO handle incorrect file.
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         InfixToPostfixParser p = new InfixToPostfixParser(tokens);
@@ -23,6 +24,8 @@ public class InfixToPostfixRunner {
 
         //p.setBuildParseTree(true);
         //p.addParseListener(new InfixToPostfixListenerImpl());
+            p.removeErrorListeners();
+            p.addErrorListener(new UnderlineListener());
         ParseTree tree = p.start();
         InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
         visitor.visit(tree);

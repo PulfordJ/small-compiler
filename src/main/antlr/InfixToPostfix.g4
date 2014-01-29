@@ -24,10 +24,14 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
      | FLOAT                               #float
      | OPTIONALLYSIGNEDINT                 #optionallySignedInt
-     | LEFTPAREN expr RIGHTPAREN           #parens
-     | ADD LEFTPAREN expr RIGHTPAREN           #parens
-     | SUB LEFTPAREN expr RIGHTPAREN           #parensWithMinus
+     | parenedexpr                         #nop
+     | ADD parenedexpr           #parensWithAdd
+     | SUB parenedexpr           #parensWithMinus
      ;
+parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
+            | LEFTPAREN expr RIGHTPAREN RIGHTPAREN     {notifyErrorListeners("Too many parentheses");} #parensnop
+            | LEFTPAREN expr                           {notifyErrorListeners("Missing closing ')'");}  #parensnop
+            ;
 
 
 

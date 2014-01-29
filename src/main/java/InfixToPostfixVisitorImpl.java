@@ -56,6 +56,8 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 	@Override 
     public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) 
 {
-        return "0e "+visit(ctx.expr())+" f-";
+        return "0e "+visit(ctx.parenedexpr())+" f-";
     }
+
+
 }
