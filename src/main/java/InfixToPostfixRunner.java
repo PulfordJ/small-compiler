@@ -1,6 +1,9 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.io.FileNotFoundException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +31,9 @@ public class InfixToPostfixRunner {
         }
         catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("No arguments given, please supply input file path.");
+        }
+        catch (FileNotFoundException exception) {
+            System.out.println("The file "+args[0]+" could not be found, perhaps this is not the correct path?");
         }
 
     }
