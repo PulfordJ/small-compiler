@@ -26,7 +26,7 @@ public class UnderlineListener extends BaseErrorListener {
             System.out.println(errorLine);
             //Bring crusor to the beginning of where to underline, underneath the source line.
             for (int i = 0; i < charPositionInLine; i++)
-                System.out.println(" ");
+                System.out.print(" ");
             int start = offendingToken.getStartIndex();
             int stop = offendingToken.getStopIndex();
             //If valid locations...

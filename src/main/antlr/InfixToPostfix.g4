@@ -20,7 +20,8 @@ grammar InfixToPostfix;
 start : expr                             #printExpr
      ;
 
-expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
+expr : left=expr EXP right=expr #Exp
+     | left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
      | FLOAT                               #float
      | OPTIONALLYSIGNEDINT                 #optionallySignedInt
@@ -39,6 +40,7 @@ MUL : '*' ;
 DIV : '/' ;
 ADD : '+' ;
 SUB : '-' ;
+EXP : '^' ;
 LEFTPAREN : '(' ;
 RIGHTPAREN : ')' ;
 FLOATEXPONENT : 'e' ;

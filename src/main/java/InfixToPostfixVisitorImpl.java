@@ -1,4 +1,13 @@
+import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.misc.Utils;
+
+import javax.print.PrintException;
+import javax.swing.*;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,12 +39,37 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
         return super.visitMulDivAddSub(ctx);
     }
 
+
+    public void addParser(Parser p) {
+        parser = p;
+    }
+
+    Parser parser;
+
+
     /* Fully built string, printout. */
     @Override
     public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
         String value = visit(ctx.expr());
         System.out.println(value+" f.");
-        return "";
+        /*
+        Future<JDialog> futureDialog = ctx.inspect(Arrays.asList(parser.getRuleNames()));
+        try {
+            try {
+                ctx.save(Arrays.asList(parser.getRuleNames()), "graphh.ps");
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (PrintException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            Utils.waitForClose(futureDialog.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (ExecutionException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        */
+        return value+" f.";
     }
 
     @Override
@@ -55,9 +89,8 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 
 	@Override 
     public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) 
-{
+    {
         return "0e "+visit(ctx.parenedexpr())+" f-";
     }
-
 
 }

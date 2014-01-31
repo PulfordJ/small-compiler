@@ -1,7 +1,7 @@
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.tool.DOTGenerator;
 
 import java.io.FileNotFoundException;
 
@@ -28,12 +28,19 @@ public class InfixToPostfixRunner {
             p.addErrorListener(new UnderlineListener());
         ParseTree tree = p.start();
         InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
+            visitor.addParser(p);
         visitor.visit(tree);
-        System.out.println(tree.toStringTree(p));
+            //RuleContext ruleContext = new RuleContext();
+            //ruleContext.inspect(p);
+            System.out.println(tree.toStringTree(p));
+
+            //InfixToPostfixParser.Func
+            //FunctionDefinitionContext ctx = p.funct
         //ParserRuleContext t = p.start();
         }
         catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("No arguments given, please supply input file path.");
+            exception.printStackTrace();
         }
         catch (FileNotFoundException exception) {
             System.out.println("The file "+args[0]+" could not be found, perhaps this is not the correct path?");
