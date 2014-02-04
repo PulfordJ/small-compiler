@@ -81,6 +81,48 @@ public class InfixToPostfixVisitorImplTest {
     }
 
     @Test
+    public void testVisitMulDivAddSubOrder2() throws Exception {
+
+        runCompiler("3 * 2 + 5");
+        assertEquals("3e 2e f* 5e f+ f.\n", outContent.toString());
+    }
+
+    @Test
+    public void testVisitMulDivAddSubOrder3() throws Exception {
+
+        runCompiler("3 - 2 / 5");
+        assertEquals("3e 2e 5e f/ f- f.\n", outContent.toString());
+    }
+
+    @Test
+    public void testVisitMulDivAddSubOrder24() throws Exception {
+
+        runCompiler("3 / 2 - 5");
+        assertEquals("3e 2e f/ 5e f- f.\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldGiveInformativeLackOfParenthesisMessage() throws Exception {
+
+        runCompiler("( 3 * 2");
+        assertEquals("line 1:7 Missing closing ')'\n", errContent.toString());
+    }
+
+    @Test
+    public void shouldGiveInformativeToManyOfParenthesisMessage() throws Exception {
+
+        runCompiler("( 3 * 2 ) )");
+        assertEquals("line 1:11 Too many parentheses\n", errContent.toString());
+    }
+
+    @Test
+    public void shouldGiveInformativeToManyOfParenthesisMessage2() throws Exception {
+
+        runCompiler("( 3 * 2 ) ) )");
+        assertEquals("line 1:13 Too many parentheses\n", errContent.toString());
+    }
+
+    @Test
     public void testPlusSignedNumber() throws Exception {
 
         runCompiler("+2");

@@ -20,8 +20,7 @@ grammar InfixToPostfix;
 start : expr                             #printExpr
      ;
 
-expr : left=expr EXP right=expr #Exp
-     | left=expr op=(MUL|DIV) right=expr #MulDivAddSub
+expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
      | FLOAT                               #float
      | OPTIONALLYSIGNEDINT                 #optionallySignedInt
@@ -30,7 +29,7 @@ expr : left=expr EXP right=expr #Exp
      | SUB parenedexpr           #parensWithMinus
      ;
 parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
-            | LEFTPAREN expr RIGHTPAREN RIGHTPAREN     {notifyErrorListeners("Too many parentheses");} #parensnop
+            | LEFTPAREN expr RIGHTPAREN RIGHTPAREN+     {notifyErrorListeners("Too many parentheses");} #parensnop
             | LEFTPAREN expr                           {notifyErrorListeners("Missing closing ')'");}  #parensnop
             ;
 
@@ -40,7 +39,6 @@ MUL : '*' ;
 DIV : '/' ;
 ADD : '+' ;
 SUB : '-' ;
-EXP : '^' ;
 LEFTPAREN : '(' ;
 RIGHTPAREN : ')' ;
 FLOATEXPONENT : 'e' ;
