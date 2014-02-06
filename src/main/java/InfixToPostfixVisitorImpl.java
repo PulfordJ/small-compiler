@@ -14,6 +14,7 @@ import java.util.Arrays;
  */
 public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String> {
     String forthSource = "";
+    InfixToPostfixParser.PrintExprContext rootCtx;
 
     @Override
     public String visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) {
@@ -44,17 +45,24 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     Parser parser;
 
 
+    public void outputPSGraphToFile(String filename) {
+        try {
+            rootCtx.save(Arrays.asList(parser.getRuleNames()), filename + ".ps");
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (PrintException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+    }
+
+
     /* Fully built string, printout. */
     @Override
     public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
-        forthSource = visit(ctx.expr())+ " .f";
-            try {
-                ctx.save(Arrays.asList(parser.getRuleNames()), "graphh.ps");
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (PrintException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+        forthSource = visit(ctx.expr())+ " f.";
+        //This allows graph generation at a later date.
+        rootCtx = ctx;
         return forthSource;
     }
 

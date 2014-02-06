@@ -2,8 +2,11 @@ import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.print.PrintException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,6 +32,8 @@ public class InfixToPostfixRunner {
             InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
             visitor.addParser(p);
             visitor.visit(tree);
+
+            visitor.outputPSGraphToFile(filenameWithoutExtention);
 
             final String destinationSourceFilename = filenameWithoutExtention+"."+FORTHEXTENSION;
             PrintWriter srcOut = new PrintWriter(destinationSourceFilename);
