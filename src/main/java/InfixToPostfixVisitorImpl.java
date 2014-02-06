@@ -1,14 +1,9 @@
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Utils;
 
 import javax.print.PrintException;
-import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +13,7 @@ import java.util.concurrent.Future;
  * To change this template use File | Settings | File Templates.
  */
 public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String> {
+    String forthSource = "";
 
     @Override
     public String visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) {
@@ -51,13 +47,7 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     /* Fully built string, printout. */
     @Override
     public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
-        String value = visit(ctx.expr());
-        System.out.println(value+" f.");
-        System.out.println(Arrays.toString(parser.getRuleNames()));
-        List<String> parserRules = Arrays.asList(parser.getRuleNames());
-        //parserRules.add("INT");
-        Future<JDialog> futureDialog = ctx.inspect(parserRules);
-        try {
+        forthSource = visit(ctx.expr())+ " .f";
             try {
                 ctx.save(Arrays.asList(parser.getRuleNames()), "graphh.ps");
             } catch (IOException e) {
@@ -65,13 +55,7 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
             } catch (PrintException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            Utils.waitForClose(futureDialog.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (ExecutionException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return value+" f.";
+        return forthSource;
     }
 
     @Override
@@ -93,6 +77,10 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) 
     {
         return "0e "+visit(ctx.parenedexpr())+" f-";
+    }
+
+    public String getForthSource() {
+        return forthSource;
     }
 
 }
