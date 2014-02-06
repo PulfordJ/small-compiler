@@ -19,7 +19,7 @@ public class InfixToPostfixRunner {
     final static String FORTHEXTENSION = "fs";
     public static void main(String[] args) throws Exception {
         try {
-            final String filenameWithoutExtention = Utilities.getFilenameWithoutExtention(args[0]);
+            final String filepathWithoutExtention = Utilities.getFilenameWithoutExtention(args[0]);
 
 
             InfixToPostfixLexer lexer = new InfixToPostfixLexer(new ANTLRFileStream(args[0])); //TODO handle incorrect file.
@@ -33,16 +33,15 @@ public class InfixToPostfixRunner {
             visitor.addParser(p);
             visitor.visit(tree);
 
-            visitor.outputPSGraphToFile(filenameWithoutExtention);
+            visitor.outputPSGraphToFile(filepathWithoutExtention);
 
-            final String destinationSourceFilename = filenameWithoutExtention+"."+FORTHEXTENSION;
+            final String destinationSourceFilename = filepathWithoutExtention+"."+FORTHEXTENSION;
             PrintWriter srcOut = new PrintWriter(destinationSourceFilename);
             srcOut.println(visitor.getForthSource());
             srcOut.flush();
 
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("No arguments given, please supply input file path.");
-            exception.printStackTrace();
         } catch (FileNotFoundException exception) {
             System.out.println("The file " + args[0] + " could not be found, perhaps this is not the correct path?");
         }
