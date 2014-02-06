@@ -6,6 +6,7 @@ import javax.print.PrintException;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -52,8 +53,10 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
         String value = visit(ctx.expr());
         System.out.println(value+" f.");
-        /*
-        Future<JDialog> futureDialog = ctx.inspect(Arrays.asList(parser.getRuleNames()));
+        System.out.println(Arrays.toString(parser.getRuleNames()));
+        List<String> parserRules = Arrays.asList(parser.getRuleNames());
+        //parserRules.add("INT");
+        Future<JDialog> futureDialog = ctx.inspect(parserRules);
         try {
             try {
                 ctx.save(Arrays.asList(parser.getRuleNames()), "graphh.ps");
@@ -68,7 +71,6 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
         } catch (ExecutionException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        */
         return value+" f.";
     }
 
