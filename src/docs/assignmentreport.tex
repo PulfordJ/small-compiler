@@ -7,6 +7,11 @@
 \usepackage[T1]{fontenc}
 %\usepackage{graphicx}
 %\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{txfonts}
+
+\newcommand\nonter[1]{\ensuremath{#1\negthinspace s}}
 
 \usepackage{syntax} 
 
@@ -122,16 +127,27 @@
 \subsection{Expressions}
 
 \begin{grammar}
-
 <expr> ::= <expr> <PLUS> <expr> 
-\alt <expr> <MINUS> <expr> 
-\alt <expr> <DIV> <expr> 
-\alt <expr> <MUL> <expr> 
-\alt <FLOAT> 
-\alt <OPTIONALLYSIGNEDINT> 
-\alt <LEFTPAREN> <expr> <RIGHTPAREN> ;
+ \alt <expr> <MINUS> <expr> 
+ \alt <expr> <DIV> <expr> 
+ \alt <expr> <MUL> <expr> 
+ \alt <FLOAT> 
+ \alt <OPTIONALLYSIGNEDINT> 
+ \alt <LEFTPAREN> <expr> <RIGHTPAREN> ;
+ 
 
 \end{grammar}
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  expr &\Coloneqq & expr \; PLUS \; expr\\
+  &| &expr \; MINUS \; expr\\% bad spacing
+  &| &expr \; DIV \; expr\\% bad spacing
+  &| &expr \; MUL \; expr\\% bad spacing
+  &| &FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
+\end{tabular}}
 \subsection{Target Language}
 %Provide a formalisation of the target language in (E)BNF.
 \section{Translation}
