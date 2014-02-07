@@ -28,6 +28,8 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | ADD parenedexpr           #parensWithAdd
      | SUB parenedexpr           #parensWithMinus
      ;
+
+// Parenthised expression seperated out in this grammar for specific error catching.
 parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
             | LEFTPAREN expr RIGHTPAREN RIGHTPAREN+     {notifyErrorListeners("Too many parentheses");} #parensnop
             | LEFTPAREN expr                           {notifyErrorListeners("Missing closing ')'");}  #parensnop

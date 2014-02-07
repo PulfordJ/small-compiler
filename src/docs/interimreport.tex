@@ -1,0 +1,141 @@
+\documentclass[a4paper,12pt]{article}
+%\usepackage[backend=biber, style=ieee, maxnames=2, minnames=1, maxbibnames=2]{biblatex}
+%\addbibresource{refs.bib}
+%\defcounter{maxnames}{2}
+\newcommand{\projectName}{PTAR}
+\usepackage[acronym]{glossaries}
+\usepackage[T1]{fontenc}
+%\usepackage{graphicx}
+%\usepackage[nottoc,numbib]{tocbibind}
+
+\usepackage{syntax} 
+
+%\DefineBibliographyStrings{english}{%
+%  references = {References},
+%}
+
+\begin{document}
+\widowpenalties 1 10000
+
+%Give every section a seperate page.
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+%Beta code to define a glossary
+%\usepackage[xindy]{glossaries}
+%\usepackage[toc]{glossaries}
+%\newglossaryentry{API}{Application Programming Interface}
+%\newglossaryentry{REST}{Representational State Transfer}
+%\makeglossaries
+
+\newacronym{API}{API}{Application Programming Interface}
+\newacronym{REST}{REST}{Representational State Transfer}
+\newacronym{RDBMS}{RDBMS}{Relational Database Management System}
+\newacronym{OODBMS}{OODBMS}{Object-Orientated Database Management System}
+\newacronym{ORDBMS}{ORDBMS}{Object Relational Database Management System}
+\newacronym{SSADM}{SSADM}{Structured Systems Analysis and Design Method}
+\newacronym{HATEOAS}{HATEOAS}{Hypermedia as the Engine of Application State}
+\newacronym{CRUD}{CRUD}{create, read, update and delete}
+\newacronym{XP}{XP}{Extreme Programming}
+\newacronym{EVA}{EVA}{Earned Value Analysis}
+\newacronym{SDT}{SDT}{syntax-directed translation}
+\newacronym{SQL}{SQL}{Structured Query Language}
+\newacronym{AI}{AI}{Artificial Intelligence}
+\newacronym{NLP}{NLP}{Natural Language Processing}
+\newacronym{JSON}{JSON}{JavaScript Object Notation}
+\newacronym{UPnP}{UPnP}{Universal Plug and Play}
+\newacronym{UUID}{UUID}{Universally unique identifier}
+\newacronym{CFG}{CFG}{Context-Free Grammar}
+\newacronym{Regex}{Regex}{Regular Expression}
+\newacronym{CE305}{CE305}{CE305 - Language and Compilers}
+
+\begin{titlepage}
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+    \begin{center}
+
+
+        \textsc{\LARGE University of Essex}\\[1.5cm]
+
+        \textsc{\Large Interim Report}\\[0.5cm]
+
+% Title
+        \HRule \\[0.4cm]
+        { \huge \bfseries \gls{CE305} \\[0.4cm] }
+
+        \HRule \\[1.5cm]
+
+% Author and supervisor
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushleft} \large
+                \emph{Author:}\\
+                John \textsc{Pulford}
+            \end{flushleft}
+        \end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushright} \large
+                \emph{Lecturer:} \\
+                Dr.~Chris \textsc{Fox}
+            \end{flushright}
+        \end{minipage}
+
+        \vfill
+
+% Bottom of the page
+        {\large \today}
+
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\section{Grammar}
+\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
+\subsection{Tokens}
+
+\begin{grammar}
+<TOKEN> ::= <MUL> <DIV> <PLUS> <MINUS> <LEFTPAREN> <RIGHTPAREN> <FLOATEXPONENT> <FLOAT> <OPTIONALLYSIGNEDINT> <INT> <DIGIT>;
+
+<MUL> ::= `*' ;
+
+<DIV> ::= `\textbackslash' ;
+
+<PLUS> ::= `+' ;
+
+<MINUS> ::= `-' ;
+
+<LEFTPAREN> ::= `(' ;
+
+<RIGHTPAREN> ::= `)' ;
+
+<FLOATEXPONENT> ::= `e' ;
+
+<FLOAT> ::= <OPTIONALLYSIGNEDINT> <FLOATEXPONENT> <OPTIONALLYSIGNEDINT>? ;
+
+<OPTIONALLYSIGNEDINT> ::= [ <MINUS> | <PLUS> ] <INT> ;
+
+<INT> ::= <DIGIT> <DIGIT>+ ;
+
+<DIGIT> ::= <[0-9]> ;
+
+
+\end{grammar}
+\subsection{Expressions}
+
+\begin{grammar}
+
+<expr> ::= <expr> <PLUS> <expr> 
+\alt <expr> <MINUS> <expr> 
+\alt <expr> <DIV> <expr> 
+\alt <expr> <MUL> <expr> 
+\alt <FLOAT> 
+\alt <OPTIONALLYSIGNEDINT> 
+\alt <LEFTPAREN> <expr> <RIGHTPAREN> ;
+
+\end{grammar}
+\subsection{Target Language}
+%Provide a formalisation of the target language in (E)BNF.
+\section{Translation}
+\subsection{Tokens}
+\subsection{Expression}
+%This could probably be merged into Expressions
+\end{document}
