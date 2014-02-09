@@ -1,18 +1,53 @@
 description = "ANTLR4 project template"
 apply plugin: 'java'
 apply plugin: 'application'
-//apply from: file('gradle/idea.gradle')
-mainClassName = "InfixToPostfixRunner"
+apply plugin: 'antlr4'
+//TODO INCORPORATE THIS INTO PLUGIN apply from: file('gradle/idea.gradle')
+/*
+class Antlr4Plugin implements Plugin<Project> {
+    void apply(Project project) {
+        def antlr4 = project.container(Antlr4)
+        //project.extensions.create("antlr4", Antlr4PluginExtension)
+
+    }
+}
+
+class Antlr4 {
+    final String name
+
+    Antlr4(String name) {
+
+    }
+}
+*/
+
 ext.versions = [
         junit: "4.10",
         antlr: "4.1"
 ]
 
 ext.antlr = [
-        //grammarpackage: "org.carpediem",
+        grammarpackage: "",
         antlrSource: 'src/main/antlr',
         destinationDir: "src/generated-sources/java"
 ]
+
+tasks.withType(Compile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    systemProperties = System.getProperties()
+    testLogging.showStandardStreams = true
+}
+
+task antlrOutputDir << {
+    mkdir(antlr.destinationDir)
+}
+
+//apply from: file('gradle/idea.gradle')
+mainClassName = "InfixToPostfixRunner"
+
 
 repositories {
     mavenCentral()
@@ -34,18 +69,6 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.10'
 }
 
-tasks.withType(Compile) {
-    options.encoding = 'UTF-8'
-}
-
-tasks.withType(Test) {
-    systemProperties = System.getProperties()
-    testLogging.showStandardStreams = true
-}
-
-task antlrOutputDir << {
-    mkdir(antlr.destinationDir)
-}
 
 task generateGrammarSource(dependsOn: antlrOutputDir, type: JavaExec) {
     description = 'Generates Java sources from ANTLR4 grammars.'
@@ -57,8 +80,8 @@ task generateGrammarSource(dependsOn: antlrOutputDir, type: JavaExec) {
 
     main = 'org.antlr.v4.Tool'
     classpath = configurations.antlr4
-    //def pkg = antlr.grammarpackage.replaceAll("\\.", "/")
-    def pkg = ""
+    def pkg = antlr.grammarpackage.replaceAll("\\.", "/")
+    //def pkg = ""
     //args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", "-package", antlr.grammarpackage, grammars.files].flatten()
     args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", grammars.files].flatten()
 
