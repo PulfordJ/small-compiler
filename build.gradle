@@ -26,16 +26,6 @@ ext.versions = [
         antlr: "4.1"
 ]
 
-ext.antlr = [
-        grammarpackage: "",
-        antlrSource: 'src/main/antlr',
-        destinationDir: "src/generated-sources/java"
-]
-
-
-task antlrOutputDir << {
-    mkdir(antlr.destinationDir)
-}
 
 //apply from: file('gradle/idea.gradle')
 mainClassName = "InfixToPostfixRunner"
@@ -53,8 +43,9 @@ configurations {
 
 dependencies {
     compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
-    antlr4 group: "org.antlr", name: "antlr4", version: versions.antlr
+    compile group: "org.antlr", name: "antlr4", version: versions.antlr
     testCompile group: "junit", name: "junit", version: versions.junit
+    //print antlr4.output
 }
 
 task wrapper(type: Wrapper) {
@@ -62,22 +53,6 @@ task wrapper(type: Wrapper) {
 }
 
 
-task generateGrammarSource(dependsOn: antlrOutputDir, type: JavaExec) {
-    description = 'Generates Java sources from ANTLR4 grammars.'
-
-    inputs.dir file(antlr.antlrSource)
-    outputs.dir file(antlr.destinationDir)
-
-    def grammars = fileTree(antlr.antlrSource).include('**/*.g4')
-
-    main = 'org.antlr.v4.Tool'
-    classpath = configurations.antlr4
-    def pkg = antlr.grammarpackage.replaceAll("\\.", "/")
-    //def pkg = ""
-    //args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", "-package", antlr.grammarpackage, grammars.files].flatten()
-    args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", grammars.files].flatten()
-
-}
 
 run {
     if(project.hasProperty('args')) {
@@ -85,11 +60,4 @@ run {
     }
 }
 
-compileJava {
-    dependsOn generateGrammarSource
-    source antlr.destinationDir
-}
 
-clean {
-    delete antlr.destinationDir
-}
