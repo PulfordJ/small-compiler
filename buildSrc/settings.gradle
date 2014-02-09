@@ -1,1 +1,1 @@
-include "antlr4", "pluginb"
+include "antlr4plugin", "pluginb"
