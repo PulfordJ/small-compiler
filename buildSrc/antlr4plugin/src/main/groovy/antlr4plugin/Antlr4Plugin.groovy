@@ -36,12 +36,14 @@ public class Antlr4Plugin implements Plugin<Project> {
             project.mkdir(antlr4Settings.javaSource)
         }
 
-        
+        project.getConfigurations().create('antlr4', {description = "ANTLR4"})
+        /*
         project.tasks.create('configurations') {
             antlr4 {
                 description = "ANTLR4"
             }
         }
+        */
         
 
         project.task('generateGrammarSource', dependsOn : 'antlrOutputDir', type :JavaExec) {
@@ -55,13 +57,15 @@ public class Antlr4Plugin implements Plugin<Project> {
             def grammars = project.fileTree(antlr4Settings.antlrSource).include('**/*.g4')
 
             main = 'org.antlr.v4.Tool'
-            classpath = configurations.antlr4
+            println "BEFORE CLASSPATH"
+            classpath = project.configurations.antlr4
+            println "AFTER CLASSPATH"
             //classpath = "ANTLR4"
-            println "CLASSPATH".classpath
-            def pkg = antlr.grammarpackage.replaceAll("\\.", "/")
+            println classpath.getAsPath()
+            def pkg = antlr4Settings.grammarpackage.replaceAll("\\.", "/")
             //def pkg = ""
             //args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", "-package", antlr.grammarpackage, grammars.files].flatten()
-            args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", grammars.files].flatten()
+            args = ["-o", "${antlr4Settings.javaSource}/${pkg}"/*, "-atn"*/, "-visitor", grammars.files].flatten()
 
         }
         
