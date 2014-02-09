@@ -32,14 +32,6 @@ ext.antlr = [
         destinationDir: "src/generated-sources/java"
 ]
 
-tasks.withType(Compile) {
-    options.encoding = 'UTF-8'
-}
-
-tasks.withType(Test) {
-    systemProperties = System.getProperties()
-    testLogging.showStandardStreams = true
-}
 
 task antlrOutputDir << {
     mkdir(antlr.destinationDir)
