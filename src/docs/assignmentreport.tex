@@ -93,11 +93,32 @@
 
 \tableofcontents
 \section{Grammar}
+\subsection{Source}
 \setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
 \setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
-\subsection{Tokens}
+\subsubsection{Tokens}
 
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  TOKEN &\Coloneqq &MUL\\% bad spacing
+  &| &DIV\\% bad spacing
+  &| &PLUS\\% bad spacing
+  &| &MINUS\\% bad spacing
+  &| &LEFTPAREN\\% bad spacing
+  &| &RIGHTPAREN\\% bad spacing
+  &| &FLOATEXPONENT\\% bad spacing
+  &| &FLOAT\\% bad spacing
+  &| &OPTIONALLYSINGEDINT\\% bad spacing
+  &| &INT\\% bad spacing
+  &| &DIGIT\\% bad spacing
+\end{tabular}}
 \begin{grammar}
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  TOKEN &\Coloneqq &MUL\\% bad spacing
+  TOKEN &\Coloneqq &MUL\\% bad spacing
+\end{tabular}}
 <TOKEN> ::= <MUL> <DIV> <PLUS> <MINUS> <LEFTPAREN> <RIGHTPAREN> <FLOATEXPONENT> <FLOAT> <OPTIONALLYSIGNEDINT> <INT> <DIGIT>;
 
 <MUL> ::= `*' ;
@@ -124,7 +145,7 @@
 
 
 \end{grammar}
-\subsection{Expressions}
+\subsubsection{Expressions}
 
 \begin{grammar}
 <expr> ::= <expr> <PLUS> <expr> 
@@ -150,6 +171,16 @@
 \end{tabular}}
 \subsection{Target Language}
 %Provide a formalisation of the target language in (E)BNF.
+\subsubsection{Tokens}
+\subsubsection{Expression}
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  expr &\Coloneqq & expr \; PLUS\; expr\\
+  &| &expr \; expr \; MINUS\\% bad spacing
+  &| &expr \; expr \; DIV\\% bad spacing
+  &| &expr \; expr \; MUL\\% bad spacing
+  &| &FLOAT\\% bad spacing
+\end{tabular}}
 \section{Translation}
 \subsection{Tokens}
 \subsection{Expression}

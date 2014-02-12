@@ -11,7 +11,7 @@ ext.versions = [
 ext.antlr = [
         //grammarpackage: "org.carpediem",
         antlrSource: 'src/main/antlr',
-        destinationDir: "src/generated-sources/java"
+        destinationDir: "src/generated/java"
 ]
 
 repositories {
