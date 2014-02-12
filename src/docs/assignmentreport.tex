@@ -10,6 +10,7 @@
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{txfonts}
+\usepackage{pdflscape}
 
 \newcommand\nonter[1]{\ensuremath{#1\negthinspace s}}
 
@@ -61,7 +62,7 @@
 
         \textsc{\LARGE University of Essex}\\[1.5cm]
 
-        \textsc{\Large Interim Report}\\[0.5cm]
+        \textsc{\Large Assignment One - Expression Analyser}\\[0.5cm]
 
 % Title
         \HRule \\[0.4cm]
@@ -92,11 +93,14 @@
 \end{titlepage}
 
 \tableofcontents
+\begin{landscape}
 \section{Grammar}
 \subsection{Source}
 \setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
 \setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
 \subsubsection{Tokens}
+
+All possible tokens:
 
 {\setlength\tabcolsep{4pt}
 \begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
@@ -108,81 +112,148 @@
   &| &RIGHTPAREN\\% bad spacing
   &| &FLOATEXPONENT\\% bad spacing
   &| &FLOAT\\% bad spacing
-  &| &OPTIONALLYSINGEDINT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
 \end{tabular}}
-\begin{grammar}
+\newpage
+Each individual token:
 
 {\setlength\tabcolsep{4pt}
 \begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
-  TOKEN &\Coloneqq &MUL\\% bad spacing
-  TOKEN &\Coloneqq &MUL\\% bad spacing
+  MUL &\Coloneqq &'*'\\% bad spacing
+  DIV &\Coloneqq &'\backslash'\\% bad spacing
+  PLUS &\Coloneqq &'+'\\% bad spacing
+  MINUS &\Coloneqq &'-'\\% bad spacing
+  LEFTPAREN &\Coloneqq &'('\\% bad spacing
+  RIGHTPAREN &\Coloneqq &')'\\% bad spacing
+  FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
+  FLOAT &\Coloneqq &OPTIONALLYSIGNEDINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
+  OPTIONALLYSIGNEDINT &\Coloneqq &[ \; MINUS \; PLUS \; ] \; INT\\% bad spacing
+  INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
+  DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
 \end{tabular}}
-<TOKEN> ::= <MUL> <DIV> <PLUS> <MINUS> <LEFTPAREN> <RIGHTPAREN> <FLOATEXPONENT> <FLOAT> <OPTIONALLYSIGNEDINT> <INT> <DIGIT>;
-
-<MUL> ::= `*' ;
-
-<DIV> ::= `\textbackslash' ;
-
-<PLUS> ::= `+' ;
-
-<MINUS> ::= `-' ;
-
-<LEFTPAREN> ::= `(' ;
-
-<RIGHTPAREN> ::= `)' ;
-
-<FLOATEXPONENT> ::= `e' ;
-
-<FLOAT> ::= <OPTIONALLYSIGNEDINT> <FLOATEXPONENT> <OPTIONALLYSIGNEDINT>? ;
-
-<OPTIONALLYSIGNEDINT> ::= [ <MINUS> | <PLUS> ] <INT> ;
-
-<INT> ::= <DIGIT> <DIGIT>+ ;
-
-<DIGIT> ::= <[0-9]> ;
-
-
-\end{grammar}
 \subsubsection{Expressions}
-
-\begin{grammar}
-<expr> ::= <expr> <PLUS> <expr> 
- \alt <expr> <MINUS> <expr> 
- \alt <expr> <DIV> <expr> 
- \alt <expr> <MUL> <expr> 
- \alt <FLOAT> 
- \alt <OPTIONALLYSIGNEDINT> 
- \alt <LEFTPAREN> <expr> <RIGHTPAREN> ;
- 
-
-\end{grammar}
 
 {\setlength\tabcolsep{4pt}
 \begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   expr &\Coloneqq & expr \; PLUS \; expr\\
-  &| &expr \; MINUS \; expr\\% bad spacing
   &| &expr \; DIV \; expr\\% bad spacing
   &| &expr \; MUL \; expr\\% bad spacing
+  &| &expr \; MINUS \; expr\\% bad spacing
   &| &FLOAT\\% bad spacing
   &| &OPTIONALLYSIGNEDINT\\% bad spacing
   &| &LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
 \end{tabular}}
 \subsection{Target Language}
+A format description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements. Integers are only mentioned because the are part of the composite terminal float type. Integer arithmetic and pop symbols are also omited.
+
 %Provide a formalisation of the target language in (E)BNF.
 \subsubsection{Tokens}
+
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  TOKEN &\Coloneqq &MUL\\% bad spacing
+  &| &FLOATDIV\\% bad spacing
+  &| &FLOATPLUS\\% bad spacing
+  &| &FLOATMINUS\\% bad spacing
+  &| &POP\\% bad spacing
+  &| &FLOATEXPONENT\\% bad spacing
+  &| &FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &INT\\% bad spacing
+  &| &DIGIT\\% bad spacing
+\end{tabular}}
+
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  FLOATMUL &\Coloneqq &'f*'\\% bad spacing
+  FLOATDIV &\Coloneqq &'f\backslash'\\% bad spacing
+  FLOATPLUS &\Coloneqq &'f+'\\% bad spacing
+  FLOATMINUS &\Coloneqq &'f-'\\% bad spacing
+  POP &\Coloneqq &'f.'\\% bad spacing
+  FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
+  FLOAT &\Coloneqq &OPTIONALLYSIGNEDINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
+  OPTIONALLYSIGNEDINT &\Coloneqq &[ \; MINUS \; PLUS \; ] \; INT\\% bad spacing
+  INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
+  DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
+\end{tabular}}
 \subsubsection{Expression}
 {\setlength\tabcolsep{4pt}
 \begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
-  expr &\Coloneqq & expr \; PLUS\; expr\\
-  &| &expr \; expr \; MINUS\\% bad spacing
-  &| &expr \; expr \; DIV\\% bad spacing
-  &| &expr \; expr \; MUL\\% bad spacing
+  expr &\Coloneqq & expr \; expr \; FLOATPLUS\\
+  &| &expr \; expr \; FLOATDIV\\% bad spacing
+  &| &expr \; expr \; FLOATMUL\\% bad spacing
+  &| &expr \; expr \; FLOATMINUS\\% bad spacing
   &| &FLOAT\\% bad spacing
 \end{tabular}}
 \section{Translation}
 \subsection{Tokens}
 \subsection{Expression}
+
+Note that the semantic rules sometimes have the same production rule names as the source language however they are in reference to the target language (Forth). The first column signifies the production rule. The second is how it is represented in the source language. The third is the semantic rule for that particular representation i.e how that representation is reordered / converted in order to obtain a Forth compatible grammar.
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
+  Production & & Source &Target\\ \hline
+  expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; expr_{2} \; FLOATPLUS\\
+  &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; expr_{2} \; FLOATDIV\\% bad spacing
+  &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; expr_{2} \; FLOATMUL\\% bad spacing
+  &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; expr_{2} \; FLOATMINUS\\% bad spacing
+  &| &FLOAT&FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT&FLOAT\\% bad spacing
+  &| &LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
+\end{tabular}}
 %This could probably be merged into Expressions
+\end{landscape}
+\section{Implementation}
+\subsection{Running}
+To build, test and run with arguments use.
+\begin{quotation}
+./gradlew clean build run -Pargs="example.if"
+\end{quotation}
+Simply change "example.if" to another filepath to run with said file.
+
+NOTE: Not applicable to university computers, unfortunately. Instead use:
+
+\begin{quotation}
+\end{quotation}
+
+The compiler will generate two files. 
+\begin{quotation}
+<filename>.fs and <filename>.ps
+\end{quotation}
+The former is the target code generated from the input file. The latter is a postscript parse tree representing the calls within the program. Note that ANTLR4 does not list the types of terminal characters and thus this is not technically a concrete syntax tree; however it is pretty close.
+
+\subsection{Tools}
+ANTLR4 was used to generate a Parser and Lexer. Then the base visitor class was extended to generate the source string and control the order non-terminals were visited in. Graphing was also generated via ANTLR. Error handling was done by extending ANTLR's error handling classes and writing error catching \gls{CFG}.
+
+\subsection{Extended Features}
+I have;
+\begin{description}
+    \item[A visual reading of a parse tree] \hfill
+        Although as mentioned it is missing terminal types.
+    \item[Support for floating-point expressions as well as integers] \hfill
+        Integers are converted into floats.
+    \item[Helpful and informative error messages]
+        Parenthesis control and error underlining.
+\end{description}
+
+Code has been divided code inside:
+\begin{quotation}
+src -> generated
+\end{quotation}
+Is generated by antlr during a build.
+
+
+Code that is inside:
+\begin{quotation}
+src -> main
+src -> test
+\end{quotation}
+was written by me, this code also contains comments for further information.
+
+
 \end{document}
