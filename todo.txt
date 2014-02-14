@@ -1,0 +1,9 @@
+signed paren
+antlr4
+    further error test
+    write about whitespace handling
+Write about how tree has parened type when original grammar does not.
+list spaces in forth translation/target language?...
+Use S[Exp] = S[Exp2] ' ' S[exp3] ' ' +?
+Use T[Exp] = T[Exp2] ' ' T[exp3] ' ' +?
+
