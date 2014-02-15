@@ -1,4 +1,4 @@
-description = "ANTLR4 project template"
+description = "Compiles ANTLR4, generates LaTeX documentation, tests AND builds jar."
 apply plugin: 'java'
 apply plugin: 'application'
 //apply from: file('gradle/idea.gradle')
