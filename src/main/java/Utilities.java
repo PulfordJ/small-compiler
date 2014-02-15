@@ -1,27 +1,14 @@
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.Token;
-
-import java.io.IOException;
-import java.util.List;
-
 /**
  * Created by john on 06/02/14.
  */
 public class Utilities {
+    /**
+     * Method to get the full name of a file (path included) without its extension.
+     * @param filename the full file name e.g /var/etc/a.txt or C:/kebabs.bsh.
+     * @return the full name minus the extension.
+     */
     public static String getFilenameWithoutExtention(String filename) {
         return filename.split("\\.[^\\.]+$")[0];
     }
 
-    public static boolean programContainsToken(CharStream charStream, String tokenToFind) throws IOException {
-        InfixToPostfixLexer lexer = new InfixToPostfixLexer(charStream);
-        List<? extends Token> allTokens = lexer.getAllTokens();
-
-        for (Token token : allTokens) {
-            if (lexer.getTokenNames()[token.getType()].equals(tokenToFind))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 }

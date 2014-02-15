@@ -10,15 +10,30 @@ import java.util.Arrays;
  * User: john
  * Date: 1/24/14
  * Time: 12:47 PM
- * To change this template use File | Settings | File Templates.
  */
 public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String> {
     String forthSource = "";
     InfixToPostfixParser.PrintExprContext rootCtx;
     private boolean floatMode;
+    Parser parser;
 
+    /* Fully built string, printout. */
+    @Override
+    public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
+        //When we're done pop the result.
+        String formatString = "%s .";
+
+        if (floatMode) {
+            formatString = "%s f.";
+        }
+
+        forthSource = String.format(formatString, visit(ctx.expr()));
+        rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
+        return forthSource;
+    }
     @Override
     public String visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) {
+        //Visit the expressions around the sign
         String left = visit(ctx.expr(0));
         String right = visit(ctx.expr(1));
 
@@ -27,6 +42,7 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
             formatString = "%s %s f%s";
         }
 
+        //Generate relevant string for this expression.
         switch (ctx.op.getType()) {
             case InfixToPostfixParser.MUL:
                 return String.format(formatString, left, right, "*");
@@ -39,17 +55,21 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 
 
         }
+        //Never reached.
         return super.visitMulDivAddSub(ctx);
     }
 
 
+    //This is to allow generation of the postscript parse tree at a later date.
     public void addParser(Parser p) {
         parser = p;
     }
 
-    Parser parser;
 
-
+    /**
+     * Prints the postscript parsetree to a .ps file with the given name
+     * @param filename used to generate a file of the form <filename>.ps
+     */
     public void outputPSGraphToFile(String filename) {
         try {
             rootCtx.save(Arrays.asList(parser.getRuleNames()), filename + ".ps");
@@ -62,34 +82,22 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     }
 
 
-    /* Fully built string, printout. */
-    @Override
-    public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
-        String formatString = "%s .";
-
-        if (floatMode) {
-             formatString = "%s f.";
-        }
-
-        //forthSource = visit(ctx.expr()) + " f.";
-        forthSource = String.format(formatString, visit(ctx.expr()));
-        //This allows graph generation at a later date.
-        rootCtx = ctx;
-        return forthSource;
-    }
-
     @Override
     public String visitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) {
-        return ctx.FLOAT().getText();
+        return ctx.FLOAT().getText(); // Simply return the float.
     }
 
     @Override
     public String visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) {
+        //If prefixed with a plus sign remove it, forth can't deal with those expressions.
+        //Note this only runs for what the parser considers terminal, meaning the second integer value for the FLOAT terminal remains unaffected, as intended.
         String textVal = ctx.OPTIONALLYSIGNEDINT().getText();
         if (textVal.substring(0, 1).equals("+"))
         {
             textVal = textVal.substring(1, textVal.length());
         }
+
+        //If in float mode then convert to float.
         if (floatMode) {
             return textVal + 'e';
         } else {
@@ -99,11 +107,13 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 
     @Override
     public String visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) {
+        //Ignore the paren terminals, postfix won't need it.
         return visit(ctx.expr());
     }
 
     @Override
-    public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) {;
+    public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) {
+        //Convert signed parens into forms forth will understand.
         String formatString = "0 %s -";
         if (floatMode) {
              formatString = "0e %s f-";
@@ -111,10 +121,17 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
         return String.format(formatString, visit(ctx.parenedexpr()));
     }
 
+    /**
+     * Returns the compiled forth source.
+     * @return the compiled forth source.
+     */
     public String getForthSource() {
         return forthSource;
     }
 
+    /**
+     * Enables float mode, needed to process float terminal numbers.
+     */
     public void enableFloatMode() {
         floatMode = true;
     }

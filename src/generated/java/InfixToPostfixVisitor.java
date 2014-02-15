@@ -32,13 +32,6 @@ public interface InfixToPostfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixToPostfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParensnop(@NotNull InfixToPostfixParser.ParensnopContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -41,17 +41,6 @@ public interface InfixToPostfixListener extends ParseTreeListener {
 	void exitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixToPostfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 */
-	void enterParensnop(@NotNull InfixToPostfixParser.ParensnopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixToPostfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 */
-	void exitParensnop(@NotNull InfixToPostfixParser.ParensnopContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link InfixToPostfixParser#parens}.
 	 * @param ctx the parse tree
 	 */

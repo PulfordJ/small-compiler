@@ -388,83 +388,17 @@ public class InfixToPostfixParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class ParensnopContext extends ParenedexprContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public TerminalNode LEFTPAREN() { return getToken(InfixToPostfixParser.LEFTPAREN, 0); }
-		public ParensnopContext(ParenedexprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterParensnop(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitParensnop(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitParensnop(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 
 	public final ParenedexprContext parenedexpr() throws RecognitionException {
 		ParenedexprContext _localctx = new ParenedexprContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_parenedexpr);
 		try {
-			int _alt;
-			setState(47);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
-			case 1:
-				_localctx = new ParensContext(_localctx);
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(29); match(LEFTPAREN);
-				setState(30); expr(0);
-				setState(31); match(RIGHTPAREN);
-				}
-				break;
-
-			case 2:
-				_localctx = new ParensnopContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(33); match(LEFTPAREN);
-				setState(34); expr(0);
-				setState(35); match(RIGHTPAREN);
-				setState(37); 
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
-				do {
-					switch (_alt) {
-					case 1:
-						{
-						{
-						setState(36); match(RIGHTPAREN);
-						}
-						}
-						break;
-					default:
-						throw new NoViableAltException(this);
-					}
-					setState(39); 
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
-				} while ( _alt!=2 && _alt!=-1 );
-				notifyErrorListeners("Too many parentheses");
-				}
-				break;
-
-			case 3:
-				_localctx = new ParensnopContext(_localctx);
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(43); match(LEFTPAREN);
-				setState(44); expr(0);
-				notifyErrorListeners("Missing closing ')'");
-				}
-				break;
+			_localctx = new ParensContext(_localctx);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(29); match(LEFTPAREN);
+			setState(30); expr(0);
+			setState(31); match(RIGHTPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -494,21 +428,17 @@ public class InfixToPostfixParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r\64\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\23\n\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\7\3\33\n\3\f\3\16\3\36\13\3\3\4\3\4\3\4\3\4\3\4\3\4"+
-		"\3\4\3\4\6\4(\n\4\r\4\16\4)\3\4\3\4\3\4\3\4\3\4\3\4\5\4\62\n\4\3\4\2\5"+
-		"\2\4\6\2\4\3\2\3\4\3\2\5\69\2\b\3\2\2\2\4\22\3\2\2\2\6\61\3\2\2\2\b\t"+
-		"\5\4\3\2\t\3\3\2\2\2\n\13\b\3\1\2\13\23\7\n\2\2\f\23\7\13\2\2\r\23\5\6"+
-		"\4\2\16\17\7\5\2\2\17\23\5\6\4\2\20\21\7\6\2\2\21\23\5\6\4\2\22\n\3\2"+
-		"\2\2\22\f\3\2\2\2\22\r\3\2\2\2\22\16\3\2\2\2\22\20\3\2\2\2\23\34\3\2\2"+
-		"\2\24\25\6\3\2\3\25\26\t\2\2\2\26\33\5\4\3\2\27\30\6\3\3\3\30\31\t\3\2"+
-		"\2\31\33\5\4\3\2\32\24\3\2\2\2\32\27\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2"+
-		"\2\34\35\3\2\2\2\35\5\3\2\2\2\36\34\3\2\2\2\37 \7\7\2\2 !\5\4\3\2!\"\7"+
-		"\b\2\2\"\62\3\2\2\2#$\7\7\2\2$%\5\4\3\2%\'\7\b\2\2&(\7\b\2\2\'&\3\2\2"+
-		"\2()\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*+\3\2\2\2+,\b\4\1\2,\62\3\2\2\2-.\7"+
-		"\7\2\2./\5\4\3\2/\60\b\4\1\2\60\62\3\2\2\2\61\37\3\2\2\2\61#\3\2\2\2\61"+
-		"-\3\2\2\2\62\7\3\2\2\2\7\22\32\34)\61";
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r$\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\23\n\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\7\3\33\n\3\f\3\16\3\36\13\3\3\4\3\4\3\4\3\4\3\4\2\5\2"+
+		"\4\6\2\4\3\2\3\4\3\2\5\6&\2\b\3\2\2\2\4\22\3\2\2\2\6\37\3\2\2\2\b\t\5"+
+		"\4\3\2\t\3\3\2\2\2\n\13\b\3\1\2\13\23\7\n\2\2\f\23\7\13\2\2\r\23\5\6\4"+
+		"\2\16\17\7\5\2\2\17\23\5\6\4\2\20\21\7\6\2\2\21\23\5\6\4\2\22\n\3\2\2"+
+		"\2\22\f\3\2\2\2\22\r\3\2\2\2\22\16\3\2\2\2\22\20\3\2\2\2\23\34\3\2\2\2"+
+		"\24\25\6\3\2\3\25\26\t\2\2\2\26\33\5\4\3\2\27\30\6\3\3\3\30\31\t\3\2\2"+
+		"\31\33\5\4\3\2\32\24\3\2\2\2\32\27\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2"+
+		"\34\35\3\2\2\2\35\5\3\2\2\2\36\34\3\2\2\2\37 \7\7\2\2 !\5\4\3\2!\"\7\b"+
+		"\2\2\"\7\3\2\2\2\5\22\32\34";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

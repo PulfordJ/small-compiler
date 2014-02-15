@@ -202,5 +202,5 @@ void compileLatex(File fileToProcess) {
   }
 }
 
-task release(dependsOn: [shadowJar, genDocs]) {
+task release(dependsOn: [build, shadowJar, genDocs]) {
 }

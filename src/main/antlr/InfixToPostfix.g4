@@ -1,22 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Name of grammar
+grammar Infix;
 
-grammar InfixToPostfix;
-
-//expr : expr '+' term | expr '-' term | term ;
-//term : term '*' factor| term '/' factor | factor ;
-//factor : signedno | '('expr')' | expr ;
-//signedno : digits ;
-//digits : digit+ ;
-
-//expr : factor | factor '+' expr ;
-//factor : digit+;
-//digit : '0'|'9' ;
-//WS : [ \t\r\n]+ -> skip ;
-
+//ANTLR4 needs this to process certain types of left recursive grammar.
 start : expr                             #printExpr
      ;
 
@@ -29,14 +14,11 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | SUB parenedexpr           #parensWithMinus
      ;
 
-// Parenthised expression seperated out in this grammar for specific error catching.
-parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
-            | LEFTPAREN expr RIGHTPAREN RIGHTPAREN+     {notifyErrorListeners("Too many parentheses");} #parensnop
-            | LEFTPAREN expr                           {notifyErrorListeners("Missing closing ')'");}  #parensnop
-            ;
+// Parenthised expression seperated out in this grammar for modularity.
+parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens;
 
 
-
+//The terminal values in my in-fix grammar
 MUL : '*' ;
 DIV : '/' ;
 ADD : '+' ;

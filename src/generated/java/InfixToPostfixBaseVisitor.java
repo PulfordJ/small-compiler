@@ -41,14 +41,6 @@ public class InfixToPostfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitParensnop(@NotNull InfixToPostfixParser.ParensnopContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) { return visitChildren(ctx); }
 
 	/**

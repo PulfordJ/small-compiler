@@ -55,19 +55,6 @@ public class InfixToPostfixBaseListener implements InfixToPostfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParensnop(@NotNull InfixToPostfixParser.ParensnopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitParensnop(@NotNull InfixToPostfixParser.ParensnopContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterParens(@NotNull InfixToPostfixParser.ParensContext ctx) { }
 	/**
 	 * {@inheritDoc}
