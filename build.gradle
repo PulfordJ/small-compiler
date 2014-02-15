@@ -3,6 +3,23 @@ apply plugin: 'java'
 apply plugin: 'application'
 //apply from: file('gradle/idea.gradle')
 mainClassName = "InfixToPostfixRunner"
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:0.8'
+    }
+}
+
+apply plugin: 'shadow'
+
+shadow {
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+
 ext.versions = [
         junit: "4.10",
         antlr: "4.1"
@@ -77,4 +94,8 @@ compileJava {
 
 clean {
     delete antlr.destinationDir
+}
+
+jar {
+    manifest.attributes("Main-Class": mainClassName)
 }

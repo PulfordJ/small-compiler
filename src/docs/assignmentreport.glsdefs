@@ -1,0 +1,600 @@
+\ifglsentryexists{API}{}%
+{%
+\gls@defglossaryentry{API}%
+{%
+name={API},%
+sort={API},%
+type={acronym},%
+first={Application Programming Interface (API)},%
+firstplural={Application Programming Interfaces(APIs)},%
+text={API},%
+plural={APIs},%
+description={Application Programming Interface},%
+descriptionplural={Application Programming Interface\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Application Programming Interface},%
+longplural={Application Programming Interfaces},%
+short={API},%
+shortplural={APIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{REST}{}%
+{%
+\gls@defglossaryentry{REST}%
+{%
+name={REST},%
+sort={REST},%
+type={acronym},%
+first={Representational State Transfer (REST)},%
+firstplural={Representational State Transfers(RESTs)},%
+text={REST},%
+plural={RESTs},%
+description={Representational State Transfer},%
+descriptionplural={Representational State Transfer\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Representational State Transfer},%
+longplural={Representational State Transfers},%
+short={REST},%
+shortplural={RESTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{RDBMS}{}%
+{%
+\gls@defglossaryentry{RDBMS}%
+{%
+name={RDBMS},%
+sort={RDBMS},%
+type={acronym},%
+first={Relational Database Management System (RDBMS)},%
+firstplural={Relational Database Management Systems(RDBMSs)},%
+text={RDBMS},%
+plural={RDBMSs},%
+description={Relational Database Management System},%
+descriptionplural={Relational Database Management System\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Relational Database Management System},%
+longplural={Relational Database Management Systems},%
+short={RDBMS},%
+shortplural={RDBMSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{OODBMS}{}%
+{%
+\gls@defglossaryentry{OODBMS}%
+{%
+name={OODBMS},%
+sort={OODBMS},%
+type={acronym},%
+first={Object-Orientated Database Management System (OODBMS)},%
+firstplural={Object-Orientated Database Management Systems(OODBMSs)},%
+text={OODBMS},%
+plural={OODBMSs},%
+description={Object-Orientated Database Management System},%
+descriptionplural={Object-Orientated Database Management System\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Object-Orientated Database Management System},%
+longplural={Object-Orientated Database Management Systems},%
+short={OODBMS},%
+shortplural={OODBMSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ORDBMS}{}%
+{%
+\gls@defglossaryentry{ORDBMS}%
+{%
+name={ORDBMS},%
+sort={ORDBMS},%
+type={acronym},%
+first={Object Relational Database Management System (ORDBMS)},%
+firstplural={Object Relational Database Management Systems(ORDBMSs)},%
+text={ORDBMS},%
+plural={ORDBMSs},%
+description={Object Relational Database Management System},%
+descriptionplural={Object Relational Database Management System\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Object Relational Database Management System},%
+longplural={Object Relational Database Management Systems},%
+short={ORDBMS},%
+shortplural={ORDBMSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{SSADM}{}%
+{%
+\gls@defglossaryentry{SSADM}%
+{%
+name={SSADM},%
+sort={SSADM},%
+type={acronym},%
+first={Structured Systems Analysis and Design Method (SSADM)},%
+firstplural={Structured Systems Analysis and Design Methods(SSADMs)},%
+text={SSADM},%
+plural={SSADMs},%
+description={Structured Systems Analysis and Design Method},%
+descriptionplural={Structured Systems Analysis and Design Method\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Structured Systems Analysis and Design Method},%
+longplural={Structured Systems Analysis and Design Methods},%
+short={SSADM},%
+shortplural={SSADMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{HATEOAS}{}%
+{%
+\gls@defglossaryentry{HATEOAS}%
+{%
+name={HATEOAS},%
+sort={HATEOAS},%
+type={acronym},%
+first={Hypermedia as the Engine of Application State (HATEOAS)},%
+firstplural={Hypermedia as the Engine of Application States(HATEOASs)},%
+text={HATEOAS},%
+plural={HATEOASs},%
+description={Hypermedia as the Engine of Application State},%
+descriptionplural={Hypermedia as the Engine of Application State\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Hypermedia as the Engine of Application State},%
+longplural={Hypermedia as the Engine of Application States},%
+short={HATEOAS},%
+shortplural={HATEOASs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{CRUD}{}%
+{%
+\gls@defglossaryentry{CRUD}%
+{%
+name={CRUD},%
+sort={CRUD},%
+type={acronym},%
+first={create, read, update and delete (CRUD)},%
+firstplural={create, read, update and deletes(CRUDs)},%
+text={CRUD},%
+plural={CRUDs},%
+description={create, read, update and delete},%
+descriptionplural={create, read, update and delete\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={create, read, update and delete},%
+longplural={create, read, update and deletes},%
+short={CRUD},%
+shortplural={CRUDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{XP}{}%
+{%
+\gls@defglossaryentry{XP}%
+{%
+name={XP},%
+sort={XP},%
+type={acronym},%
+first={Extreme Programming (XP)},%
+firstplural={Extreme Programmings(XPs)},%
+text={XP},%
+plural={XPs},%
+description={Extreme Programming},%
+descriptionplural={Extreme Programming\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Extreme Programming},%
+longplural={Extreme Programmings},%
+short={XP},%
+shortplural={XPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{EVA}{}%
+{%
+\gls@defglossaryentry{EVA}%
+{%
+name={EVA},%
+sort={EVA},%
+type={acronym},%
+first={Earned Value Analysis (EVA)},%
+firstplural={Earned Value Analysiss(EVAs)},%
+text={EVA},%
+plural={EVAs},%
+description={Earned Value Analysis},%
+descriptionplural={Earned Value Analysis\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Earned Value Analysis},%
+longplural={Earned Value Analysiss},%
+short={EVA},%
+shortplural={EVAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{SDT}{}%
+{%
+\gls@defglossaryentry{SDT}%
+{%
+name={SDT},%
+sort={SDT},%
+type={acronym},%
+first={syntax-directed translation (SDT)},%
+firstplural={syntax-directed translations(SDTs)},%
+text={SDT},%
+plural={SDTs},%
+description={syntax-directed translation},%
+descriptionplural={syntax-directed translation\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={syntax-directed translation},%
+longplural={syntax-directed translations},%
+short={SDT},%
+shortplural={SDTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{SQL}{}%
+{%
+\gls@defglossaryentry{SQL}%
+{%
+name={SQL},%
+sort={SQL},%
+type={acronym},%
+first={Structured Query Language (SQL)},%
+firstplural={Structured Query Languages(SQLs)},%
+text={SQL},%
+plural={SQLs},%
+description={Structured Query Language},%
+descriptionplural={Structured Query Language\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Structured Query Language},%
+longplural={Structured Query Languages},%
+short={SQL},%
+shortplural={SQLs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{AI}{}%
+{%
+\gls@defglossaryentry{AI}%
+{%
+name={AI},%
+sort={AI},%
+type={acronym},%
+first={Artificial Intelligence (AI)},%
+firstplural={Artificial Intelligences(AIs)},%
+text={AI},%
+plural={AIs},%
+description={Artificial Intelligence},%
+descriptionplural={Artificial Intelligence\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Artificial Intelligence},%
+longplural={Artificial Intelligences},%
+short={AI},%
+shortplural={AIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{NLP}{}%
+{%
+\gls@defglossaryentry{NLP}%
+{%
+name={NLP},%
+sort={NLP},%
+type={acronym},%
+first={Natural Language Processing (NLP)},%
+firstplural={Natural Language Processings(NLPs)},%
+text={NLP},%
+plural={NLPs},%
+description={Natural Language Processing},%
+descriptionplural={Natural Language Processing\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Natural Language Processing},%
+longplural={Natural Language Processings},%
+short={NLP},%
+shortplural={NLPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{JSON}{}%
+{%
+\gls@defglossaryentry{JSON}%
+{%
+name={JSON},%
+sort={JSON},%
+type={acronym},%
+first={JavaScript Object Notation (JSON)},%
+firstplural={JavaScript Object Notations(JSONs)},%
+text={JSON},%
+plural={JSONs},%
+description={JavaScript Object Notation},%
+descriptionplural={JavaScript Object Notation\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={JavaScript Object Notation},%
+longplural={JavaScript Object Notations},%
+short={JSON},%
+shortplural={JSONs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{UPnP}{}%
+{%
+\gls@defglossaryentry{UPnP}%
+{%
+name={UPnP},%
+sort={UPnP},%
+type={acronym},%
+first={Universal Plug and Play (UPnP)},%
+firstplural={Universal Plug and Plays(UPnPs)},%
+text={UPnP},%
+plural={UPnPs},%
+description={Universal Plug and Play},%
+descriptionplural={Universal Plug and Play\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Universal Plug and Play},%
+longplural={Universal Plug and Plays},%
+short={UPnP},%
+shortplural={UPnPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{UUID}{}%
+{%
+\gls@defglossaryentry{UUID}%
+{%
+name={UUID},%
+sort={UUID},%
+type={acronym},%
+first={Universally unique identifier (UUID)},%
+firstplural={Universally unique identifiers(UUIDs)},%
+text={UUID},%
+plural={UUIDs},%
+description={Universally unique identifier},%
+descriptionplural={Universally unique identifier\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Universally unique identifier},%
+longplural={Universally unique identifiers},%
+short={UUID},%
+shortplural={UUIDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{CFG}{}%
+{%
+\gls@defglossaryentry{CFG}%
+{%
+name={CFG},%
+sort={CFG},%
+type={acronym},%
+first={Context-Free Grammar (CFG)},%
+firstplural={Context-Free Grammars(CFGs)},%
+text={CFG},%
+plural={CFGs},%
+description={Context-Free Grammar},%
+descriptionplural={Context-Free Grammar\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Context-Free Grammar},%
+longplural={Context-Free Grammars},%
+short={CFG},%
+shortplural={CFGs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{Regex}{}%
+{%
+\gls@defglossaryentry{Regex}%
+{%
+name={Regex},%
+sort={Regex},%
+type={acronym},%
+first={Regular Expression (Regex)},%
+firstplural={Regular Expressions(Regexs)},%
+text={Regex},%
+plural={Regexs},%
+description={Regular Expression},%
+descriptionplural={Regular Expression\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Regular Expression},%
+longplural={Regular Expressions},%
+short={Regex},%
+shortplural={Regexs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{CE305}{}%
+{%
+\gls@defglossaryentry{CE305}%
+{%
+name={CE305},%
+sort={CE305},%
+type={acronym},%
+first={CE305 - Language and Compilers (CE305)},%
+firstplural={CE305 - Language and Compilerss(CE305s)},%
+text={CE305},%
+plural={CE305s},%
+description={CE305 - Language and Compilers},%
+descriptionplural={CE305 - Language and Compilers\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={CE305 - Language and Compilers},%
+longplural={CE305 - Language and Compilerss},%
+short={CE305},%
+shortplural={CE305s},%
+counter={page},%
+parent={},%
+%
+}%
+}%
