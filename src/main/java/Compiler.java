@@ -11,7 +11,7 @@ abstract class Compiler {
 
     //This is used to determine whether a token exists in a program.
     private static boolean programContainsToken(CharStream charStream, String tokenToFind) throws IOException {
-        InfixToPostfixLexer lexer = new InfixToPostfixLexer(charStream);
+        InfixLexer lexer = new InfixLexer(charStream);
         List<? extends Token> allTokens = lexer.getAllTokens();
 
         for (Token token : allTokens) {
@@ -31,9 +31,9 @@ abstract class Compiler {
      *
      * @Charstream the stream of source code to compile.
      */
-    public InfixToPostfixVisitorImpl compile() throws IOException {
-        InfixToPostfixLexer lexer = new InfixToPostfixLexer(createCharStream());
-        InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
+    public InfixVisitorImpl compile() throws IOException {
+        InfixLexer lexer = new InfixLexer(createCharStream());
+        InfixVisitorImpl visitor = new InfixVisitorImpl();
 
         //Check if floats exist so that visitor knows which version of forth to compile into, essentially deciding start -> expr or start -> floatExpr in my specified forth grammar.
         if (programContainsToken(createCharStream(), FLOATTOKENNAME)) {
@@ -41,7 +41,7 @@ abstract class Compiler {
         }
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        InfixToPostfixParser p = new InfixToPostfixParser(tokens);
+        InfixParser p = new InfixParser(tokens);
 
         //Added my own error listener so removed the default.
         p.removeErrorListeners();

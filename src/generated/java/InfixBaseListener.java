@@ -1,4 +1,4 @@
-// Generated from /home/john/Git/small-compiler/src/main/antlr/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from /home/john/Git/small-compiler/src/main/antlr/Infix.g4 by ANTLR 4.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -6,114 +6,114 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link InfixToPostfixListener},
+ * This class provides an empty implementation of {@link InfixListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class InfixToPostfixBaseListener implements InfixToPostfixListener {
+public class InfixBaseListener implements InfixListener {
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) { }
+	@Override public void enterMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) { }
+	@Override public void exitMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) { }
+	@Override public void enterPrintExpr(@NotNull InfixParser.PrintExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) { }
+	@Override public void exitPrintExpr(@NotNull InfixParser.PrintExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) { }
+	@Override public void enterParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) { }
+	@Override public void exitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParens(@NotNull InfixToPostfixParser.ParensContext ctx) { }
+	@Override public void enterParens(@NotNull InfixParser.ParensContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitParens(@NotNull InfixToPostfixParser.ParensContext ctx) { }
+	@Override public void exitParens(@NotNull InfixParser.ParensContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterNop(@NotNull InfixToPostfixParser.NopContext ctx) { }
+	@Override public void enterNop(@NotNull InfixParser.NopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitNop(@NotNull InfixToPostfixParser.NopContext ctx) { }
+	@Override public void exitNop(@NotNull InfixParser.NopContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { }
+	@Override public void enterFloat(@NotNull InfixParser.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) { }
+	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParensWithAdd(@NotNull InfixToPostfixParser.ParensWithAddContext ctx) { }
+	@Override public void enterParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitParensWithAdd(@NotNull InfixToPostfixParser.ParensWithAddContext ctx) { }
+	@Override public void exitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) { }
+	@Override public void enterOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) { }
+	@Override public void exitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

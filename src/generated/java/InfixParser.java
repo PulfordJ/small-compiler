@@ -1,4 +1,4 @@
-// Generated from /home/john/Git/small-compiler/src/main/antlr/InfixToPostfix.g4 by ANTLR 4.1
+// Generated from /home/john/Git/small-compiler/src/main/antlr/Infix.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class InfixToPostfixParser extends Parser {
+public class InfixParser extends Parser {
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -27,7 +27,7 @@ public class InfixToPostfixParser extends Parser {
 	};
 
 	@Override
-	public String getGrammarFileName() { return "InfixToPostfix.g4"; }
+	public String getGrammarFileName() { return "Infix.g4"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
@@ -38,7 +38,7 @@ public class InfixToPostfixParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public InfixToPostfixParser(TokenStream input) {
+	public InfixParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -60,15 +60,15 @@ public class InfixToPostfixParser extends Parser {
 		public PrintExprContext(StartContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterPrintExpr(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterPrintExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitPrintExpr(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitPrintExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitPrintExpr(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitPrintExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -119,20 +119,20 @@ public class InfixToPostfixParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode SUB() { return getToken(InfixToPostfixParser.SUB, 0); }
-		public TerminalNode ADD() { return getToken(InfixToPostfixParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(InfixParser.SUB, 0); }
+		public TerminalNode ADD() { return getToken(InfixParser.ADD, 0); }
 		public MulDivAddSubContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterMulDivAddSub(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterMulDivAddSub(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitMulDivAddSub(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitMulDivAddSub(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitMulDivAddSub(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitMulDivAddSub(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -140,36 +140,36 @@ public class InfixToPostfixParser extends Parser {
 		public ParenedexprContext parenedexpr() {
 			return getRuleContext(ParenedexprContext.class,0);
 		}
-		public TerminalNode SUB() { return getToken(InfixToPostfixParser.SUB, 0); }
+		public TerminalNode SUB() { return getToken(InfixParser.SUB, 0); }
 		public ParensWithMinusContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterParensWithMinus(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterParensWithMinus(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitParensWithMinus(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitParensWithMinus(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitParensWithMinus(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitParensWithMinus(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class FloatContext extends ExprContext {
-		public TerminalNode FLOAT() { return getToken(InfixToPostfixParser.FLOAT, 0); }
+		public TerminalNode FLOAT() { return getToken(InfixParser.FLOAT, 0); }
 		public FloatContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterFloat(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterFloat(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitFloat(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitFloat(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitFloat(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitFloat(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -180,32 +180,32 @@ public class InfixToPostfixParser extends Parser {
 		public NopContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterNop(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterNop(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitNop(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitNop(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitNop(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitNop(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class OptionallySignedIntContext extends ExprContext {
-		public TerminalNode OPTIONALLYSIGNEDINT() { return getToken(InfixToPostfixParser.OPTIONALLYSIGNEDINT, 0); }
+		public TerminalNode OPTIONALLYSIGNEDINT() { return getToken(InfixParser.OPTIONALLYSIGNEDINT, 0); }
 		public OptionallySignedIntContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterOptionallySignedInt(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterOptionallySignedInt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitOptionallySignedInt(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitOptionallySignedInt(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitOptionallySignedInt(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitOptionallySignedInt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -213,19 +213,19 @@ public class InfixToPostfixParser extends Parser {
 		public ParenedexprContext parenedexpr() {
 			return getRuleContext(ParenedexprContext.class,0);
 		}
-		public TerminalNode ADD() { return getToken(InfixToPostfixParser.ADD, 0); }
+		public TerminalNode ADD() { return getToken(InfixParser.ADD, 0); }
 		public ParensWithAddContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterParensWithAdd(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterParensWithAdd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitParensWithAdd(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitParensWithAdd(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitParensWithAdd(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitParensWithAdd(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -368,23 +368,23 @@ public class InfixToPostfixParser extends Parser {
 		}
 	}
 	public static class ParensContext extends ParenedexprContext {
-		public TerminalNode RIGHTPAREN() { return getToken(InfixToPostfixParser.RIGHTPAREN, 0); }
+		public TerminalNode RIGHTPAREN() { return getToken(InfixParser.RIGHTPAREN, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
-		public TerminalNode LEFTPAREN() { return getToken(InfixToPostfixParser.LEFTPAREN, 0); }
+		public TerminalNode LEFTPAREN() { return getToken(InfixParser.LEFTPAREN, 0); }
 		public ParensContext(ParenedexprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).enterParens(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterParens(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InfixToPostfixListener ) ((InfixToPostfixListener)listener).exitParens(this);
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitParens(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InfixToPostfixVisitor ) return ((InfixToPostfixVisitor<? extends T>)visitor).visitParens(this);
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitParens(this);
 			else return visitor.visitChildren(this);
 		}
 	}

@@ -11,15 +11,15 @@ import java.util.Arrays;
  * Date: 1/24/14
  * Time: 12:47 PM
  */
-public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String> {
+public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     String forthSource = "";
-    InfixToPostfixParser.PrintExprContext rootCtx;
+    InfixParser.PrintExprContext rootCtx;
     private boolean floatMode;
     Parser parser;
 
     /* Fully built string, printout. */
     @Override
-    public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
+    public String visitPrintExpr(@NotNull InfixParser.PrintExprContext ctx) {
         //When we're done pop the result.
         String formatString = "%s .";
 
@@ -32,7 +32,7 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
         return forthSource;
     }
     @Override
-    public String visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) {
+    public String visitMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx) {
         //Visit the expressions around the sign
         String left = visit(ctx.expr(0));
         String right = visit(ctx.expr(1));
@@ -44,13 +44,13 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 
         //Generate relevant string for this expression.
         switch (ctx.op.getType()) {
-            case InfixToPostfixParser.MUL:
+            case InfixParser.MUL:
                 return String.format(formatString, left, right, "*");
-            case InfixToPostfixParser.ADD:
+            case InfixParser.ADD:
                 return String.format(formatString, left, right, "+");
-            case InfixToPostfixParser.SUB:
+            case InfixParser.SUB:
                 return String.format(formatString, left, right, "-");
-            case InfixToPostfixParser.DIV:
+            case InfixParser.DIV:
                 return String.format(formatString, left, right, "/");
 
 
@@ -83,12 +83,12 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 
 
     @Override
-    public String visitFloat(@NotNull InfixToPostfixParser.FloatContext ctx) {
+    public String visitFloat(@NotNull InfixParser.FloatContext ctx) {
         return ctx.FLOAT().getText(); // Simply return the float.
     }
 
     @Override
-    public String visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) {
+    public String visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) {
         //If prefixed with a plus sign remove it, forth can't deal with those expressions.
         //Note this only runs for what the parser considers terminal, meaning the second integer value for the FLOAT terminal remains unaffected, as intended.
         String textVal = ctx.OPTIONALLYSIGNEDINT().getText();
@@ -106,13 +106,13 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     }
 
     @Override
-    public String visitParens(@NotNull InfixToPostfixParser.ParensContext ctx) {
+    public String visitParens(@NotNull InfixParser.ParensContext ctx) {
         //Ignore the paren terminals, postfix won't need it.
         return visit(ctx.expr());
     }
 
     @Override
-    public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) {
+    public String visitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) {
         //Convert signed parens into forms forth will understand.
         String formatString = "0 %s -";
         if (floatMode) {

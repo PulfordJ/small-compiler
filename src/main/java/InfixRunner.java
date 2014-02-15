@@ -7,7 +7,7 @@ import java.io.PrintWriter;
  * Date: 1/24/14
  * Time: 12:32 PM
  */
-public class InfixToPostfixRunner {
+public class InfixRunner {
     final static String FORTHEXTENSION = "fs";
 
     public static void main(String[] args) throws Exception {
@@ -16,7 +16,7 @@ public class InfixToPostfixRunner {
 
             //Run compiler.
             FileCompiler fileCompiler = new FileCompiler(args[0]);
-            InfixToPostfixVisitorImpl visitor = fileCompiler.compile();
+            InfixVisitorImpl visitor = fileCompiler.compile();
 
             //Save parse tree.
             visitor.outputPSGraphToFile(filepathWithoutExtention);

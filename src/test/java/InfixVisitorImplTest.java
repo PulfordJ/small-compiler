@@ -10,11 +10,11 @@ import static org.junit.Assert.assertEquals;
  * Tests conversion to forth source
  * Mostly self explanatory.
  */
-public class InfixToPostfixVisitorImplTest {
+public class InfixVisitorImplTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-    InfixToPostfixVisitorImpl visitor;
+    InfixVisitorImpl visitor;
 
     //This was to access error stream, with object abstraction this doesn't appear to work, kept for posterity, 'failing' tests commented out.
     @Before
