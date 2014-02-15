@@ -15,13 +15,18 @@ import java.util.Arrays;
 public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String> {
     String forthSource = "";
     InfixToPostfixParser.PrintExprContext rootCtx;
+    private boolean floatMode;
 
     @Override
     public String visitMulDivAddSub(@NotNull InfixToPostfixParser.MulDivAddSubContext ctx) {
-        String left = visit (ctx.expr(0));
-        String right = visit (ctx.expr(1));
+        String left = visit(ctx.expr(0));
+        String right = visit(ctx.expr(1));
 
-        String formatString = "%s %s f%s";
+        String formatString = "%s %s %s";
+        if (floatMode) {
+            formatString = "%s %s f%s";
+        }
+
         switch (ctx.op.getType()) {
             case InfixToPostfixParser.MUL:
                 return String.format(formatString, left, right, "*");
@@ -60,7 +65,14 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
     /* Fully built string, printout. */
     @Override
     public String visitPrintExpr(@NotNull InfixToPostfixParser.PrintExprContext ctx) {
-        forthSource = visit(ctx.expr())+ " f.";
+        String formatString = "%s .";
+
+        if (floatMode) {
+             formatString = "%s f.";
+        }
+
+        //forthSource = visit(ctx.expr()) + " f.";
+        forthSource = String.format(formatString, visit(ctx.expr()));
         //This allows graph generation at a later date.
         rootCtx = ctx;
         return forthSource;
@@ -73,7 +85,16 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
 
     @Override
     public String visitOptionallySignedInt(@NotNull InfixToPostfixParser.OptionallySignedIntContext ctx) {
-        return ctx.OPTIONALLYSIGNEDINT().getText()+'e';
+        String textVal = ctx.OPTIONALLYSIGNEDINT().getText();
+        if (textVal.substring(0, 1).equals("+"))
+        {
+            textVal = textVal.substring(1, textVal.length());
+        }
+        if (floatMode) {
+            return textVal + 'e';
+        } else {
+            return textVal;
+        }
     }
 
     @Override
@@ -81,14 +102,20 @@ public class InfixToPostfixVisitorImpl extends InfixToPostfixBaseVisitor<String>
         return visit(ctx.expr());
     }
 
-	@Override 
-    public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) 
-    {
-        return "0e "+visit(ctx.parenedexpr())+" f-";
+    @Override
+    public String visitParensWithMinus(@NotNull InfixToPostfixParser.ParensWithMinusContext ctx) {;
+        String formatString = "0 %s -";
+        if (floatMode) {
+             formatString = "0e %s f-";
+        }
+        return String.format(formatString, visit(ctx.parenedexpr()));
     }
 
     public String getForthSource() {
         return forthSource;
     }
 
+    public void enableFloatMode() {
+        floatMode = true;
+    }
 }

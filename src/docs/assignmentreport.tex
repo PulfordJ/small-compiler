@@ -162,8 +162,10 @@ A format description of the target language is below note that extra language as
   &| &FLOATEXPONENT\\% bad spacing
   &| &FLOAT\\% bad spacing
   &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &OPTIONALLYMINUSINT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
+  &| &SEPERATOR\\% bad spacing
 \end{tabular}}
 
 
@@ -175,10 +177,12 @@ A format description of the target language is below note that extra language as
   FLOATMINUS &\Coloneqq &'f-'\\% bad spacing
   POP &\Coloneqq &'f.'\\% bad spacing
   FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
-  FLOAT &\Coloneqq &OPTIONALLYSIGNEDINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
-  OPTIONALLYSIGNEDINT &\Coloneqq &[ \; MINUS \; PLUS \; ] \; INT\\% bad spacing
+  FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
+  OPTIONALLYSIGNEDINT &\Coloneqq &[ \; MINUS, \; PLUS \; ]? \; INT\\% bad spacing
+  OPTIONALLYMINUSINT &\Coloneqq &MINUS? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
+  SEPERATOR &\Coloneqq &' '\\% bad spacing
 \end{tabular}}
 \subsubsection{Expression}
 {\setlength\tabcolsep{4pt}
@@ -188,12 +192,14 @@ A format description of the target language is below note that extra language as
   &| &expr \; expr \; FLOATMUL\\% bad spacing
   &| &expr \; expr \; FLOATMINUS\\% bad spacing
   &| &FLOAT\\% bad spacing
+  &| &INT\\% bad spacing
 \end{tabular}}
 \section{Translation}
-\subsection{Tokens}
 \subsection{Expression}
 
 Note that the semantic rules sometimes have the same production rule names as the source language however they are in reference to the target language (Forth). The first column signifies the production rule. The second is how it is represented in the source language. The third is the semantic rule for that particular representation i.e how that representation is reordered / converted in order to obtain a Forth compatible grammar.
+
+Note that there are two versions of the compiled language. When translating source without floats OPTIONALLYSIGNEDINT types are converted to OPTIONALLYMINUSINT.
 
 {\setlength\tabcolsep{4pt}
 \begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}

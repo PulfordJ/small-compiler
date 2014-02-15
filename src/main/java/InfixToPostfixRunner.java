@@ -1,5 +1,7 @@
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Lexer;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import javax.print.PrintException;
@@ -7,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,19 +20,30 @@ import java.util.Arrays;
  */
 public class InfixToPostfixRunner {
     final static String FORTHEXTENSION = "fs";
+
+
     public static void main(String[] args) throws Exception {
         try {
             final String filepathWithoutExtention = Utilities.getFilenameWithoutExtention(args[0]);
 
 
-            InfixToPostfixLexer lexer = new InfixToPostfixLexer(new ANTLRFileStream(args[0])); //TODO handle incorrect file.
+            InfixToPostfixLexer lexer = new InfixToPostfixLexer(new ANTLRFileStream(args[0]));
+            InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
+
+            String optIntTokenName = lexer.getTokenNames()[8];
+            if (Utilities.programContainsToken(new ANTLRFileStream(args[0]), optIntTokenName)) {
+                visitor.enableFloatMode();
+            }
+
+
+
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             InfixToPostfixParser p = new InfixToPostfixParser(tokens);
 
             p.removeErrorListeners();
             p.addErrorListener(new UnderlineListener());
             ParseTree tree = p.start();
-            InfixToPostfixVisitorImpl visitor = new InfixToPostfixVisitorImpl();
+
             visitor.addParser(p);
             visitor.visit(tree);
 
