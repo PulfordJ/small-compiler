@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.*;
 
+/**
+ * Created by john on 15/02/14.
+ * An implementation of Compiler that creates CharStreams from a predefined string.
+ */
 public class StringCompiler extends Compiler {
     String source;
 

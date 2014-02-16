@@ -147,7 +147,7 @@ Each individual token:
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
 \end{tabular}}
 \subsection{Target Language}
-A format description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements. Integers are only mentioned because the are part of the composite terminal float type. Integer arithmetic and pop symbols are also omited.
+A format description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements.
 
 %Provide a formalisation of the target language in (E)BNF.
 \subsubsection{Tokens}
@@ -281,16 +281,15 @@ The former is the target code generated from the input file. The latter is a pos
 \end{landscape}
 \subsection{Tools}
 An ANTLR4 grammar was written and then compiled to generate a Parser and Lexer. Then the base visitor class was extended to generate the source string and control the order non-terminals were visited in. Graphing was also generated via ANTLR. Error handling was done by extending ANTLR's error handling classes and extending the \gls{CFG} with error catching. ANTLR4 grammar files have extensive enhancements over traditional grammars. Ignoring whitespace was achieved with one
-line. Precedence is implicit: ANTLR4 uses the first matching production rule when going left to right in the document. So by writing the * and / expressions out first they will always be compiled before a + or - expression.
+line. Precedence is implicit; ANTLR4 uses the first matching production rule when going left to right in the document. So by writing the * and / expressions out first they will always be compiled before a + or - expression.
 
 Less significantly other tools were applied but mainly applied to the work flow. 
 \begin{itemize}
     \item Junit was used for unit testing compiler output against target language output.
-    \item Gradle was used for the build script, it compiles the ANTLR files, then my java files, then unit tests them, packages up the program as a jar and finally runs it with my specified arguments (details on how to do thi in README.txt).
+    \item Gradle was used for the build script, it compiles the ANTLR files, then my java files, then unit tests them, packages up the program as a jar and finally runs it with my specified arguments. 
     \item An awaiting-approval plugin for Gradle known as shadowJar which generates fat jars; jars that contain all of their dependencies.
     \item A crude attempt at an ANTLR4 plugin for Gradle from Github was used to facilitate the build script's existence.
     \item A equally crude attempt at an LaTeX plugin for Gradle from Github was used to facilitate the build script's existence (And improved upon).
-    \item 
 \end{itemize}
 
 \subsection{Extended Features}
@@ -301,7 +300,7 @@ The following has been implemented;
     \item[Support for floating-point expressions as well as integers] \hfill
         Integers are converted into floats when floats are in the equation; the lexer is applied twice to achieve this.
     \item[Helpful and informative error messages]
-        Parenthesis control and error underlining.
+        Errors are underlined, unless found at the last line (Because those underlines are rarely useful.) In addition ANTLR4's condensed error messages have been reworded. ANTLR4 also has built in capabilities to continue checking for errors in the code despite running into one.
 \end{description}
 
 Code has been divided, code inside:

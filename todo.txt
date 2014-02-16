@@ -1,7 +1,4 @@
-antlr4
-    further error test
-
-Comment code.
-
 Questions:
 Is "OPTIONALLYSIGNEDINT" a target language token?
+
+Representing the drop of a plus sign in compiler, informal written explanation ok?
