@@ -2,7 +2,7 @@ description = "Compiles ANTLR4, generates LaTeX documentation, tests AND builds 
 apply plugin: 'java'
 apply plugin: 'application'
 //apply from: file('gradle/idea.gradle')
-mainClassName = "InfixToPostfixRunner"
+mainClassName = "InfixRunner"
 
 buildscript {
     repositories {
