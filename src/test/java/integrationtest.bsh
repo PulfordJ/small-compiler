@@ -1,0 +1,2 @@
+less InfixToPostfixVisitorImplTest.java | perl -ne 'print "$+{source}\n" if /assertEquals.*"(?<source>.*)"/;' >> forthsource.txt
+gforth forthsource.txt -e bye

@@ -1,0 +1,322 @@
+\documentclass[a4paper,12pt]{article}
+%\usepackage[backend=biber, style=ieee, maxnames=2, minnames=1, maxbibnames=2]{biblatex}
+%\addbibresource{refs.bib}
+%\defcounter{maxnames}{2}
+\newcommand{\projectName}{PTAR}
+\usepackage[acronym]{glossaries}
+\usepackage[T1]{fontenc}
+%\usepackage{graphicx}
+%\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{txfonts}
+\usepackage{pdflscape}
+
+\newcommand\nonter[1]{\ensuremath{#1\negthinspace s}}
+
+\usepackage{syntax} 
+
+%\DefineBibliographyStrings{english}{%
+%  references = {References},
+%}
+
+\begin{document}
+\widowpenalties 1 10000
+
+%Give every section a seperate page.
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+%Beta code to define a glossary
+%\usepackage[xindy]{glossaries}
+%\usepackage[toc]{glossaries}
+%\newglossaryentry{API}{Application Programming Interface}
+%\newglossaryentry{REST}{Representational State Transfer}
+%\makeglossaries
+
+\newacronym{API}{API}{Application Programming Interface}
+\newacronym{REST}{REST}{Representational State Transfer}
+\newacronym{RDBMS}{RDBMS}{Relational Database Management System}
+\newacronym{OODBMS}{OODBMS}{Object-Orientated Database Management System}
+\newacronym{ORDBMS}{ORDBMS}{Object Relational Database Management System}
+\newacronym{SSADM}{SSADM}{Structured Systems Analysis and Design Method}
+\newacronym{HATEOAS}{HATEOAS}{Hypermedia as the Engine of Application State}
+\newacronym{CRUD}{CRUD}{create, read, update and delete}
+\newacronym{XP}{XP}{Extreme Programming}
+\newacronym{EVA}{EVA}{Earned Value Analysis}
+\newacronym{SDT}{SDT}{syntax-directed translation}
+\newacronym{SQL}{SQL}{Structured Query Language}
+\newacronym{AI}{AI}{Artificial Intelligence}
+\newacronym{NLP}{NLP}{Natural Language Processing}
+\newacronym{JSON}{JSON}{JavaScript Object Notation}
+\newacronym{UPnP}{UPnP}{Universal Plug and Play}
+\newacronym{UUID}{UUID}{Universally unique identifier}
+\newacronym{CFG}{CFG}{Context-Free Grammar}
+\newacronym{Regex}{Regex}{Regular Expression}
+\newacronym{CE305}{CE305}{CE305 - Language and Compilers}
+
+\begin{titlepage}
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+    \begin{center}
+
+
+        \textsc{\LARGE University of Essex}\\[1.5cm]
+
+        \textsc{\Large Assignment One - Expression Analyser}\\[0.5cm]
+
+% Title
+        \HRule \\[0.4cm]
+        { \huge \bfseries \gls{CE305} \\[0.4cm] }
+
+        \HRule \\[1.5cm]
+
+% Author and supervisor
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushleft} \large
+                \emph{Author:}\\
+                John \textsc{Pulford}
+            \end{flushleft}
+        \end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushright} \large
+                \emph{Lecturer:} \\
+                Dr.~Chris \textsc{Fox}
+            \end{flushright}
+        \end{minipage}
+
+        \vfill
+
+% Bottom of the page
+        {\large \today}
+
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\begin{landscape}
+\section{Grammar}
+\subsection{Source}
+\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
+\subsubsection{Tokens}
+
+All possible tokens:
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  TOKEN &\Coloneqq &MUL\\% bad spacing
+  &| &DIV\\% bad spacing
+  &| &PLUS\\% bad spacing
+  &| &MINUS\\% bad spacing
+  &| &LEFTPAREN\\% bad spacing
+  &| &RIGHTPAREN\\% bad spacing
+  &| &FLOATEXPONENT\\% bad spacing
+  &| &FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &INT\\% bad spacing
+  &| &DIGIT\\% bad spacing
+\end{tabular}}
+\newpage
+Each individual token:
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  MUL &\Coloneqq &'*'\\% bad spacing
+  DIV &\Coloneqq &'\backslash'\\% bad spacing
+  PLUS &\Coloneqq &'+'\\% bad spacing
+  MINUS &\Coloneqq &'-'\\% bad spacing
+  LEFTPAREN &\Coloneqq &'('\\% bad spacing
+  RIGHTPAREN &\Coloneqq &')'\\% bad spacing
+  FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
+  FLOAT &\Coloneqq &OPTIONALLYSIGNEDINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
+  OPTIONALLYSIGNEDINT &\Coloneqq &( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
+  INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
+  DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
+\end{tabular}}
+\subsubsection{Expressions}
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  expr &\Coloneqq & expr \; PLUS \; expr\\
+  &| &expr \; DIV \; expr\\% bad spacing
+  &| &expr \; MUL \; expr\\% bad spacing
+  &| &expr \; MINUS \; expr\\% bad spacing
+  &| &FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
+  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
+\end{tabular}}
+\subsection{Target Language}
+A format description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements.
+
+%Provide a formalisation of the target language in (E)BNF.
+\subsubsection{Tokens}
+
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  TOKEN &\Coloneqq &FLOATMUL\\% bad spacing
+  &| &FLOATDIV\\% bad spacing
+  &| &FLOATPLUS\\% bad spacing
+  &| &FLOATMINUS\\% bad spacing
+  &| &FLOATPOP\\% bad spacing
+  &| &MUL\\% bad spacing
+  &| &DIV\\% bad spacing
+  &| &PLUS\\% bad spacing
+  &| &MINUS\\% bad spacing
+  &| &POP\\% bad spacing
+  &| &FLOATEXPONENT\\% bad spacing
+  &| &FLOAT\\% bad spacing
+  &| &OPTIONALLYMINUSINT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &INT\\% bad spacing
+  &| &DIGIT\\% bad spacing
+  &| &SEPERATOR\\% bad spacing
+\end{tabular}}
+
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  MUL &\Coloneqq &'*'\\% bad spacing
+  DIV &\Coloneqq &'\backslash'\\% bad spacing
+  PLUS &\Coloneqq &'+'\\% bad spacing
+  MINUS &\Coloneqq &'-'\\% bad spacing
+  POP &\Coloneqq &'.'\\% bad spacing
+  FLOATMUL &\Coloneqq &'f*'\\% bad spacing
+  FLOATDIV &\Coloneqq &'f\backslash'\\% bad spacing
+  FLOATPLUS &\Coloneqq &'f+'\\% bad spacing
+  FLOATMINUS &\Coloneqq &'f-'\\% bad spacing
+  FLOATPOP &\Coloneqq &'f.'\\% bad spacing
+  FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
+  FLOAT &\Coloneqq &OPTIONALLYMINUSINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
+  OPTIONALLYMINUSINT &\Coloneqq &MINUS? \; INT\\% bad spacing
+  OPTIONALLYSIGNEDINT &\Coloneqq &( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
+  INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
+  DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
+  SEPERATOR &\Coloneqq &'\ '\\% bad spacing
+\end{tabular}}
+\subsubsection{Expression}
+
+Whilst not strictly true I've modeled the grammar of Forth as one that will either except integer or float numbers. This is true from the perspective of this compiler but in reality there is the option of conversion to float within the forth language.
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  start &\Coloneqq & expr \; | \; floatexpr\\
+  expr &\Coloneqq & expr \; expr \; PLUS\\
+  &| &expr \; expr \; DIV\\% bad spacing
+  &| &expr \; expr \; MUL\\% bad spacing
+  &| &expr \; expr \; MINUS\\% bad spacing
+  &| &OPTIONALLYMINUSINT\\% bad spacing
+  floatexpr &\Coloneqq & floatexpr \; floatexpr \; FLOATPLUS\\
+  &| &floatexpr \; floatexpr \; FLOATDIV\\% bad spacing
+  &| &floatexpr \; floatexpr \; FLOATMUL\\% bad spacing
+  &| &floatexpr \; floatexpr \; FLOATMINUS\\% bad spacing
+  &| &FLOAT\\% bad spacing
+\end{tabular}}
+\section{Translation}
+\subsection{Tokens}
+If a FLOAT or expr.OPTIONALLYSIGNEDINT has a plus sign prefix then the prefix is discarded in translation. This is implicit in the translation of terminals from source FLOAT to target FLOAT and from source OPTIONALLYSIGNEDINT to target OPTIONALLYMINUSINT.
+\subsection{Expression}
+
+The rule tables follow. The first column signifies the production rule. The second is how it is represented in the source language. The third is the semantic rule for that particular representation i.e the order the nodes are visited and the output of that production rule traversal which results in a Forth compatible grammar. The terminals in this column refer to forth terminals. Non-terminals refer to the source language.
+
+There are also are two versions of the syntax directed translation. One when at least one floating number exists in the source and one when they do not.
+
+\subsubsection{Float Enabled Translation}
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
+  Production & & Source &Target\\ \hline
+  start &\Coloneqq & expr_{1}& expr_{1} \; SEPERATOR \; FLOATPOP\\
+  expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATPLUS\\
+  &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATDIV\\% bad spacing
+  &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMUL\\% bad spacing
+  &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMINUS\\% bad spacing
+  &| &FLOAT&FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT&FLOAT\\% bad spacing
+  &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
+  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0e' - expr\\% bad spacing
+\end{tabular}}
+
+\subsubsection{Float Disabled Translation}
+
+{\setlength\tabcolsep{4pt}
+\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
+  Production & & Source &Target\\ \hline
+  start &\Coloneqq & expr_{1}& expr_{1} \; SEPERATOR \; POP\\
+  expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; PLUS\\
+  &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; DIV\\% bad spacing
+  &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MUL\\% bad spacing
+  &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MINUS\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT&OPTIONALLYMINUSINT\\% bad spacing
+  &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
+  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' - expr\\% bad spacing
+\end{tabular}}
+
+%This could probably be merged into Expressions
+\section{Implementation}
+\subsection{Running}
+To build, test and run with arguments use.
+\begin{quotation}
+./gradlew clean release run -Pargs="example.if"
+\end{quotation}
+Simply change "example.if" to another filepath to run with said file.
+
+NOTE: Not applicable to university computers, unfortunately. Instead, to run the precompiled jar:
+
+
+\begin{quotation}
+\begin{verbatim}
+java -jar build/distributions/small-compiler-unspecified-shadow.jar example.if
+\end{verbatim}
+
+\end{quotation}
+
+The compiler will generate two files. 
+\begin{quotation}
+<filename>.fs and <filename>.ps
+\end{quotation}
+The former is the target code generated from the input file. The latter is a postscript parse tree representing the calls within the program. Note that ANTLR4 does not list the types of terminal characters and thus this is not technically a concrete syntax tree.
+
+\end{landscape}
+\subsection{Tools}
+An ANTLR4 grammar was written and then compiled to generate a Parser and Lexer. Then the base visitor class was extended to generate the source string and control the order non-terminals were visited in. Graphing was also generated via ANTLR. Error handling was done by extending ANTLR's error handling classes and extending the \gls{CFG} with error catching. ANTLR4 grammar files have extensive enhancements over traditional grammars. Ignoring whitespace was achieved with one
+line. Precedence is implicit; ANTLR4 uses the first matching production rule when going left to right in the document. So by writing the * and / expressions out first they will always be compiled before a + or - expression.
+
+Less significantly other tools were applied but mainly applied to the work flow. 
+\begin{itemize}
+    \item Junit was used for unit testing compiler output against target language output.
+    \item Gradle was used for the build script, it compiles the ANTLR files, then my java files, then unit tests them, packages up the program as a jar and finally runs it with my specified arguments. 
+    \item An awaiting-approval plugin for Gradle known as shadowJar which generates fat jars; jars that contain all of their dependencies.
+    \item A crude attempt at an ANTLR4 plugin for Gradle from Github was used to facilitate the build script's existence.
+    \item A equally crude attempt at an LaTeX plugin for Gradle from Github was used to facilitate the build script's existence (And improved upon).
+\end{itemize}
+
+\subsection{Extended Features}
+The following has been implemented;
+\begin{description}
+    \item[A visual reading of a parse tree] \hfill
+        Although as mentioned it is missing terminal types.
+    \item[Support for floating-point expressions as well as integers] \hfill
+        Integers are converted into floats when floats are in the equation; the lexer is applied twice to achieve this.
+    \item[Helpful and informative error messages]
+        Errors are underlined, unless found at the last line (Because those underlines are rarely useful.) In addition ANTLR4's condensed error messages have been reworded. ANTLR4 also has built in capabilities to continue checking for errors in the code despite running into one.
+\end{description}
+
+Code has been divided, code inside:
+\begin{quotation}
+src -> generated
+\end{quotation}
+Is generated by antlr during a build.
+
+
+Code that is inside:
+\begin{quotation}
+src -> main
+\end{quotation}
+\begin{quotation}
+src -> test
+\end{quotation}
+was written by me, this code also contains comments for further information.
+
+\end{document}
