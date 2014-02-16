@@ -1,4 +1,0 @@
-Questions:
-Is "OPTIONALLYSIGNEDINT" a target language token?
-
-Representing the drop of a plus sign in compiler, informal written explanation ok?
