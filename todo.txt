@@ -1,4 +1,15 @@
-Questions:
-Is "OPTIONALLYSIGNEDINT" a target language token?
+variables -a 
 
-Representing the drop of a plus sign in compiler, informal written explanation ok?
+expressions - 3 + a
+assigments - 3 = 3
+            3 + b
+boolean - a = 3 boolean operators, ==, =>, <=, <, > !=
+conditions -> if boolean then sequence endif
+whileloops -> while boolean do sequence endif
+sequence -> expression+
+
+FORTH:
+VARIABLE your-var # assigns address for storing value
+
+Source: a = c + 2
+Target: c @ 2 + a !
