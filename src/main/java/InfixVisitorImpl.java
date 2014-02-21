@@ -81,10 +81,19 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     }
 
+    @Override
+    public String visitSubFloat(@NotNull InfixParser.SubFloatContext ctx) {
+        return "-"+ctx.FLOAT().getText();
+    }
 
     @Override
     public String visitFloat(@NotNull InfixParser.FloatContext ctx) {
         return ctx.FLOAT().getText(); // Simply return the float.
+    }
+
+    @Override
+    public String visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) {
+        return "-"+ctx.OPTIONALLYSIGNEDINT().getText();
     }
 
     @Override

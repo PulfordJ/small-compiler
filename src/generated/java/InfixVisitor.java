@@ -25,6 +25,13 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitPrintExpr(@NotNull InfixParser.PrintExprContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link InfixParser#subFloat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubFloat(@NotNull InfixParser.SubFloatContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link InfixParser#parensWithMinus}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -51,6 +58,13 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFloat(@NotNull InfixParser.FloatContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#parensWithAdd}.

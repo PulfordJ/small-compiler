@@ -1,6 +1,7 @@
 description = "Compiles ANTLR4, generates LaTeX documentation, tests AND builds jar"
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'idea'
 //apply from: file('gradle/idea.gradle')
 mainClassName = "InfixRunner"
 

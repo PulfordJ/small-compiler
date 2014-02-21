@@ -42,6 +42,19 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -88,6 +101,19 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

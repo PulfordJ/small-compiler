@@ -29,7 +29,7 @@ public class UnderlineListener extends BaseErrorListener {
         else{
             formattedString = String.format(formatString, line, charPositionInLine, msg);
         }
-        System.out.println(formattedString);
+        System.err.println(formattedString);
     }
 
     /**

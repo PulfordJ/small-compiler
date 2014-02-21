@@ -179,6 +179,13 @@ public class InfixVisitorImplTest {
     }
 
     @Test
+    public void testSignedNumberWithOutSpaceInExpr4() throws Exception {
+
+        runCompiler("(+ 2 + 3)");
+        assertEquals("2 3 + .", visitor.getForthSource());
+    }
+
+    @Test
     public void testSignedNumberWithSpaceInExpr4() throws Exception {
 
         runCompiler("(2 + + 3)");
