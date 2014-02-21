@@ -272,6 +272,4 @@ public class InfixVisitorImplTest {
         assertEquals("2 .", visitor.getForthSource());
     }
 
-
-
 }

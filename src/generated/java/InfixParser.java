@@ -15,10 +15,10 @@ public class InfixParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		MUL=1, DIV=2, ADD=3, SUB=4, LEFTPAREN=5, RIGHTPAREN=6, FLOATEXPONENT=7, 
-		FLOAT=8, OPTIONALLYSIGNEDINT=9, INT=10, WS=11;
+		FLOAT=8, INT=9, WS=10;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'*'", "'/'", "'+'", "'-'", "'('", "')'", "'e'", "FLOAT", 
-		"OPTIONALLYSIGNEDINT", "INT", "WS"
+		"INT", "WS"
 	};
 	public static final int
 		RULE_start = 0, RULE_expr = 1, RULE_parenedexpr = 2;
@@ -212,7 +212,7 @@ public class InfixParser extends Parser {
 		}
 	}
 	public static class SubOptionallySignedIntContext extends ExprContext {
-		public TerminalNode OPTIONALLYSIGNEDINT() { return getToken(InfixParser.OPTIONALLYSIGNEDINT, 0); }
+		public TerminalNode INT() { return getToken(InfixParser.INT, 0); }
 		public TerminalNode SUB() { return getToken(InfixParser.SUB, 0); }
 		public SubOptionallySignedIntContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
@@ -230,7 +230,7 @@ public class InfixParser extends Parser {
 		}
 	}
 	public static class OptionallySignedIntContext extends ExprContext {
-		public TerminalNode OPTIONALLYSIGNEDINT() { return getToken(InfixParser.OPTIONALLYSIGNEDINT, 0); }
+		public TerminalNode INT() { return getToken(InfixParser.INT, 0); }
 		public TerminalNode ADD() { return getToken(InfixParser.ADD, 0); }
 		public OptionallySignedIntContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
@@ -317,7 +317,7 @@ public class InfixParser extends Parser {
 				_localctx = new OptionallySignedIntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(14); match(OPTIONALLYSIGNEDINT);
+				setState(14); match(INT);
 				}
 				break;
 
@@ -327,7 +327,7 @@ public class InfixParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(15); match(ADD);
-				setState(16); match(OPTIONALLYSIGNEDINT);
+				setState(16); match(INT);
 				}
 				break;
 
@@ -337,7 +337,7 @@ public class InfixParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(17); match(SUB);
-				setState(18); match(OPTIONALLYSIGNEDINT);
+				setState(18); match(INT);
 				}
 				break;
 
@@ -508,7 +508,7 @@ public class InfixParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r,\4\2\t\2\4\3\t"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\f,\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\5\3\33\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3#\n\3\f\3\16\3&\13"+
 		"\3\3\4\3\4\3\4\3\4\3\4\2\5\2\4\6\2\4\3\2\3\4\3\2\5\6\62\2\b\3\2\2\2\4"+

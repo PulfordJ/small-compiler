@@ -93,14 +93,14 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) {
-        return "-"+ctx.OPTIONALLYSIGNEDINT().getText();
+        return "-"+ctx.INT().getText();
     }
 
     @Override
     public String visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) {
         //If prefixed with a plus sign remove it, forth can't deal with those expressions.
         //Note this only runs for what the parser considers terminal, meaning the second integer value for the FLOAT terminal remains unaffected, as intended.
-        String textVal = ctx.OPTIONALLYSIGNEDINT().getText();
+        String textVal = ctx.INT().getText();
         if (textVal.substring(0, 1).equals("+"))
         {
             textVal = textVal.substring(1, textVal.length());
