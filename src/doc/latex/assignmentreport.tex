@@ -233,9 +233,9 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMUL\\% bad spacing
   &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMINUS\\% bad spacing
   &| &FLOAT&FLOAT\\% bad spacing
-  &| &OPTIONALLYSIGNEDINT&FLOAT\\% bad spacing
+  &| &OPTIONALLYSIGNEDINT&FLOAT(OPTIONALLYMINUSINT'e0')\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
-  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0e0' - expr\\% bad spacing
+  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0e0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
 \end{tabular}}
 
 \subsubsection{Float Disabled Translation}
@@ -250,7 +250,7 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MINUS\\% bad spacing
   &| &OPTIONALLYSIGNEDINT&OPTIONALLYMINUSINT\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
-  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' - expr\\% bad spacing
+  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
 \end{tabular}}
 
 %This could probably be merged into Expressions
