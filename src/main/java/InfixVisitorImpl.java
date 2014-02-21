@@ -81,6 +81,10 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     }
 
+    @Override
+    public String visitSubFloat(@NotNull InfixParser.SubFloatContext ctx) {
+        return "-"+ctx.FLOAT().getText();
+    }
 
     @Override
     public String visitFloat(@NotNull InfixParser.FloatContext ctx) {
@@ -88,10 +92,15 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     }
 
     @Override
+    public String visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) {
+        return "-"+ctx.INT().getText();
+    }
+
+    @Override
     public String visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) {
         //If prefixed with a plus sign remove it, forth can't deal with those expressions.
         //Note this only runs for what the parser considers terminal, meaning the second integer value for the FLOAT terminal remains unaffected, as intended.
-        String textVal = ctx.OPTIONALLYSIGNEDINT().getText();
+        String textVal = ctx.INT().getText();
         if (textVal.substring(0, 1).equals("+"))
         {
             textVal = textVal.substring(1, textVal.length());
@@ -99,7 +108,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
         //If in float mode then convert to float.
         if (floatMode) {
-            return textVal + 'e';
+            return textVal + "e0";
         } else {
             return textVal;
         }
@@ -116,7 +125,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         //Convert signed parens into forms forth will understand.
         String formatString = "0 %s -";
         if (floatMode) {
-             formatString = "0e %s f-";
+             formatString = "0e0 %s f-";
         }
         return String.format(formatString, visit(ctx.parenedexpr()));
     }

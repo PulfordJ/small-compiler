@@ -15,10 +15,10 @@ public class InfixParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		MUL=1, DIV=2, ADD=3, SUB=4, LEFTPAREN=5, RIGHTPAREN=6, FLOATEXPONENT=7, 
-		FLOAT=8, OPTIONALLYSIGNEDINT=9, INT=10, WS=11;
+		FLOAT=8, INT=9, WS=10;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'*'", "'/'", "'+'", "'-'", "'('", "')'", "'e'", "FLOAT", 
-		"OPTIONALLYSIGNEDINT", "INT", "WS"
+		"INT", "WS"
 	};
 	public static final int
 		RULE_start = 0, RULE_expr = 1, RULE_parenedexpr = 2;
@@ -136,6 +136,24 @@ public class InfixParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class SubFloatContext extends ExprContext {
+		public TerminalNode FLOAT() { return getToken(InfixParser.FLOAT, 0); }
+		public TerminalNode SUB() { return getToken(InfixParser.SUB, 0); }
+		public SubFloatContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterSubFloat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitSubFloat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitSubFloat(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class ParensWithMinusContext extends ExprContext {
 		public ParenedexprContext parenedexpr() {
 			return getRuleContext(ParenedexprContext.class,0);
@@ -158,6 +176,7 @@ public class InfixParser extends Parser {
 	}
 	public static class FloatContext extends ExprContext {
 		public TerminalNode FLOAT() { return getToken(InfixParser.FLOAT, 0); }
+		public TerminalNode ADD() { return getToken(InfixParser.ADD, 0); }
 		public FloatContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -192,8 +211,27 @@ public class InfixParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class SubOptionallySignedIntContext extends ExprContext {
+		public TerminalNode INT() { return getToken(InfixParser.INT, 0); }
+		public TerminalNode SUB() { return getToken(InfixParser.SUB, 0); }
+		public SubOptionallySignedIntContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterSubOptionallySignedInt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitSubOptionallySignedInt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitSubOptionallySignedInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class OptionallySignedIntContext extends ExprContext {
-		public TerminalNode OPTIONALLYSIGNEDINT() { return getToken(InfixParser.OPTIONALLYSIGNEDINT, 0); }
+		public TerminalNode INT() { return getToken(InfixParser.INT, 0); }
+		public TerminalNode ADD() { return getToken(InfixParser.ADD, 0); }
 		public OptionallySignedIntContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -242,9 +280,9 @@ public class InfixParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
-			switch (_input.LA(1)) {
-			case FLOAT:
+			setState(24);
+			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
+			case 1:
 				{
 				_localctx = new FloatContext(_localctx);
 				_ctx = _localctx;
@@ -253,45 +291,87 @@ public class InfixParser extends Parser {
 				setState(9); match(FLOAT);
 				}
 				break;
-			case OPTIONALLYSIGNEDINT:
+
+			case 2:
+				{
+				_localctx = new FloatContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(10); match(ADD);
+				setState(11); match(FLOAT);
+				}
+				break;
+
+			case 3:
+				{
+				_localctx = new SubFloatContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(12); match(SUB);
+				setState(13); match(FLOAT);
+				}
+				break;
+
+			case 4:
 				{
 				_localctx = new OptionallySignedIntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(10); match(OPTIONALLYSIGNEDINT);
+				setState(14); match(INT);
 				}
 				break;
-			case LEFTPAREN:
+
+			case 5:
+				{
+				_localctx = new OptionallySignedIntContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(15); match(ADD);
+				setState(16); match(INT);
+				}
+				break;
+
+			case 6:
+				{
+				_localctx = new SubOptionallySignedIntContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(17); match(SUB);
+				setState(18); match(INT);
+				}
+				break;
+
+			case 7:
 				{
 				_localctx = new NopContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(11); parenedexpr();
+				setState(19); parenedexpr();
 				}
 				break;
-			case ADD:
+
+			case 8:
 				{
 				_localctx = new ParensWithAddContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(12); match(ADD);
-				setState(13); parenedexpr();
+				setState(20); match(ADD);
+				setState(21); parenedexpr();
 				}
 				break;
-			case SUB:
+
+			case 9:
 				{
 				_localctx = new ParensWithMinusContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(14); match(SUB);
-				setState(15); parenedexpr();
+				setState(22); match(SUB);
+				setState(23); parenedexpr();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(26);
+			setState(34);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
@@ -299,23 +379,23 @@ public class InfixParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(24);
+					setState(32);
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MulDivAddSubContext(new ExprContext(_parentctx, _parentState, _p));
 						((MulDivAddSubContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(18);
-						if (!(7 >= _localctx._p)) throw new FailedPredicateException(this, "7 >= $_p");
-						setState(19);
+						setState(26);
+						if (!(11 >= _localctx._p)) throw new FailedPredicateException(this, "11 >= $_p");
+						setState(27);
 						((MulDivAddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MUL || _la==DIV) ) {
 							((MulDivAddSubContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(20); ((MulDivAddSubContext)_localctx).right = expr(8);
+						setState(28); ((MulDivAddSubContext)_localctx).right = expr(12);
 						}
 						break;
 
@@ -324,22 +404,22 @@ public class InfixParser extends Parser {
 						_localctx = new MulDivAddSubContext(new ExprContext(_parentctx, _parentState, _p));
 						((MulDivAddSubContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(21);
-						if (!(6 >= _localctx._p)) throw new FailedPredicateException(this, "6 >= $_p");
-						setState(22);
+						setState(29);
+						if (!(10 >= _localctx._p)) throw new FailedPredicateException(this, "10 >= $_p");
+						setState(30);
 						((MulDivAddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==ADD || _la==SUB) ) {
 							((MulDivAddSubContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(23); ((MulDivAddSubContext)_localctx).right = expr(7);
+						setState(31); ((MulDivAddSubContext)_localctx).right = expr(11);
 						}
 						break;
 					}
 					} 
 				}
-				setState(28);
+				setState(36);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -396,9 +476,9 @@ public class InfixParser extends Parser {
 			_localctx = new ParensContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(29); match(LEFTPAREN);
-			setState(30); expr(0);
-			setState(31); match(RIGHTPAREN);
+			setState(37); match(LEFTPAREN);
+			setState(38); expr(0);
+			setState(39); match(RIGHTPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -420,25 +500,27 @@ public class InfixParser extends Parser {
 	}
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return 7 >= _localctx._p;
+		case 0: return 11 >= _localctx._p;
 
-		case 1: return 6 >= _localctx._p;
+		case 1: return 10 >= _localctx._p;
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r$\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\23\n\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\7\3\33\n\3\f\3\16\3\36\13\3\3\4\3\4\3\4\3\4\3\4\2\5\2"+
-		"\4\6\2\4\3\2\3\4\3\2\5\6&\2\b\3\2\2\2\4\22\3\2\2\2\6\37\3\2\2\2\b\t\5"+
-		"\4\3\2\t\3\3\2\2\2\n\13\b\3\1\2\13\23\7\n\2\2\f\23\7\13\2\2\r\23\5\6\4"+
-		"\2\16\17\7\5\2\2\17\23\5\6\4\2\20\21\7\6\2\2\21\23\5\6\4\2\22\n\3\2\2"+
-		"\2\22\f\3\2\2\2\22\r\3\2\2\2\22\16\3\2\2\2\22\20\3\2\2\2\23\34\3\2\2\2"+
-		"\24\25\6\3\2\3\25\26\t\2\2\2\26\33\5\4\3\2\27\30\6\3\3\3\30\31\t\3\2\2"+
-		"\31\33\5\4\3\2\32\24\3\2\2\2\32\27\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2"+
-		"\34\35\3\2\2\2\35\5\3\2\2\2\36\34\3\2\2\2\37 \7\7\2\2 !\5\4\3\2!\"\7\b"+
-		"\2\2\"\7\3\2\2\2\5\22\32\34";
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\f,\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\5\3\33\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3#\n\3\f\3\16\3&\13"+
+		"\3\3\4\3\4\3\4\3\4\3\4\2\5\2\4\6\2\4\3\2\3\4\3\2\5\6\62\2\b\3\2\2\2\4"+
+		"\32\3\2\2\2\6\'\3\2\2\2\b\t\5\4\3\2\t\3\3\2\2\2\n\13\b\3\1\2\13\33\7\n"+
+		"\2\2\f\r\7\5\2\2\r\33\7\n\2\2\16\17\7\6\2\2\17\33\7\n\2\2\20\33\7\13\2"+
+		"\2\21\22\7\5\2\2\22\33\7\13\2\2\23\24\7\6\2\2\24\33\7\13\2\2\25\33\5\6"+
+		"\4\2\26\27\7\5\2\2\27\33\5\6\4\2\30\31\7\6\2\2\31\33\5\6\4\2\32\n\3\2"+
+		"\2\2\32\f\3\2\2\2\32\16\3\2\2\2\32\20\3\2\2\2\32\21\3\2\2\2\32\23\3\2"+
+		"\2\2\32\25\3\2\2\2\32\26\3\2\2\2\32\30\3\2\2\2\33$\3\2\2\2\34\35\6\3\2"+
+		"\3\35\36\t\2\2\2\36#\5\4\3\2\37 \6\3\3\3 !\t\3\2\2!#\5\4\3\2\"\34\3\2"+
+		"\2\2\"\37\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\5\3\2\2\2&$\3\2\2\2"+
+		"\'(\7\7\2\2()\5\4\3\2)*\7\b\2\2*\7\3\2\2\2\5\32\"$";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {
