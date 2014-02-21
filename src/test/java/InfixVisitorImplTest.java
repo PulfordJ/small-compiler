@@ -43,29 +43,29 @@ public class InfixVisitorImplTest {
     @Test
     public void testAdd() throws Exception {
 
-        runCompiler("3e + 5");
-        assertEquals("3e 5e f+ f.", visitor.getForthSource());
+        runCompiler("3e0 + 5");
+        assertEquals("3e0 5e0 f+ f.", visitor.getForthSource());
     }
 
     @Test
     public void testVisitSub() throws Exception {
 
-        runCompiler("5e - 3");
-        assertEquals("5e 3e f- f.", visitor.getForthSource());
+        runCompiler("5e0 - 3");
+        assertEquals("5e0 3e0 f- f.", visitor.getForthSource());
     }
 
     @Test
     public void testVisitMul() throws Exception {
 
-        runCompiler("3e * 5e");
-        assertEquals("3e 5e f* f.", visitor.getForthSource());
+        runCompiler("3e0 * 5e0");
+        assertEquals("3e0 5e0 f* f.", visitor.getForthSource());
     }
 
     @Test
     public void testVisitDiv() throws Exception {
 
-        runCompiler("50e / 100");
-        assertEquals("50e 100e f/ f.", visitor.getForthSource());
+        runCompiler("50e0 / 100");
+        assertEquals("50e0 100e0 f/ f.", visitor.getForthSource());
     }
 
     @Test
@@ -230,8 +230,8 @@ public class InfixVisitorImplTest {
     @Test
     public void testFloatParensWithMinus() throws Exception {
 
-        runCompiler("-(-20e)");
-        assertEquals("0e -20e f- f.", visitor.getForthSource());
+        runCompiler("-(-20e0)");
+        assertEquals("0e0 -20e0 f- f.", visitor.getForthSource());
     }
 
     @Test
@@ -244,14 +244,20 @@ public class InfixVisitorImplTest {
     @Test
     public void testFloatWithE() throws Exception {
 
-        runCompiler("3e");
-        assertEquals("3e f.", visitor.getForthSource());
+        runCompiler("3e0");
+        assertEquals("3e0 f.", visitor.getForthSource());
     }
 
     @Test
     public void testFloatWithExponent() throws Exception {
         runCompiler("2e0");
         assertEquals("2e0 f.", visitor.getForthSource());
+
+    }
+    @Test
+    public void testFloatWithMinusExponent() throws Exception {
+        runCompiler("2e-10");
+        assertEquals("2e-10 f.", visitor.getForthSource());
 
     }
 

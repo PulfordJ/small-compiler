@@ -108,7 +108,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
         //If in float mode then convert to float.
         if (floatMode) {
-            return textVal + 'e';
+            return textVal + "e0";
         } else {
             return textVal;
         }
@@ -125,7 +125,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         //Convert signed parens into forms forth will understand.
         String formatString = "0 %s -";
         if (floatMode) {
-             formatString = "0e %s f-";
+             formatString = "0e0 %s f-";
         }
         return String.format(formatString, visit(ctx.parenedexpr()));
     }
