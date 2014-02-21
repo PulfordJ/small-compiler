@@ -10,12 +10,13 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | FLOAT                               #float
      | OPTIONALLYSIGNEDINT                 #optionallySignedInt
      | parenedexpr                         #nop
-     | ADD parenedexpr           #parensWithAdd
-     | SUB parenedexpr           #parensWithMinus
      ;
 
 // Parenthised expression seperated out in this grammar for modularity.
-parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens;
+parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
+     | ADD parenedexpr           #parensWithAdd
+     | SUB parenedexpr           #parensWithMinus
+     ;
 
 
 //The terminal values in my in-fix grammar

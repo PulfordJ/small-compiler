@@ -1,7 +1,8 @@
 import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 
-import java.io.IOException;
+import java.io.*;
 import java.lang.*;
 
 /**
@@ -16,7 +17,7 @@ public class FileCompiler extends Compiler {
     }
 
     @Override
-    public CharStream createCharStream() throws IOException{
+    public CharStream createCharStream() throws IOException {
         return new ANTLRFileStream(sourceFile);
     }
 }

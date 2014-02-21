@@ -15,7 +15,7 @@ public class InfixVisitorImplTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     InfixVisitorImpl visitor;
-
+    /*
     //This was to access error stream, with object abstraction this doesn't appear to work, kept for posterity, 'failing' tests commented out.
     @Before
     public void setUpStreams() {
@@ -23,11 +23,13 @@ public class InfixVisitorImplTest {
         System.setErr(new PrintStream(errContent));
     }
 
+
     @After
     public void cleanUpStreams() {
         System.setOut(null);
         System.setErr(null);
     }
+    */
 
     public void runCompiler(String source) {
        StringCompiler stringCompiler = new StringCompiler(source);
@@ -126,6 +128,68 @@ public class InfixVisitorImplTest {
 
         runCompiler("+2");
         assertEquals("2 .", visitor.getForthSource());
+    }
+    @Test
+    public void testPlusSignedNumberInParenedExpr() throws Exception {
+
+        runCompiler("( +2 + 2 )");
+        assertEquals("2 2 + .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpace() throws Exception {
+
+        runCompiler("+ 2");
+        assertEquals("2 .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpace2() throws Exception {
+
+        runCompiler("- 2");
+        assertEquals("-2 .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpaceInExpr() throws Exception {
+
+        runCompiler("+ 2 - 3");
+        assertEquals("2 3 - .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpaceInExpr2() throws Exception {
+
+        runCompiler("+ 2 + 3");
+        assertEquals("2 3 + .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumbersWithSpaceInExpr() throws Exception {
+
+        runCompiler("+ 2 + +3");
+        assertEquals("2 3 + .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpaceInExpr3() throws Exception {
+
+        runCompiler("(+ 2 + 3)");
+        assertEquals("2 3 + .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpaceInExpr4() throws Exception {
+
+        runCompiler("(2 + + 3)");
+        assertEquals("2 3 + .", visitor.getForthSource());
+    }
+
+    @Test
+    public void testSignedNumberWithSpaceInExpr5() throws Exception {
+
+        runCompiler("(+3 + + 2)");
+        assertEquals("3 2 + .", visitor.getForthSource());
     }
 
     @Test
