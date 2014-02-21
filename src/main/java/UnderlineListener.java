@@ -21,7 +21,8 @@ public class UnderlineListener extends BaseErrorListener {
 
         //If EOF found then print something more friendly
         if (isEndOfFileInMessage(msg)){
-            String friendlyEndOfFileMessage = msg.replaceAll("'<EOF>'", "at the end of the source code");
+            String friendlyEndOfFileMessage = msg.replaceAll("'<EOF>'", "the end of the source code");
+            String friendlyEndOfFileMessage = msg.replaceAll("<EOF>", "the end of the source code");
             formattedString = String.format(formatString, line, charPositionInLine, friendlyEndOfFileMessage);
         }
         //else normal prettier error message.

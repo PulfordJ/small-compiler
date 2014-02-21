@@ -185,6 +185,11 @@ public class InfixVisitorImplTest {
     }
 
     @Test
+    public void testParenedInt() throws Exception {
+        runCompiler("( 3 + 2 )");
+        assertEquals("3 2 + .", visitor.getForthSource());
+    }
+
     public void testInt() throws Exception {
         runCompiler("2");
         assertEquals("2 .", visitor.getForthSource());
