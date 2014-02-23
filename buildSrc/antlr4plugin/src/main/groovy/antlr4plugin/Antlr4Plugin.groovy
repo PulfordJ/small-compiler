@@ -61,6 +61,14 @@ public class Antlr4Plugin implements Plugin<Project> {
         project.clean << {
             println "Antlr4 cleaner runs!"
             project.delete antlr4Settings.javaSource
+        }        
+        
+        project.dependencies {
+            println "Finding dependencies..."
+            compile group: "org.antlr", name: "antlr4-runtime", version: antlr4Settings.version
+            antlr4 group: "org.antlr", name: "antlr4", version: antlr4Settings.version
+            //testCompile group: "junit", name: "junit", version: 
+
         }
         project.afterEvaluate{
         project.task('generateGrammarSource', dependsOn : 'antlrOutputDir', type :JavaExec) {
@@ -91,13 +99,7 @@ public class Antlr4Plugin implements Plugin<Project> {
             source antlr4Settings.javaSource
         }
 
-        project.task('dependencies') << {
-            println "Finding dependencies..."
-            compile group: "org.antlr", name: "antlr4-runtime", version: antlr4.version
-            antlr4 group: "org.antlr", name: "antlr4", version: antlr4.version
-            //testCompile group: "junit", name: "junit", version: 
-
-        }}
+}
         
         //def compileTask = project.tasks.withType(JavaCompile)
         //print compileTask.conventionMapping.type

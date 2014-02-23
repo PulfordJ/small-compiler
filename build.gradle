@@ -3,23 +3,6 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'antlr4'
 //TODO INCORPORATE THIS INTO PLUGIN apply from: file('gradle/idea.gradle')
-/*
-class Antlr4Plugin implements Plugin<Project> {
-    void apply(Project project) {
-        def antlr4 = project.container(Antlr4)
-        //project.extensions.create("antlr4", Antlr4PluginExtension)
-
-    }
-}
-
-class Antlr4 {
-    final String name
-
-    Antlr4(String name) {
-
-    }
-}
-*/
 
 ext.versions = [
         junit: "4.10",
@@ -38,8 +21,8 @@ repositories {
 
 dependencies {
     print "DEPENDENCIES"
-    compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
-    compile group: "org.antlr", name: "antlr4", version: versions.antlr
+    //compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
+    //antlr4 group: "org.antlr", name: "antlr4", version: versions.antlr
     testCompile group: "junit", name: "junit", version: versions.junit
     //print antlr4.output
 }
