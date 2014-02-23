@@ -44,7 +44,7 @@ configurations {
 
 dependencies {
     compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
-    compile group: "org.antlr", name: "antlr4", version: versions.antlr
+    antlr4 group: "org.antlr", name: "antlr4", version: versions.antlr
     testCompile group: "junit", name: "junit", version: versions.junit
 }
 
