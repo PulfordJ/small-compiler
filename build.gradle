@@ -20,31 +20,22 @@ shadow {
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
 }
+apply plugin: 'antlr4'
 
 ext.versions = [
         junit: "4.10",
         antlr: "4.1"
 ]
 
-ext.antlr = [
-        //grammarpackage: "org.carpediem",
-        antlrSource: 'src/main/antlr',
-        destinationDir: "src/generated/java"
-]
 
 repositories {
     mavenCentral()
 }
 
-configurations {
-    antlr4 {
-        description = "ANTLR4"
-    }
-}
 
 dependencies {
-    compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
-    antlr4 group: "org.antlr", name: "antlr4", version: versions.antlr
+    //compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
+    //antlr4 group: "org.antlr", name: "antlr4", version: versions.antlr
     testCompile group: "junit", name: "junit", version: versions.junit
 }
 
@@ -52,35 +43,7 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.10'
 }
 
-tasks.withType(Compile) {
-    options.encoding = 'UTF-8'
-}
 
-tasks.withType(Test) {
-    systemProperties = System.getProperties()
-    testLogging.showStandardStreams = true
-}
-
-task antlrOutputDir << {
-    mkdir(antlr.destinationDir)
-}
-
-task generateGrammarSource(dependsOn: antlrOutputDir, type: JavaExec) {
-    description = 'Generates Java sources from ANTLR4 grammars.'
-
-    inputs.dir file(antlr.antlrSource)
-    outputs.dir file(antlr.destinationDir)
-
-    def grammars = fileTree(antlr.antlrSource).include('**/*.g4')
-
-    main = 'org.antlr.v4.Tool'
-    classpath = configurations.antlr4
-    //def pkg = antlr.grammarpackage.replaceAll("\\.", "/")
-    def pkg = ""
-    //args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", "-package", antlr.grammarpackage, grammars.files].flatten()
-    args = ["-o", "${antlr.destinationDir}/${pkg}"/*, "-atn"*/, "-visitor", grammars.files].flatten()
-
-}
 
 run {
     if(project.hasProperty('args')) {
@@ -88,14 +51,7 @@ run {
     }
 }
 
-compileJava {
-    dependsOn generateGrammarSource
-    source antlr.destinationDir
-}
 
-clean {
-    delete antlr.destinationDir
-}
 
 jar {
     manifest.attributes("Main-Class": mainClassName)
@@ -205,3 +161,4 @@ void compileLatex(File fileToProcess) {
 
 task release(dependsOn: [build, shadowJar, genDocs]) {
 }
+
