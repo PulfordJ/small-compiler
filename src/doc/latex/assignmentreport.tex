@@ -112,7 +112,6 @@ All possible tokens:
   &| &RIGHTPAREN\\% bad spacing
   &| &FLOATEXPONENT\\% bad spacing
   &| &FLOAT\\% bad spacing
-  &| &OPTIONALLYSIGNEDINT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
 \end{tabular}}
@@ -128,8 +127,7 @@ Each individual token:
   LEFTPAREN &\Coloneqq &'('\\% bad spacing
   RIGHTPAREN &\Coloneqq &')'\\% bad spacing
   FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
-  FLOAT &\Coloneqq &OPTIONALLYSIGNEDINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
-  OPTIONALLYSIGNEDINT &\Coloneqq &( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
+  FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; ( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
 \end{tabular}}
@@ -141,13 +139,15 @@ Each individual token:
   &| &expr \; DIV \; expr\\% bad spacing
   &| &expr \; MUL \; expr\\% bad spacing
   &| &expr \; MINUS \; expr\\% bad spacing
-  &| &FLOAT\\% bad spacing
-  &| &OPTIONALLYSIGNEDINT\\% bad spacing
+  &| &MINUS \; FLOAT\\% bad spacing
+  &| &PLUS? \; FLOAT\\% bad spacing
+  &| &MINUS \; INT\\% bad spacing
+  &| &PLUS? \; INT\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
 \end{tabular}}
 \subsection{Target Language}
-A format description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements.
+A formal description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements.
 
 %Provide a formalisation of the target language in (E)BNF.
 \subsubsection{Tokens}
@@ -167,8 +167,6 @@ A format description of the target language is below note that extra language as
   &| &POP\\% bad spacing
   &| &FLOATEXPONENT\\% bad spacing
   &| &FLOAT\\% bad spacing
-  &| &OPTIONALLYMINUSINT\\% bad spacing
-  &| &OPTIONALLYSIGNEDINT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
   &| &SEPERATOR\\% bad spacing
@@ -188,9 +186,7 @@ A format description of the target language is below note that extra language as
   FLOATMINUS &\Coloneqq &'f-'\\% bad spacing
   FLOATPOP &\Coloneqq &'f.'\\% bad spacing
   FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
-  FLOAT &\Coloneqq &OPTIONALLYMINUSINT \; FLOATEXPONENT \; OPTIONALLYSIGNEDINT\\% bad spacing
-  OPTIONALLYMINUSINT &\Coloneqq &MINUS? \; INT\\% bad spacing
-  OPTIONALLYSIGNEDINT &\Coloneqq &( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
+  FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; ( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
   SEPERATOR &\Coloneqq &'\ '\\% bad spacing
@@ -206,19 +202,21 @@ Whilst not strictly true I've modeled the grammar of Forth as one that will eith
   &| &expr \; expr \; DIV\\% bad spacing
   &| &expr \; expr \; MUL\\% bad spacing
   &| &expr \; expr \; MINUS\\% bad spacing
-  &| &OPTIONALLYMINUSINT\\% bad spacing
+  &| &MINUS \; INT\\% bad spacing
+  &| &PLUS? \; INT\\% bad spacing
   floatexpr &\Coloneqq & floatexpr \; floatexpr \; FLOATPLUS\\
   &| &floatexpr \; floatexpr \; FLOATDIV\\% bad spacing
   &| &floatexpr \; floatexpr \; FLOATMUL\\% bad spacing
   &| &floatexpr \; floatexpr \; FLOATMINUS\\% bad spacing
-  &| &FLOAT\\% bad spacing
+  &| &MINUS \; FLOAT\\% bad spacing
+  &| &PLUS? \; FLOAT\\% bad spacing
 \end{tabular}}
 \section{Translation}
 \subsection{Tokens}
-If a FLOAT or expr.OPTIONALLYSIGNEDINT has a plus sign prefix then the prefix is discarded in translation. This is implicit in the translation of terminals from source FLOAT to target FLOAT and from source OPTIONALLYSIGNEDINT to target OPTIONALLYMINUSINT.
+Rather than cover tokens seperately I simply cover their translation in the expression section for brevity. 
 \subsection{Expression}
 
-The rule tables follow. The first column signifies the production rule. The second is how it is represented in the source language. The third is the semantic rule for that particular representation i.e the order the nodes are visited and the output of that production rule traversal which results in a Forth compatible grammar. The terminals in this column refer to forth terminals. Non-terminals refer to the source language.
+The rule tables follow. The first column signifies the production rule. The second is how it is represented in the source language. The third is the semantic rule for that particular representation i.e the order the nodes are visited and the output of that production rule traversal which results in a Forth compatible grammar. The terminals in this column refer to forth terminals. Non-terminals refer to the source language. (Although both languages have the exact same terminals).
 
 There are also are two versions of the syntax directed translation. One when at least one floating number exists in the source and one when they do not.
 
@@ -232,8 +230,10 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATDIV\\% bad spacing
   &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMUL\\% bad spacing
   &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMINUS\\% bad spacing
-  &| &FLOAT&FLOAT\\% bad spacing
-  &| &OPTIONALLYSIGNEDINT&FLOAT(OPTIONALLYMINUSINT'e0')\\% bad spacing
+  &| &MINUS \; FLOAT&MINUS \;FLOAT\\% bad spacing
+  &| &ADD? \; FLOAT&FLOAT\\% bad spacing
+  &| &MINUS \; INT&MINUS \; FLOAT(INT'e0')\\% bad spacing
+  &| &ADD? \; INT&FLOAT(INT'e0')\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0e0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
 \end{tabular}}
@@ -248,7 +248,8 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; DIV\\% bad spacing
   &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MUL\\% bad spacing
   &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MINUS\\% bad spacing
-  &| &OPTIONALLYSIGNEDINT&OPTIONALLYMINUSINT\\% bad spacing
+  &| &MINUS \; INT&MINUS \; INT\\% bad spacing
+  &| &ADD? \; INT&INT\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
 \end{tabular}}
@@ -285,11 +286,12 @@ line. Precedence is implicit; ANTLR4 uses the first matching production rule whe
 
 Less significantly other tools were applied but mainly applied to the work flow. 
 \begin{itemize}
-    \item Junit was used for unit testing compiler output against target language output.
+    \item JUnit was used for unit testing compiler output against target language output.
     \item Gradle was used for the build script, it compiles the ANTLR files, then my java files, then unit tests them, packages up the program as a jar and finally runs it with my specified arguments. 
     \item An awaiting-approval plugin for Gradle known as shadowJar which generates fat jars; jars that contain all of their dependencies.
-    \item A crude attempt at an ANTLR4 plugin for Gradle from Github was used to facilitate the build script's existence.
-    \item A equally crude attempt at an LaTeX plugin for Gradle from Github was used to facilitate the build script's existence (And improved upon).
+    \item A crude attempt at an ANTLR4 plugin for Gradle from Github was transformed into an actual gradle plugin and used to facilitate the build script's existence.
+    \item A equally crude attempt at an LaTeX plugin for Gradle from Github was transformed into an actual gradle plugin to facilitate the build script's existence (And improved upon).
+    \item These plugins implementations can be found inside buildSrc/. They were written when it became evident that LaTeX and ANTLR4 would be part of third year project build script, they'll be made open source once both deadlines have passed.
 \end{itemize}
 
 \subsection{Extended Features}
@@ -301,6 +303,8 @@ The following has been implemented;
         Integers are converted into floats when floats are in the equation; the lexer is applied twice to achieve this.
     \item[Helpful and informative error messages]
         Errors are underlined, unless found at the last line (Because those underlines are rarely useful.) In addition ANTLR4's condensed error messages have been reworded. ANTLR4 also has built in capabilities to continue checking for errors in the code despite running into one.
+    \item[Immune to whitespace]
+       Whitespace doesn't matter, check the unit tests for whacky spacing examples. This required a specific structuring of the grammar because in antlr4 you cannot implicitly ignore whitespace inside terminals (Which is why there are no signed numbers as terminals). 
 \end{description}
 
 Code has been divided, code inside:
@@ -318,5 +322,11 @@ src -> main
 src -> test
 \end{quotation}
 was written by me, this code also contains comments for further information.
+
+Code that is inside:
+\begin{quotation}
+buildSrc
+\end{quotation}
+was written by me, this is the code for the aforementioned plugins I developed and is not of particular importance.
 
 \end{document}
