@@ -49,6 +49,20 @@ public class Antlr4Plugin implements Plugin<Project> {
         */
         
 
+        
+        /*
+        project.tasks.findByPath('compileJava') {
+            print "ADD DEPENDENCY TO GRAMMARSOURCE FROM COMPILEJAVA"
+            dependsOn generateGrammarSource
+            source antlr4Settings.output
+        }
+        */
+
+        project.clean << {
+            println "Antlr4 cleaner runs!"
+            project.delete antlr4Settings.javaSource
+        }
+        project.afterEvaluate{
         project.task('generateGrammarSource', dependsOn : 'antlrOutputDir', type :JavaExec) {
             println "COMMENCE GRAMMAR SOURCE GENERATION."
             //dependsOn 'antlrOutputDir'
@@ -61,7 +75,7 @@ public class Antlr4Plugin implements Plugin<Project> {
 
             main = 'org.antlr.v4.Tool'
             println "BEFORE CLASSPATH: "+classpath.getAsPath()
-            println "ANTLR4 config: "+project.configurations.antlr4
+            println "ANTLR4 config: "+project.configurations.antlr4.allArtifacts
             classpath = project.configurations.antlr4
             println "AFTER CLASSPATH"
             //classpath = "ANTLR4"
@@ -76,26 +90,15 @@ public class Antlr4Plugin implements Plugin<Project> {
             dependsOn project.generateGrammarSource
             source antlr4Settings.javaSource
         }
-        
-        /*
-        project.tasks.findByPath('compileJava') {
-            print "ADD DEPENDENCY TO GRAMMARSOURCE FROM COMPILEJAVA"
-            dependsOn generateGrammarSource
-            source antlr4Settings.output
-        }
-        */
-
-        project.clean << {
-            println "Antlr4 cleaner runs!"
-            project.delete antlr4Settings.javaSource
-        }
 
         project.task('dependencies') << {
+            println "Finding dependencies..."
             compile group: "org.antlr", name: "antlr4-runtime", version: antlr4.version
             antlr4 group: "org.antlr", name: "antlr4", version: antlr4.version
             //testCompile group: "junit", name: "junit", version: 
 
-        }
+        }}
+        
         //def compileTask = project.tasks.withType(JavaCompile)
         //print compileTask.conventionMapping.type
         //compileTask.options.encoding = 'UTF-8'

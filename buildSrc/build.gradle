@@ -2,10 +2,19 @@
         mavenCentral()
     }
 subprojects {
+repositories {
+    mavenCentral()
+}
     apply plugin: "groovy"
+    ext.versions = [
+            junit: "4.10",
+            antlr: "4.1"
+    ]
 
 
     dependencies {
+    compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
+    compile group: "org.antlr", name: "antlr4", version: versions.antlr
         compile localGroovy()
             compile gradleApi()
     }
