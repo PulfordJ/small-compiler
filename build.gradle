@@ -58,8 +58,6 @@ jar {
 
 
  
-apply plugin: 'groovy'
- 
  
 apply plugin: 'pdflatex'
 
