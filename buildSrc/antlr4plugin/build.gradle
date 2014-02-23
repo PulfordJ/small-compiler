@@ -1,0 +1,21 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+ext.versions = [
+        junit: "4.10",
+        antlr: "4.1"
+]
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: "junit", name: "junit", version: versions.junit
+}
+
