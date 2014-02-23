@@ -5,10 +5,12 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.JavaExec
+import org.gradle.api.plugins.JavaPlugin
 
 public class Antlr4Plugin implements Plugin<Project> {
 
     void apply(Project project) {
+        project.plugins.apply JavaPlugin
 
         project.mainClassName = "InfixToPostfixRunner"
 
@@ -33,6 +35,7 @@ public class Antlr4Plugin implements Plugin<Project> {
         }
 
         project.tasks.create('antlrOutputDir') {
+            println "Building output dir for antlr."
             project.mkdir(antlr4Settings.javaSource)
         }
 
@@ -57,7 +60,8 @@ public class Antlr4Plugin implements Plugin<Project> {
             def grammars = project.fileTree(antlr4Settings.antlrSource).include('**/*.g4')
 
             main = 'org.antlr.v4.Tool'
-            println "BEFORE CLASSPATH"
+            println "BEFORE CLASSPATH: "+classpath.getAsPath()
+            println "ANTLR4 config: "+project.configurations.antlr4
             classpath = project.configurations.antlr4
             println "AFTER CLASSPATH"
             //classpath = "ANTLR4"
@@ -68,26 +72,30 @@ public class Antlr4Plugin implements Plugin<Project> {
             args = ["-o", "${antlr4Settings.javaSource}/${pkg}"/*, "-atn"*/, "-visitor", grammars.files].flatten()
 
         }
+        project.compileJava {
+            dependsOn project.generateGrammarSource
+            source antlr4Settings.javaSource
+        }
         
+        /*
         project.tasks.findByPath('compileJava') {
             print "ADD DEPENDENCY TO GRAMMARSOURCE FROM COMPILEJAVA"
             dependsOn generateGrammarSource
             source antlr4Settings.output
         }
+        */
 
-        project.tasks.findByPath('clean') {
+        project.clean << {
             println "Antlr4 cleaner runs!"
             project.delete antlr4Settings.javaSource
         }
 
-        /*
         project.task('dependencies') << {
             compile group: "org.antlr", name: "antlr4-runtime", version: antlr4.version
             antlr4 group: "org.antlr", name: "antlr4", version: antlr4.version
             //testCompile group: "junit", name: "junit", version: 
 
         }
-        */
         //def compileTask = project.tasks.withType(JavaCompile)
         //print compileTask.conventionMapping.type
         //compileTask.options.encoding = 'UTF-8'

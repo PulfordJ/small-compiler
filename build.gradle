@@ -35,11 +35,6 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    antlr4 {
-        description = "ANTLR4"
-    }
-}
 
 dependencies {
     compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
