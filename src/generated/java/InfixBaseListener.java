@@ -42,6 +42,19 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterSequence(@NotNull InfixParser.SequenceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSequence(@NotNull InfixParser.SequenceContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}

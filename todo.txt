@@ -21,7 +21,12 @@ a@ 3 = IF BODY ENDIF
 
 IF a = 3 THEN BODY ELSE BODY
 
-A@ 3 = IF BODY ELSE BODY ENDIF
+a@ 3 = IF BODY ELSE BODY ENDIF
+
+
+while a < 3 do BODY
+BEGIN a@ 3 < while BODY REPEAT
+
 
 
 View variable value: a ?

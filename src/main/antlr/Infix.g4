@@ -4,6 +4,14 @@ grammar Infix;
 //ANTLR4 needs this to process certain types of left recursive grammar.
 start : expr                             #printExpr
      ;
+sequence : (expr) sequence?
+         ;
+
+boolean : expr EQUALS expr
+        | expr GREATERTHAN expr
+        | expr LESSTHAN expr
+        | expr NOTEQUALS expr
+        ;
 
 expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub

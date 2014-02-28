@@ -21,9 +21,9 @@ public class InfixParser extends Parser {
 		"OPTIONALLYSIGNEDINT", "INT", "WS"
 	};
 	public static final int
-		RULE_start = 0, RULE_expr = 1, RULE_parenedexpr = 2;
+		RULE_start = 0, RULE_sequence = 1, RULE_expr = 2, RULE_parenedexpr = 3;
 	public static final String[] ruleNames = {
-		"start", "expr", "parenedexpr"
+		"start", "sequence", "expr", "parenedexpr"
 	};
 
 	@Override
@@ -80,7 +80,61 @@ public class InfixParser extends Parser {
 			_localctx = new PrintExprContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(6); expr(0);
+			setState(8); expr(0);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class SequenceContext extends ParserRuleContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public SequenceContext sequence() {
+			return getRuleContext(SequenceContext.class,0);
+		}
+		public SequenceContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_sequence; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).enterSequence(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InfixListener ) ((InfixListener)listener).exitSequence(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InfixVisitor ) return ((InfixVisitor<? extends T>)visitor).visitSequence(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final SequenceContext sequence() throws RecognitionException {
+		SequenceContext _localctx = new SequenceContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_sequence);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(10); expr(0);
+			setState(12);
+			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
+			case 1:
+				{
+				setState(11); sequence();
+				}
+				break;
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -235,14 +289,14 @@ public class InfixParser extends Parser {
 		int _parentState = getState();
 		ExprContext _localctx = new ExprContext(_ctx, _parentState, _p);
 		ExprContext _prevctx = _localctx;
-		int _startState = 2;
+		int _startState = 4;
 		enterRecursionRule(_localctx, RULE_expr);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
+			setState(22);
 			switch (_input.LA(1)) {
 			case FLOAT:
 				{
@@ -250,7 +304,7 @@ public class InfixParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(9); match(FLOAT);
+				setState(15); match(FLOAT);
 				}
 				break;
 			case OPTIONALLYSIGNEDINT:
@@ -258,7 +312,7 @@ public class InfixParser extends Parser {
 				_localctx = new OptionallySignedIntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(10); match(OPTIONALLYSIGNEDINT);
+				setState(16); match(OPTIONALLYSIGNEDINT);
 				}
 				break;
 			case LEFTPAREN:
@@ -266,7 +320,7 @@ public class InfixParser extends Parser {
 				_localctx = new NopContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(11); parenedexpr();
+				setState(17); parenedexpr();
 				}
 				break;
 			case ADD:
@@ -274,8 +328,8 @@ public class InfixParser extends Parser {
 				_localctx = new ParensWithAddContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(12); match(ADD);
-				setState(13); parenedexpr();
+				setState(18); match(ADD);
+				setState(19); parenedexpr();
 				}
 				break;
 			case SUB:
@@ -283,39 +337,39 @@ public class InfixParser extends Parser {
 				_localctx = new ParensWithMinusContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(14); match(SUB);
-				setState(15); parenedexpr();
+				setState(20); match(SUB);
+				setState(21); parenedexpr();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(26);
+			setState(32);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(24);
-					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+					setState(30);
+					switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MulDivAddSubContext(new ExprContext(_parentctx, _parentState, _p));
 						((MulDivAddSubContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(18);
+						setState(24);
 						if (!(7 >= _localctx._p)) throw new FailedPredicateException(this, "7 >= $_p");
-						setState(19);
+						setState(25);
 						((MulDivAddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MUL || _la==DIV) ) {
 							((MulDivAddSubContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(20); ((MulDivAddSubContext)_localctx).right = expr(8);
+						setState(26); ((MulDivAddSubContext)_localctx).right = expr(8);
 						}
 						break;
 
@@ -324,24 +378,24 @@ public class InfixParser extends Parser {
 						_localctx = new MulDivAddSubContext(new ExprContext(_parentctx, _parentState, _p));
 						((MulDivAddSubContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(21);
+						setState(27);
 						if (!(6 >= _localctx._p)) throw new FailedPredicateException(this, "6 >= $_p");
-						setState(22);
+						setState(28);
 						((MulDivAddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==ADD || _la==SUB) ) {
 							((MulDivAddSubContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(23); ((MulDivAddSubContext)_localctx).right = expr(7);
+						setState(29); ((MulDivAddSubContext)_localctx).right = expr(7);
 						}
 						break;
 					}
 					} 
 				}
-				setState(28);
+				setState(34);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
 			}
 		}
@@ -391,14 +445,14 @@ public class InfixParser extends Parser {
 
 	public final ParenedexprContext parenedexpr() throws RecognitionException {
 		ParenedexprContext _localctx = new ParenedexprContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_parenedexpr);
+		enterRule(_localctx, 6, RULE_parenedexpr);
 		try {
 			_localctx = new ParensContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(29); match(LEFTPAREN);
-			setState(30); expr(0);
-			setState(31); match(RIGHTPAREN);
+			setState(35); match(LEFTPAREN);
+			setState(36); expr(0);
+			setState(37); match(RIGHTPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -414,7 +468,7 @@ public class InfixParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 1: return expr_sempred((ExprContext)_localctx, predIndex);
+		case 2: return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -428,17 +482,18 @@ public class InfixParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r$\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\23\n\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\7\3\33\n\3\f\3\16\3\36\13\3\3\4\3\4\3\4\3\4\3\4\2\5\2"+
-		"\4\6\2\4\3\2\3\4\3\2\5\6&\2\b\3\2\2\2\4\22\3\2\2\2\6\37\3\2\2\2\b\t\5"+
-		"\4\3\2\t\3\3\2\2\2\n\13\b\3\1\2\13\23\7\n\2\2\f\23\7\13\2\2\r\23\5\6\4"+
-		"\2\16\17\7\5\2\2\17\23\5\6\4\2\20\21\7\6\2\2\21\23\5\6\4\2\22\n\3\2\2"+
-		"\2\22\f\3\2\2\2\22\r\3\2\2\2\22\16\3\2\2\2\22\20\3\2\2\2\23\34\3\2\2\2"+
-		"\24\25\6\3\2\3\25\26\t\2\2\2\26\33\5\4\3\2\27\30\6\3\3\3\30\31\t\3\2\2"+
-		"\31\33\5\4\3\2\32\24\3\2\2\2\32\27\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2"+
-		"\34\35\3\2\2\2\35\5\3\2\2\2\36\34\3\2\2\2\37 \7\7\2\2 !\5\4\3\2!\"\7\b"+
-		"\2\2\"\7\3\2\2\2\5\22\32\34";
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\r*\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\3\2\3\2\3\3\3\3\5\3\17\n\3\3\4\3\4\3\4\3\4\3\4\3\4"+
+		"\3\4\3\4\5\4\31\n\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4!\n\4\f\4\16\4$\13\4\3"+
+		"\5\3\5\3\5\3\5\3\5\2\6\2\4\6\b\2\4\3\2\3\4\3\2\5\6,\2\n\3\2\2\2\4\f\3"+
+		"\2\2\2\6\30\3\2\2\2\b%\3\2\2\2\n\13\5\6\4\2\13\3\3\2\2\2\f\16\5\6\4\2"+
+		"\r\17\5\4\3\2\16\r\3\2\2\2\16\17\3\2\2\2\17\5\3\2\2\2\20\21\b\4\1\2\21"+
+		"\31\7\n\2\2\22\31\7\13\2\2\23\31\5\b\5\2\24\25\7\5\2\2\25\31\5\b\5\2\26"+
+		"\27\7\6\2\2\27\31\5\b\5\2\30\20\3\2\2\2\30\22\3\2\2\2\30\23\3\2\2\2\30"+
+		"\24\3\2\2\2\30\26\3\2\2\2\31\"\3\2\2\2\32\33\6\4\2\3\33\34\t\2\2\2\34"+
+		"!\5\6\4\2\35\36\6\4\3\3\36\37\t\3\2\2\37!\5\6\4\2 \32\3\2\2\2 \35\3\2"+
+		"\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#\7\3\2\2\2$\"\3\2\2\2%&\7\7\2\2&"+
+		"\'\5\6\4\2\'(\7\b\2\2(\t\3\2\2\2\6\16\30 \"";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

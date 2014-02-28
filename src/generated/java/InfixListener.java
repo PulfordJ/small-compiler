@@ -30,6 +30,17 @@ public interface InfixListener extends ParseTreeListener {
 	void exitPrintExpr(@NotNull InfixParser.PrintExprContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link InfixParser#sequence}.
+	 * @param ctx the parse tree
+	 */
+	void enterSequence(@NotNull InfixParser.SequenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#sequence}.
+	 * @param ctx the parse tree
+	 */
+	void exitSequence(@NotNull InfixParser.SequenceContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link InfixParser#parensWithMinus}.
 	 * @param ctx the parse tree
 	 */
