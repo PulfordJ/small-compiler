@@ -25,11 +25,19 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitPrintExpr(@NotNull InfixParser.PrintExprContext ctx);
 
 	/**
+<<<<<<< HEAD
 	 * Visit a parse tree produced by {@link InfixParser#subFloat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSubFloat(@NotNull InfixParser.SubFloatContext ctx);
+=======
+	 * Visit a parse tree produced by {@link InfixParser#sequence}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSequence(@NotNull InfixParser.SequenceContext ctx);
+>>>>>>> feature/assignment_2
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#parensWithMinus}.

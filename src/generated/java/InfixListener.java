@@ -30,6 +30,7 @@ public interface InfixListener extends ParseTreeListener {
 	void exitPrintExpr(@NotNull InfixParser.PrintExprContext ctx);
 
 	/**
+<<<<<<< HEAD
 	 * Enter a parse tree produced by {@link InfixParser#subFloat}.
 	 * @param ctx the parse tree
 	 */
@@ -39,6 +40,17 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSubFloat(@NotNull InfixParser.SubFloatContext ctx);
+=======
+	 * Enter a parse tree produced by {@link InfixParser#sequence}.
+	 * @param ctx the parse tree
+	 */
+	void enterSequence(@NotNull InfixParser.SequenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#sequence}.
+	 * @param ctx the parse tree
+	 */
+	void exitSequence(@NotNull InfixParser.SequenceContext ctx);
+>>>>>>> feature/assignment_2
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#parensWithMinus}.

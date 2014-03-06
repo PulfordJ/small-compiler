@@ -42,13 +42,21 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+<<<<<<< HEAD
 	@Override public void enterSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+=======
+	@Override public void enterSequence(@NotNull InfixParser.SequenceContext ctx) { }
+>>>>>>> feature/assignment_2
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+<<<<<<< HEAD
 	@Override public void exitSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+=======
+	@Override public void exitSequence(@NotNull InfixParser.SequenceContext ctx) { }
+>>>>>>> feature/assignment_2
 
 	/**
 	 * {@inheritDoc}

@@ -33,7 +33,11 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
+<<<<<<< HEAD
 	@Override public T visitSubFloat(@NotNull InfixParser.SubFloatContext ctx) { return visitChildren(ctx); }
+=======
+	@Override public T visitSequence(@NotNull InfixParser.SequenceContext ctx) { return visitChildren(ctx); }
+>>>>>>> feature/assignment_2
 
 	/**
 	 * {@inheritDoc}

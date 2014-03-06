@@ -1,0 +1,65 @@
+variables -a 
+
+expressions - 3 + a
+assigments - 3 = 3
+            3 + b
+boolean - a = 3 boolean operators, ==, =>, <=, <, > != | t | f | b or b |b and b not b
+conditions -> if boolean then sequence endif
+whileloops -> while boolean do sequence endif
+sequence -> expression+
+
+FORTH:
+VARIABLE your-var # assigns address for storing value
+
+Source: a = c + 2
+Check equality: a @ 3 =
+Target: c @ 2 + a !o
+
+IF a = 3 THEN BODY
+a@ 3 = IF BODY ENDIF 
+       ^branch
+
+IF a = 3 THEN BODY ELSE BODY
+
+a@ 3 = IF BODY ELSE BODY ENDIF
+
+
+while a < 3 do BODY
+BEGIN a@ 3 < while BODY REPEAT
+
+
+
+View variable value: a ?
+
+
+FUNCTIONS
+a = f(x, y);
+
+=
+
+x@
+y@
+f
+a!
+
+handle symbol table of function names -> argument number AND TYPE!?!?!.
+
+def f(c int, d int) {
+
+...
+}
+
+=
+
+[DECLAREDSOMEWERE] - Could maybe put in label?, if not rename. For example __fc __fd
+variable c
+variable d
+[ENDDECLAREDSOMEWHERE]
+d!
+c!
+
+:f
+...
+;
+
+LOCAL VARIABLES.
