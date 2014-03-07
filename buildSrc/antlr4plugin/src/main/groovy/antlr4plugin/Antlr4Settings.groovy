@@ -8,7 +8,7 @@ import org.gradle.api.tasks.testing.Test
 public class Antlr4Settings  {
     def String grammarpackage = ""
     def String antlrSource = 'src/main/antlr'
-    def String javaSource = "src/generated-sources/java"
+    def String javaSource = "src/generated/java"
     def version = "4.1"
     /*
     final String name

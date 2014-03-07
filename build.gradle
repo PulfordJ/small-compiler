@@ -2,6 +2,7 @@ description = "Compiles ANTLR4, generates LaTeX documentation, tests AND builds 
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
+apply plugin: 'antlr4'
 //apply from: file('gradle/idea.gradle')
 mainClassName = "InfixRunner"
 
@@ -20,7 +21,6 @@ shadow {
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
 }
-apply plugin: 'antlr4'
 
 ext.versions = [
         junit: "4.10",

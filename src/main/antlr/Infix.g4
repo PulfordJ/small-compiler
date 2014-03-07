@@ -2,9 +2,10 @@
 grammar Infix;
 
 //ANTLR4 needs this to process certain types of left recursive grammar.
-start : expr                             #printExpr
+start : sequence                             #boilerplate
      ;
-sequence : (expr) sequence?
+
+sequence : (expr) sequence? #printExpr
          ;
 
 bool : expr EQUALS expr
@@ -15,6 +16,7 @@ bool : expr EQUALS expr
 
 expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
+     | VARIABLE ASSIGN expr              #assignVariable
      | ADD? FLOAT                           #float
      | SUB FLOAT                           #subFloat
      | ADD? INT                 #optionallySignedInt
@@ -34,6 +36,7 @@ parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
 Note the commented out terminal for OPTIONALLYSINGEDINT, if it was uncommented and factored out of the parser spacing tests would not pass...
 and explicitly stating the consumption of any spaces leads to "3 + 2" being interpreted as 3 = INT "+ 2" = OPTIONALLYSIGNEDINT; leading to an error...
 */
+ASSIGN : ':=' ;
 EQUALS : '=' ;
 GREATERTHAN : '>' ;
 LESSTHAN : '<' ;
@@ -46,6 +49,7 @@ LEFTPAREN : '(' ;
 RIGHTPAREN : ')' ;
 FLOATEXPONENT : 'e' ;
 FLOAT : INT FLOATEXPONENT (ADD|SUB)? INT ;
+VARIABLE : [A-z]+ ;
 //OPTIONALLYSIGNEDINT : (ADD|SUB)? INT ;
 INT : [0-9]+ ;
 WS : [ \t\r\n]+ -> skip ;

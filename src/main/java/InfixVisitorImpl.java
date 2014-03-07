@@ -13,9 +13,18 @@ import java.util.Arrays;
  */
 public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     String forthSource = "";
-    InfixParser.PrintExprContext rootCtx;
+    InfixParser.BoilerplateContext rootCtx;
     private boolean floatMode;
     Parser parser;
+
+    @Override
+    public String visitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) {
+        String formatString = ": program %s ; program";
+
+        forthSource = String.format(formatString, visit(ctx.sequence()));
+        rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
+        return super.visitBoilerplate(ctx);    //To change body of overridden methods use File | Settings | File Templates.
+    }
 
     /* Fully built string, printout. */
     @Override
@@ -27,10 +36,9 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
             formatString = "%s f.";
         }
 
-        forthSource = String.format(formatString, visit(ctx.expr()));
-        rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
-        return forthSource;
+        return String.format(formatString, visit(ctx.expr()));
     }
+
     @Override
     public String visitMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx) {
         //Visit the expressions around the sign
@@ -118,6 +126,11 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     public String visitParens(@NotNull InfixParser.ParensContext ctx) {
         //Ignore the paren terminals, postfix won't need it.
         return visit(ctx.expr());
+    }
+
+    @Override
+    public String visitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) {
+        return super.visitParensWithAdd(ctx);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override

@@ -12,8 +12,9 @@ FORTH:
 VARIABLE your-var # assigns address for storing value
 
 Source: a = c + 2
+Target: c @ 2 + a !
+
 Check equality: a @ 3 =
-Target: c @ 2 + a !o
 
 IF a = 3 THEN BODY
 a@ 3 = IF BODY ENDIF 
