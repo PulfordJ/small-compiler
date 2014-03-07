@@ -11,36 +11,17 @@ import java.util.Arrays;
  * Date: 1/24/14
  * Time: 12:47 PM
  */
-public class InfixVisitorImpl extends InfixBaseVisitor<String> {
+public class DeclarationVisitor extends InfixBaseVisitor<String> {
     String forthSource = "";
     InfixParser.BoilerplateContext rootCtx;
     private boolean floatMode;
     Parser parser;
 
     @Override
-    public String visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
-        String formatString = "0 { %s }";
-
-        return String.format(formatString, ctx.VARIABLE().getText());
-    }
-
-    /*
-    @Override
-    public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
-    }
-    */
-
-    @Override
     public String visitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) {
         String formatString = ": program %s ; program";
 
-        //Iterate through all sequences.
-        int count = ctx.sequence().getChildCount();
-        String innerSource = visit(ctx.sequence().getChild(0));
-        for (int i = 1; i < count; i++) {
-            innerSource += " "+ visit(ctx.sequence().getChild(i));
-        }
-        forthSource = String.format(formatString, innerSource);
+        forthSource = String.format(formatString, visit(ctx.sequence()));
         rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
         return super.visitBoilerplate(ctx);    //To change body of overridden methods use File | Settings | File Templates.
     }
@@ -106,22 +87,6 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-    }
-
-    @Override
-    public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
-        String formatString = "%s .";
-        return String.format(formatString, ctx.VARIABLE().getText());    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public String visitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
-        return "-"+ctx.VARIABLE().getText();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
-        return ctx.VARIABLE().getText();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override

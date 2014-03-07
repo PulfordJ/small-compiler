@@ -25,6 +25,13 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link InfixParser#subVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubVariable(@NotNull InfixParser.SubVariableContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link InfixParser#parensWithMinus}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -39,18 +46,18 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitParens(@NotNull InfixParser.ParensContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link InfixParser#declareIntVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link InfixParser#float}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFloat(@NotNull InfixParser.FloatContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#nop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNop(@NotNull InfixParser.NopContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
@@ -60,18 +67,18 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#optionallySignedInt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixParser#parensWithAdd}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#optionallySignedInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#printExpr}.
@@ -88,6 +95,20 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSubFloat(@NotNull InfixParser.SubFloatContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link InfixParser#sequence}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSequence(@NotNull InfixParser.SequenceContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#parensnop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParensnop(@NotNull InfixParser.ParensnopContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link InfixParser#boilerplate}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -100,4 +121,11 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBool(@NotNull InfixParser.BoolContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(@NotNull InfixParser.VariableContext ctx);
 }

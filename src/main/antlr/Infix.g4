@@ -5,8 +5,12 @@ grammar Infix;
 start : sequence                             #boilerplate
      ;
 
-sequence : (expr) sequence? #printExpr
+sequence : exprToPrint sequence?
+         | declarations sequence?
          ;
+
+exprToPrint : expr #printExpr
+            ;
 
 bool : expr EQUALS expr
         | expr GREATERTHAN expr
@@ -14,14 +18,19 @@ bool : expr EQUALS expr
         | expr NOTEQUALS expr
         ;
 
+declarations : INTTYPE VARIABLE      #declareIntVariable
+             ;
+
 expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
      | VARIABLE ASSIGN expr              #assignVariable
+     | ADD? VARIABLE                           #variable
+     | SUB VARIABLE                           #subVariable
      | ADD? FLOAT                           #float
      | SUB FLOAT                           #subFloat
      | ADD? INT                 #optionallySignedInt
      | SUB INT                 #subOptionallySignedInt
-     | parenedexpr                         #nop
+     | parenedexpr                         #parensnop
      | ADD parenedexpr           #parensWithAdd
      | SUB parenedexpr           #parensWithMinus
      ;
@@ -49,6 +58,7 @@ LEFTPAREN : '(' ;
 RIGHTPAREN : ')' ;
 FLOATEXPONENT : 'e' ;
 FLOAT : INT FLOATEXPONENT (ADD|SUB)? INT ;
+INTTYPE : 'int' ;
 VARIABLE : [A-z]+ ;
 //OPTIONALLYSIGNEDINT : (ADD|SUB)? INT ;
 INT : [0-9]+ ;
