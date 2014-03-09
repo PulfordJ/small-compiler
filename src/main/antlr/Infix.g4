@@ -2,18 +2,18 @@
 grammar Infix;
 
 //ANTLR4 needs this to process certain types of left recursive grammar.
-start : sequence                             #boilerplate
+start : func* sequence func*                             #boilerplate
      ;
 
-sequence : declaration* statement*
+sequence : (declaration SEMICOLON?)* statement*
          ;
 
 statement : loop #statementnop
           | conditional #statementConditional
           | assignment SEMICOLON #statementAssign
           | expr SEMICOLON #statementExpr
-          | func #funcExpr
             ;
+
 
 assignment : ID ASSIGN expr              #assignVariable
            ;
@@ -27,17 +27,26 @@ bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS) expr #boolExpr
      ;
 
 
-declaration : INTTYPE ID      #declareIntVariable
+declaration : valueType ID      #declareIntVariable
              ;
+valueType : INTTYPE
+         ;
 
 conditional : IF LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence RIGHTCURLY  #ifStatement
              | IF LEFTPAREN bool RIGHTPAREN LEFTCURLY trueSequence=sequence RIGHTCURLY ELSE LEFTCURLY falseSequence=sequence RIGHTCURLY  #ifElseStatement
              ;
 
-func : DEF ID LEFTPAREN ID RIGHTPAREN LEFTCURLY sequence RIGHTCURLY #function.
+func : DEF funcName=ID LEFTPAREN funcArgs? RIGHTPAREN LEFTCURLY sequence RIGHTCURLY #function
      ;
 
-DEF : 'def';
+funcArgs : funcArgDeclaration+
+         ;
+funcArgDeclaration : valueType ID      #declareFuncArg
+                   ;
+
+funcCall : ID LEFTPAREN expr(COMMA expr)* RIGHTPAREN #functionCall
+        ;
+
 
 loop: WHILE LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence RIGHTCURLY   #whileLoop
     ;
@@ -53,6 +62,7 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | parenedexpr                         #parensnop
      | ADD parenedexpr           #parensWithAdd
      | SUB parenedexpr           #parensWithMinus
+     | funcCall                  #exprnop
      ;
 
 // Parenthised expression seperated out in this grammar for modularity.
@@ -92,4 +102,6 @@ OR : 'or';
 AND : 'and';
 ELSE : 'else';
 WHILE : 'while';
+DEF : 'def';
+COMMA: ',';
 ID : [A-z]+ ;

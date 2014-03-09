@@ -43,7 +43,7 @@ public class InfixVisitorImplTest {
     public void testFunctionDefAndCallOneArgument() throws Exception {
 
         runCompiler("def f(int a) { a * 2; } f(2);");
-        assertEquals("variable a : f { a } a 2 * . ; : program 2 f ; program", visitor.getForthSource());
+        assertEquals("variable a : f { a } a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
     }
 
     @Test

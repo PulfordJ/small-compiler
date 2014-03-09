@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,6 +45,52 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         return "";
     }
 
+    @Override
+    public String visitFunction(@NotNull InfixParser.FunctionContext ctx) {
+        //TODO check that funciotn name isnt' bieng used by variable.
+        String formatString = ": %s { %s } %s ;";
+        String name = ctx.funcName.getText();
+        String arguments = visit(ctx.funcArgs());
+        String body = visit(ctx.sequence());
+
+        return String.format(formatString, name, arguments, body);
+    }
+
+    @Override
+    public String visitFunctionCall(@NotNull InfixParser.FunctionCallContext ctx) {
+        String formatString = "%s %s";
+
+        String funcArgs = "";
+
+        Iterator<InfixParser.ExprContext> it =  ctx.expr().iterator();
+        while (it.hasNext()) {
+            funcArgs += it.next().getText();
+            funcArgs += " ";
+        }
+        funcArgs = funcArgs.substring(0, funcArgs.length()-1);
+        String name = ctx.ID().getText();
+
+
+        return String.format(formatString, funcArgs, name);
+    }
+
+    @Override
+    public String visitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx) {
+        Iterator<InfixParser.FuncArgDeclarationContext> it =  ctx.funcArgDeclaration().iterator();
+
+        String args = visit(it.next());
+        while (it.hasNext()) {
+            args += " ";
+            args += visit(it.next());
+        }
+
+        return args;
+    }
+
+    @Override
+    public String visitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
+        return ctx.ID().getText();
+    }
     /*
     @Override
     public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
@@ -78,6 +125,17 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     @Override
     public String visitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) {
 
+
+        //Declare all functions.
+        ListIterator<InfixParser.FuncContext> funcIt = ctx.func().listIterator();
+
+        String funcDefinitions = "";
+        while(funcIt.hasNext()) {
+            funcDefinitions += visit(funcIt.next());
+            funcDefinitions += " ";
+        }
+
+
         //Declare all variable names.
         String varDeclarations = "";
         Iterator<VariableSymbol> it = variableSymbols.iterator();
@@ -91,17 +149,17 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
         currentScope = scopes.get(ctx);
 
-        String formatString = "%s: program %s ; program";
+        String formatString = "%s%s: program %s ; program";
 
         //Iterate through all sequences.
-        int count = ctx.sequence().getChildCount();
+        //int count = ctx.sequence().getChildCount();
         /*
         String innerSource = visit(ctx.sequence().getChild(0));
         for (int i = 1; i < count; i++) {
             innerSource += " "+ visit(ctx.sequence().getChild(i));
         }
         */
-        forthSource = String.format(formatString, varDeclarations, visit(ctx.sequence()));
+        forthSource = String.format(formatString, varDeclarations, funcDefinitions, visit(ctx.sequence()));
         rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
         return super.visitBoilerplate(ctx);    //To change body of overridden methods use File | Settings | File Templates.
     }
@@ -225,7 +283,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         } else {
             formatString = "%s %s !";
         }
-        return String.format(formatString, visit(ctx.expr()), ctx.VARIABLE().getText());    //To change body of overridden methods use File | Settings | File Templates.
+        return String.format(formatString, visit(ctx.expr()), ctx.ID().getText());    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
@@ -259,19 +317,19 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     @Override
     public String visitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
         if (floatMode) {
-            return "0e0 " + ctx.VARIABLE().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+            return "0e0 " + ctx.ID().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
         } else {
-            return "0 " + ctx.VARIABLE().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+            return "0 " + ctx.ID().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
         }
     }
 
     @Override
     public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
         if (floatMode) {
-            return ctx.VARIABLE().getText() + " f@";    //To change body of overridden methods use File | Settings | File Templates.
+            return ctx.ID().getText() + " f@";    //To change body of overridden methods use File | Settings | File Templates.
 
         } else {
-            return ctx.VARIABLE().getText() + " @";    //To change body of overridden methods use File | Settings | File Templates.
+            return ctx.ID().getText() + " @";    //To change body of overridden methods use File | Settings | File Templates.
         }
     }
 

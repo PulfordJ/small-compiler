@@ -11,32 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#statementConditional}.
+	 * Visit a parse tree produced by {@link InfixParser#exprnop}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#MulDivAddSub}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#assignVariable}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#boolFalse}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBoolFalse(@NotNull InfixParser.BoolFalseContext ctx);
+	T visitExprnop(@NotNull InfixParser.ExprnopContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#subVariable}.
@@ -53,25 +32,11 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#parens}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParens(@NotNull InfixParser.ParensContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixParser#boolExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBoolExpr(@NotNull InfixParser.BoolExprContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#boolParened}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBoolParened(@NotNull InfixParser.BoolParenedContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#declareIntVariable}.
@@ -81,11 +46,11 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#float}.
+	 * Visit a parse tree produced by {@link InfixParser#boolTrue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFloat(@NotNull InfixParser.FloatContext ctx);
+	T visitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#statementAssign}.
@@ -95,11 +60,123 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#boolTrue}.
+	 * Visit a parse tree produced by {@link InfixParser#float}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx);
+	T visitFloat(@NotNull InfixParser.FloatContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#optionallySignedInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(@NotNull InfixParser.FunctionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCall(@NotNull InfixParser.FunctionCallContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#funcArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#parensnop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParensnop(@NotNull InfixParser.ParensnopContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#valueType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueType(@NotNull InfixParser.ValueTypeContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#statementnop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementnop(@NotNull InfixParser.StatementnopContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#ifElseStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#boolLogic}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolLogic(@NotNull InfixParser.BoolLogicContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#statementConditional}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#MulDivAddSub}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#boolFalse}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolFalse(@NotNull InfixParser.BoolFalseContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#assignVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#declareFuncArg}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#parens}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParens(@NotNull InfixParser.ParensContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#boolParened}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolParened(@NotNull InfixParser.BoolParenedContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
@@ -114,13 +191,6 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#optionallySignedInt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#ifStatement}.
@@ -151,25 +221,11 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSequence(@NotNull InfixParser.SequenceContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParensnop(@NotNull InfixParser.ParensnopContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixParser#boilerplate}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#statementnop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStatementnop(@NotNull InfixParser.StatementnopContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#whileLoop}.
@@ -179,23 +235,9 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#ifElseStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixParser#variable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVariable(@NotNull InfixParser.VariableContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#boolLogic}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBoolLogic(@NotNull InfixParser.BoolLogicContext ctx);
 }

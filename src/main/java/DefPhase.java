@@ -51,7 +51,7 @@ public class DefPhase extends InfixBaseListener {
 
     @Override
     public void exitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
-        VariableSymbol variableSymbol = new VariableSymbol(ctx.VARIABLE().getText(), InfixLexer.INTTYPE);
+        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE);
         currentScope.define(variableSymbol);
         variableSymbols.add(variableSymbol);
     }
