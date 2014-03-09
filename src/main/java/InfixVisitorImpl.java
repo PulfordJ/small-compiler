@@ -161,7 +161,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         */
         forthSource = String.format(formatString, varDeclarations, funcDefinitions, visit(ctx.sequence()));
         rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
-        return super.visitBoilerplate(ctx);    //To change body of overridden methods use File | Settings | File Templates.
+        return forthSource;
     }
 
     @Override

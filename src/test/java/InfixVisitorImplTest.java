@@ -165,6 +165,12 @@ public class InfixVisitorImplTest {
         runCompiler("int a int b");
         assertEquals("variable a variable b : program  ; program", visitor.getForthSource());
     }
+    @Test
+    public void testVariableDeclarationAndAssignment() throws Exception {
+
+        runCompiler("int a a := 1;");
+        assertEquals("variable a : program 1 a ! ; program", visitor.getForthSource());
+    }
 
     @Test
     public void testAdd() throws Exception {
