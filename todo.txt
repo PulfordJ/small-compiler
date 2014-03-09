@@ -16,6 +16,9 @@ Target: c @ 2 + a !
 
 Check equality: a @ 3 =
 
+a @ = RETURN VALUE POINTED TO BY A.
+3 a ! = POINT A TO ADDRESS OF 3.
+
 IF a = 3 THEN BODY
 a@ 3 = IF BODY ENDIF 
        ^branch
@@ -64,3 +67,9 @@ c!
 ;
 
 LOCAL VARIABLES.
+
+ERROR HANDLING:
+Check variable in scope
+Check function valid.
+Check variable not being used as function
+Check function not being used as variable.

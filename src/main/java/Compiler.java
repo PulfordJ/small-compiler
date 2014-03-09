@@ -2,6 +2,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,13 +33,15 @@ abstract class Compiler {
      * @Charstream the stream of source code to compile.
      */
     public InfixVisitorImpl compile() throws IOException {
-        InfixLexer lexer = new InfixLexer(createCharStream());
-        InfixVisitorImpl visitor = new InfixVisitorImpl();
+        /*
 
         //Check if floats exist so that visitor knows which version of forth to compile into, essentially deciding start -> expr or start -> floatExpr in my specified forth grammar.
         if (programContainsToken(createCharStream(), FLOATTOKENNAME)) {
             visitor.enableFloatMode();
         }
+        */
+
+        InfixLexer lexer = new InfixLexer(createCharStream());
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         InfixParser p = new InfixParser(tokens);
@@ -49,6 +52,17 @@ abstract class Compiler {
 
         //Get the initial point of the parse tree.
         ParseTree tree = p.start();
+
+        //Initial walk to get declarations and check for float variables.
+        ParseTreeWalker walker = new ParseTreeWalker();
+        DefPhase def = new DefPhase();
+        walker.walk(def, tree);
+
+        InfixVisitorImpl visitor = new InfixVisitorImpl(def.getScopes(), def.getVariableSymbols());
+
+        if (def.hasFloat()) {
+            visitor.enableFloatMode();
+        }
 
         //Traverse the parser from the initial point with the visitor, the visitor being in charge of language translation.
         visitor.addParser(p);

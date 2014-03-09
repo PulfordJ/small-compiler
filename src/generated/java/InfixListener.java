@@ -173,6 +173,17 @@ public interface InfixListener extends ParseTreeListener {
 	void exitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link InfixParser#statementnop}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementnop(@NotNull InfixParser.StatementnopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#statementnop}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementnop(@NotNull InfixParser.StatementnopContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link InfixParser#bool}.
 	 * @param ctx the parse tree
 	 */

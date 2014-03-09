@@ -44,21 +44,28 @@ public class InfixVisitorImplTest {
     public void testVariableDeclaration() throws Exception {
 
         runCompiler("int a");
-        assertEquals(": program 0 { a } ; program", visitor.getForthSource());
+        assertEquals("variable a : program  ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclarationAndUse() throws Exception {
 
         runCompiler("int a a");
-        assertEquals(": program 0 { a } a . ; program", visitor.getForthSource());
+        assertEquals("variable a : program a @ . ; program", visitor.getForthSource());
+    }
+
+    @Test
+    public void testVariableDeclarationAssignmentAndUse() throws Exception {
+
+        runCompiler("int a a:=3 a");
+        assertEquals("variable a : program 3 a ! a @ . ; program", visitor.getForthSource());
     }
 
     @Test
     public void testMultipleVariableDeclaration() throws Exception {
 
         runCompiler("int a int b");
-        assertEquals(": program 0 { a } 0 { b } ; program", visitor.getForthSource());
+        assertEquals("variable a variable b : program  ; program", visitor.getForthSource());
     }
 
     @Test

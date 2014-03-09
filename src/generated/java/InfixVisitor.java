@@ -116,6 +116,13 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link InfixParser#statementnop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatementnop(@NotNull InfixParser.StatementnopContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link InfixParser#bool}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

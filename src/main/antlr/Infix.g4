@@ -5,12 +5,16 @@ grammar Infix;
 start : sequence                             #boilerplate
      ;
 
-sequence : exprToPrint sequence?
-         | declarations sequence?
+sequence : declarations* statement*
          ;
 
-exprToPrint : expr #printExpr
+statement : expr #printExpr
+          |  assignment #statementnop
             ;
+
+assignment : VARIABLE ASSIGN expr              #assignVariable
+           ;
+
 
 bool : expr EQUALS expr
         | expr GREATERTHAN expr
@@ -18,12 +22,12 @@ bool : expr EQUALS expr
         | expr NOTEQUALS expr
         ;
 
+
 declarations : INTTYPE VARIABLE      #declareIntVariable
              ;
 
 expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
-     | VARIABLE ASSIGN expr              #assignVariable
      | ADD? VARIABLE                           #variable
      | SUB VARIABLE                           #subVariable
      | ADD? FLOAT                           #float
