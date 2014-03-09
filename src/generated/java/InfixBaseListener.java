@@ -16,6 +16,19 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -36,6 +49,19 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolFalse(@NotNull InfixParser.BoolFalseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolFalse(@NotNull InfixParser.BoolFalseContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -81,6 +107,32 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterBoolExpr(@NotNull InfixParser.BoolExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolExpr(@NotNull InfixParser.BoolExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolParened(@NotNull InfixParser.BoolParenedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolParened(@NotNull InfixParser.BoolParenedContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -101,6 +153,32 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -146,13 +224,26 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterPrintExpr(@NotNull InfixParser.PrintExprContext ctx) { }
+	@Override public void enterIfStatement(@NotNull InfixParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitPrintExpr(@NotNull InfixParser.PrintExprContext ctx) { }
+	@Override public void exitIfStatement(@NotNull InfixParser.IfStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterStatementExpr(@NotNull InfixParser.StatementExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementExpr(@NotNull InfixParser.StatementExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -224,13 +315,26 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterBool(@NotNull InfixParser.BoolContext ctx) { }
+	@Override public void enterWhileLoop(@NotNull InfixParser.WhileLoopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitBool(@NotNull InfixParser.BoolContext ctx) { }
+	@Override public void exitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -244,6 +348,19 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitVariable(@NotNull InfixParser.VariableContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolLogic(@NotNull InfixParser.BoolLogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolLogic(@NotNull InfixParser.BoolLogicContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

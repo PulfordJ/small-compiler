@@ -8,6 +8,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface InfixListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link InfixParser#statementConditional}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#statementConditional}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link InfixParser#MulDivAddSub}.
 	 * @param ctx the parse tree
 	 */
@@ -28,6 +39,17 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#boolFalse}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolFalse(@NotNull InfixParser.BoolFalseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#boolFalse}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolFalse(@NotNull InfixParser.BoolFalseContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#subVariable}.
@@ -63,6 +85,28 @@ public interface InfixListener extends ParseTreeListener {
 	void exitParens(@NotNull InfixParser.ParensContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link InfixParser#boolExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolExpr(@NotNull InfixParser.BoolExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#boolExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolExpr(@NotNull InfixParser.BoolExprContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#boolParened}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolParened(@NotNull InfixParser.BoolParenedContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#boolParened}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolParened(@NotNull InfixParser.BoolParenedContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link InfixParser#declareIntVariable}.
 	 * @param ctx the parse tree
 	 */
@@ -83,6 +127,28 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFloat(@NotNull InfixParser.FloatContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#statementAssign}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementAssign(@NotNull InfixParser.StatementAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#statementAssign}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#boolTrue}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolTrue(@NotNull InfixParser.BoolTrueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#boolTrue}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
@@ -118,15 +184,26 @@ public interface InfixListener extends ParseTreeListener {
 	void exitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#printExpr}.
+	 * Enter a parse tree produced by {@link InfixParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrintExpr(@NotNull InfixParser.PrintExprContext ctx);
+	void enterIfStatement(@NotNull InfixParser.IfStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixParser#printExpr}.
+	 * Exit a parse tree produced by {@link InfixParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrintExpr(@NotNull InfixParser.PrintExprContext ctx);
+	void exitIfStatement(@NotNull InfixParser.IfStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#statementExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatementExpr(@NotNull InfixParser.StatementExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#statementExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatementExpr(@NotNull InfixParser.StatementExprContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#subFloat}.
@@ -184,15 +261,26 @@ public interface InfixListener extends ParseTreeListener {
 	void exitStatementnop(@NotNull InfixParser.StatementnopContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#bool}.
+	 * Enter a parse tree produced by {@link InfixParser#whileLoop}.
 	 * @param ctx the parse tree
 	 */
-	void enterBool(@NotNull InfixParser.BoolContext ctx);
+	void enterWhileLoop(@NotNull InfixParser.WhileLoopContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixParser#bool}.
+	 * Exit a parse tree produced by {@link InfixParser#whileLoop}.
 	 * @param ctx the parse tree
 	 */
-	void exitBool(@NotNull InfixParser.BoolContext ctx);
+	void exitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#ifElseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#ifElseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#variable}.
@@ -204,4 +292,15 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariable(@NotNull InfixParser.VariableContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#boolLogic}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolLogic(@NotNull InfixParser.BoolLogicContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#boolLogic}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolLogic(@NotNull InfixParser.BoolLogicContext ctx);
 }

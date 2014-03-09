@@ -34,6 +34,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     }
 
+
     @Override
     public String visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
 
@@ -50,24 +51,28 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     */
 
     @Override
+    public String visitBoolParened(@NotNull InfixParser.BoolParenedContext ctx) {
+        return super.visit(ctx.bool());
+    }
+
+    @Override
     public String visitSequence(@NotNull InfixParser.SequenceContext ctx) {
         currentScope = scopes.get(ctx);
         currentScope = currentScope.getParentScope();
 
 
         String innerSource = "";
-            List<InfixParser.StatementContext> statementContexts = ctx.statement();
+        List<InfixParser.StatementContext> statementContexts = ctx.statement();
         for (InfixParser.StatementContext statementContext : statementContexts) {
-            innerSource += visit(statementContext)+" ";
+            innerSource += visit(statementContext) + " ";
         }
 
-        if (!innerSource.equals("")){
-            innerSource = innerSource.substring(0, innerSource.length()-1);
+        if (!innerSource.equals("")) {
+            innerSource = innerSource.substring(0, innerSource.length() - 1);
         }
         return innerSource;
 
     }
-
 
 
     @Override
@@ -101,11 +106,8 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         return super.visitBoilerplate(ctx);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-
-
-    /* Fully built string, printout. */
     @Override
-    public String visitPrintExpr(@NotNull InfixParser.PrintExprContext ctx) {
+    public String visitStatementExpr(@NotNull InfixParser.StatementExprContext ctx) {
         //When we're done pop the result.
         String formatString = "%s .";
 
@@ -144,6 +146,53 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         return super.visitMulDivAddSub(ctx);
     }
 
+    @Override
+    public String visitBoolExpr(@NotNull InfixParser.BoolExprContext ctx) {
+        String formatString = "%s %s %s";
+
+        if (floatMode) {
+            formatString = "%s %s f%s";
+        }
+
+        String op = "";
+
+        //Visit the expressions around the op
+        String left = visit(ctx.expr(0));
+        String right = visit(ctx.expr(1));
+
+
+        switch (ctx.op.getType()) {
+            case InfixParser.EQUALS:
+                op = "=";
+                break;
+            case InfixParser.GREATERTHAN:
+                op = ">";
+                break;
+            case InfixParser.LESSTHAN:
+                op = "<";
+                break;
+            case InfixParser.NOTEQUALS:
+                op = "<>";
+                break;
+        }
+       return String.format(formatString, left, right, op);
+    }
+
+    @Override
+    public String visitBoolLogic(@NotNull InfixParser.BoolLogicContext ctx) {
+        String formatString = "%s %s %s";
+        return String.format(formatString, visit(ctx.leftBool), visit(ctx.rightBool), ctx.op.getText());
+    }
+
+    @Override
+    public String visitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) {
+        return "-1";
+    }
+
+    @Override
+    public String visitBoolFalse(@NotNull InfixParser.BoolFalseContext ctx) {
+        return "0";
+    }
 
     //This is to allow generation of the postscript parse tree at a later date.
     public void addParser(Parser p) {
@@ -153,6 +202,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     /**
      * Prints the postscript parsetree to a .ps file with the given name
+     *
      * @param filename used to generate a file of the form <filename>.ps
      */
     public void outputPSGraphToFile(String filename) {
@@ -169,23 +219,65 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     @Override
     public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
         //TODO CHECK IF VARIABLE EXISTS.
-        String formatString = "%s %s !";
+        String formatString;
+        if (floatMode) {
+            formatString = "%s %s f!";
+        } else {
+            formatString = "%s %s !";
+        }
         return String.format(formatString, visit(ctx.expr()), ctx.VARIABLE().getText());    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
+    public String visitStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx) {
+        return visit(ctx.conditional());
+    }
+
+    @Override
+    public String visitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx) {
+        String formatString = "begin %s while %s repeat";
+        return String.format(formatString, visit(ctx.bool()), visit(ctx.sequence()));
+    }
+
+    @Override
+    public String visitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) {
+        return visit(ctx.assignment());
+    }
+
+    @Override
+    public String visitIfStatement(@NotNull InfixParser.IfStatementContext ctx) {
+        String formatString = "%s if %s endif";
+        return String.format(formatString, visit(ctx.bool()), visit(ctx.sequence()));
+    }
+
+    @Override
+    public String visitIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx) {
+        String formatString = "%s if %s else %s endif";
+        return String.format(formatString, visit(ctx.bool()), visit(ctx.trueSequence), visit(ctx.falseSequence));
+    }
+
+    @Override
     public String visitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
-        return " 0 "+ctx.VARIABLE().getText()+" @ -";    //To change body of overridden methods use File | Settings | File Templates.
+        if (floatMode) {
+            return "0e0 " + ctx.VARIABLE().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+        } else {
+            return "0 " + ctx.VARIABLE().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+        }
     }
 
     @Override
     public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
-        return ctx.VARIABLE().getText()+" @";    //To change body of overridden methods use File | Settings | File Templates.
+        if (floatMode) {
+            return ctx.VARIABLE().getText() + " f@";    //To change body of overridden methods use File | Settings | File Templates.
+
+        } else {
+            return ctx.VARIABLE().getText() + " @";    //To change body of overridden methods use File | Settings | File Templates.
+        }
     }
 
     @Override
     public String visitSubFloat(@NotNull InfixParser.SubFloatContext ctx) {
-        return "-"+ctx.FLOAT().getText();
+        return "-" + ctx.FLOAT().getText();
     }
 
     @Override
@@ -195,7 +287,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) {
-        return "-"+ctx.INT().getText();
+        return "-" + ctx.INT().getText();
     }
 
     @Override
@@ -203,8 +295,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         //If prefixed with a plus sign remove it, forth can't deal with those expressions.
         //Note this only runs for what the parser considers terminal, meaning the second integer value for the FLOAT terminal remains unaffected, as intended.
         String textVal = ctx.INT().getText();
-        if (textVal.substring(0, 1).equals("+"))
-        {
+        if (textVal.substring(0, 1).equals("+")) {
             textVal = textVal.substring(1, textVal.length());
         }
 
@@ -232,13 +323,14 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         //Convert signed parens into forms forth will understand.
         String formatString = "0 %s -";
         if (floatMode) {
-             formatString = "0e0 %s f-";
+            formatString = "0e0 %s f-";
         }
         return String.format(formatString, visit(ctx.parenedexpr()));
     }
 
     /**
      * Returns the compiled forth source.
+     *
      * @return the compiled forth source.
      */
     public String getForthSource() {
