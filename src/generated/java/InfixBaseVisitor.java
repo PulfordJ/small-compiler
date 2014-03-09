@@ -137,6 +137,14 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
+	@Override public T visitStatementnop(@NotNull InfixParser.StatementnopContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
 	@Override public T visitBool(@NotNull InfixParser.BoolContext ctx) { return visitChildren(ctx); }
 
 	/**

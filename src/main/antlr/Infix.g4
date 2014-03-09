@@ -5,11 +5,11 @@ grammar Infix;
 start : sequence                             #boilerplate
      ;
 
-sequence : exprToPrint sequence?
-         | declarations sequence?
+sequence : statement sequence?
          ;
 
-exprToPrint : expr #printExpr
+statement : expr #printExpr
+          | declarations #statementnop
             ;
 
 bool : expr EQUALS expr

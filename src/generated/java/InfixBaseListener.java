@@ -211,6 +211,19 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterStatementnop(@NotNull InfixParser.StatementnopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementnop(@NotNull InfixParser.StatementnopContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterBool(@NotNull InfixParser.BoolContext ctx) { }
 	/**
 	 * {@inheritDoc}

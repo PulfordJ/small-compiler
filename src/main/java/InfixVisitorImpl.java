@@ -16,6 +16,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     InfixParser.BoilerplateContext rootCtx;
     private boolean floatMode;
     Parser parser;
+    Map<String, String> variablesAndInitialValues;
 
     @Override
     public String visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
@@ -32,6 +33,8 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) {
+
+
         String formatString = ": program %s ; program";
 
         //Iterate through all sequences.
@@ -42,7 +45,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         }
         forthSource = String.format(formatString, innerSource);
         rootCtx = ctx; //This is to allow generation of the postscript parse tree at a later time.
-        return super.visitBoilerplate(ctx);    //To change body of overridden methods use File | Settings | File Templates.
+        return forthSource;
     }
 
     /* Fully built string, printout. */
