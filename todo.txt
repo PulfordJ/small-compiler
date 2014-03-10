@@ -1,5 +1,11 @@
 handle symbol table of function names -> argument number AND TYPE!?!?!.
 
+
+Testing:
+Function with 0 parameters.
+function with 3 parameters.
+Grep gforth code, put it together.
+
 ERROR HANDLING:
 Check variable in scope
 Check function valid.
