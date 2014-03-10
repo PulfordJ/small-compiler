@@ -6,3 +6,9 @@ Check function valid.
 Check variable not being used as function
 Check function not being used as variable.
 Handle symbol table typing.
+
+DOCUMENT:
+Increase source code documentaiton
+Increase target code documetnation
+Increase translatino documentation
+Expand on extra features.
