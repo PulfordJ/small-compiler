@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class DefPhase extends InfixBaseListener {
     //Used to associate scopes with contexts for future parses.
-    private ParseTreeProperty<AbstractScope> scopes = new ParseTreeProperty<AbstractScope>();
+    private ParseTreeProperty<AbstractScope> scopes;
     private GlobalScope globalScope;
     private AbstractScope currentScope;
 
@@ -29,6 +29,8 @@ public class DefPhase extends InfixBaseListener {
     @Override
     public void enterBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) {
         super.enterBoilerplate(ctx);
+        scopes = new ParseTreeProperty<AbstractScope>();
+        GlobalScope.resetCounter();
         globalScope = new GlobalScope();
         currentScope = globalScope;
         scopes.put(ctx, globalScope);
@@ -51,10 +53,38 @@ public class DefPhase extends InfixBaseListener {
 
     @Override
     public void exitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
-        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE);
+        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
         currentScope.define(variableSymbol);
         variableSymbols.add(variableSymbol);
     }
+
+    @Override
+    public void exitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
+        super.exitAssignVariable(ctx);    //To change body of overridden methods use File | Settings | File Templates.
+        scopes.put(ctx, currentScope);
+    }
+
+    @Override
+    public void exitVariable(@NotNull InfixParser.VariableContext ctx) {
+        super.exitVariable(ctx);    //To change body of overridden methods use File | Settings | File Templates.
+        scopes.put(ctx, currentScope);
+    }
+
+    @Override
+    public void exitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
+        super.exitSubVariable(ctx);    //To change body of overridden methods use File | Settings | File Templates.
+        scopes.put(ctx, currentScope);
+    }
+
+    @Override
+    public void exitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
+        //TODO change type to something more dynamic...
+        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
+        currentScope.define(variableSymbol);
+        variableSymbols.add(variableSymbol);
+        scopes.put(ctx, currentScope);
+    }
+
 
     @Override
     public void enterFloat(@NotNull InfixParser.FloatContext ctx) {

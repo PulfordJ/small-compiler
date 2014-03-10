@@ -32,7 +32,6 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         super();
         this.scopes = scopes;
         this.variableSymbols = variableSymbols;
-
     }
 
 
@@ -89,7 +88,9 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
-        return ctx.ID().getText();
+        AbstractScope abstractScope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+        return variableSymbol.getCompiledVariableName();
     }
     /*
     @Override
@@ -141,8 +142,9 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         Iterator<VariableSymbol> it = variableSymbols.iterator();
 
         while (it.hasNext()) {
+            VariableSymbol variableSymbol = it.next();
             varDeclarations += "variable ";
-            varDeclarations += it.next().getName();
+            varDeclarations += variableSymbol.getCompiledVariableName();
             varDeclarations += " ";
         }
 
@@ -276,6 +278,8 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
+        AbstractScope abstractScope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
         //TODO CHECK IF VARIABLE EXISTS.
         String formatString;
         if (floatMode) {
@@ -283,7 +287,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         } else {
             formatString = "%s %s !";
         }
-        return String.format(formatString, visit(ctx.expr()), ctx.ID().getText());    //To change body of overridden methods use File | Settings | File Templates.
+        return String.format(formatString, visit(ctx.expr()), variableSymbol.getCompiledVariableName());    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
@@ -316,20 +320,26 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
+        AbstractScope abstractScope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+        String varName = variableSymbol.getCompiledVariableName();
+
         if (floatMode) {
-            return "0e0 " + ctx.ID().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+            return "0e0 " + varName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
         } else {
-            return "0 " + ctx.ID().getText() + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+            return "0 " + varName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
         }
     }
 
     @Override
     public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
+        AbstractScope abstractScope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+        String varName = variableSymbol.getCompiledVariableName();
         if (floatMode) {
-            return ctx.ID().getText() + " f@";    //To change body of overridden methods use File | Settings | File Templates.
-
+            return varName + " f@";    //To change body of overridden methods use File | Settings | File Templates.
         } else {
-            return ctx.ID().getText() + " @";    //To change body of overridden methods use File | Settings | File Templates.
+            return varName + " @";    //To change body of overridden methods use File | Settings | File Templates.
         }
     }
 

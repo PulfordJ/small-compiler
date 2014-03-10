@@ -40,32 +40,38 @@ public class InfixVisitorImplTest {
     }
 
     @Test
+    public void testTwoWhileLoops() throws Exception {
+
+        runCompiler("int a while (a < 10) {int a a := a + 1; a;}while (a < 10) {int a a := a + 1; a;}");
+        assertEquals("variable 2_a variable 3_a variable 4_a : program begin 2_a @ 10 < while 3_a @ 1 + 3_a ! 3_a @ . repeat begin 2_a @ 10 < while 4_a @ 1 + 4_a ! 4_a @ . repeat ; program", visitor.getForthSource());
+    }
+
+    @Test
     public void testFunctionDefAndCallOneArgument() throws Exception {
 
         runCompiler("def f(int a) { a * 2; } f(2);");
-        assertEquals("variable a : f { a } a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
+        assertEquals("variable 1_a : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
     }
 
     @Test
     public void testWhileLoopCounter() throws Exception {
 
-        runCompiler("while (a < 10) {a := a + 1; a;}");
-        assertEquals(": program begin a @ 10 < while a @ 1 + a ! a @ . repeat ; program", visitor.getForthSource());
+        runCompiler("int a while (a < 10) {a := a + 1; a;}");
+        assertEquals("variable 2_a : program begin 2_a @ 10 < while 2_a @ 1 + 2_a ! 2_a @ . repeat ; program", visitor.getForthSource());
     }
 
     @Test
     public void testTrueIfStatement() throws Exception {
 
         runCompiler("int a\n a := 1;\nif (a = 1) {2;} ");
-        assertEquals("variable a : program 1 a ! a @ 1 = if 2 . endif ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 1 2_a ! 2_a @ 1 = if 2 . endif ; program", visitor.getForthSource());
     }
-
 
     @Test
     public void testTrueIfStatementWithFloats() throws Exception {
 
         runCompiler("int a\n a := 1e0;\nif (a = 1e0) {2;}");
-        assertEquals("variable a : program 1e0 a f! a f@ 1e0 f= if 2e0 f. endif ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 1e0 2_a f! 2_a f@ 1e0 f= if 2e0 f. endif ; program", visitor.getForthSource());
     }
 
     @Test
@@ -100,76 +106,76 @@ public class InfixVisitorImplTest {
     public void testTrueIfStatementWithNewLinesInside() throws Exception {
 
         runCompiler("int a\n a := 1;\nif (a = 1) \n {2;}\n ");
-        assertEquals("variable a : program 1 a ! a @ 1 = if 2 . endif ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 1 2_a ! 2_a @ 1 = if 2 . endif ; program", visitor.getForthSource());
     }
 
     @Test
     public void testTrueIfElseStatement() throws Exception {
 
         runCompiler("int a\n a := 1;\nif (a = 1) {2;} else {3;}");
-        assertEquals("variable a : program 1 a ! a @ 1 = if 2 . else 3 . endif ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 1 2_a ! 2_a @ 1 = if 2 . else 3 . endif ; program", visitor.getForthSource());
     }
 
     @Test
     public void testTrueIfElseStatementWithNewLinesInside() throws Exception {
 
         runCompiler("int a\n a := 1;\nif (a = 1) \n {2;}\n else\n {3;}\n");
-        assertEquals("variable a : program 1 a ! a @ 1 = if 2 . else 3 . endif ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 1 2_a ! 2_a @ 1 = if 2 . else 3 . endif ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclaration() throws Exception {
 
         runCompiler("int a");
-        assertEquals("variable a : program  ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program  ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclarationAndUse() throws Exception {
 
         runCompiler("int a a;");
-        assertEquals("variable a : program a @ . ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 2_a @ . ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclarationAssignmentAndUse() throws Exception {
 
         runCompiler("int a a:=3;\n a;");
-        assertEquals("variable a : program 3 a ! a @ . ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 3 2_a ! 2_a @ . ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclarationAssignmentAndUnaryMinusUse() throws Exception {
 
         runCompiler("int a a:=3;\n -a;");
-        assertEquals("variable a : program 3 a ! 0 a @ - . ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 3 2_a ! 0 2_a @ - . ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclarationAssignmentAndUseInExpression() throws Exception {
 
         runCompiler("int a a:=3;\n 3+a;");
-        assertEquals("variable a : program 3 a ! 3 a @ + . ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 3 2_a ! 3 2_a @ + . ; program", visitor.getForthSource());
     }
 
     @Test
     public void testVariableDeclarationAssignmentAndUseInFloatExpression() throws Exception {
 
         runCompiler("int a a:=3;\n 3e0+a;");
-        assertEquals("variable a : program 3e0 a f! 3e0 a f@ f+ f. ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 3e0 2_a f! 3e0 2_a f@ f+ f. ; program", visitor.getForthSource());
     }
 
     @Test
     public void testMultipleVariableDeclaration() throws Exception {
 
         runCompiler("int a int b");
-        assertEquals("variable a variable b : program  ; program", visitor.getForthSource());
+        assertEquals("variable 2_a variable 2_b : program  ; program", visitor.getForthSource());
     }
     @Test
     public void testVariableDeclarationAndAssignment() throws Exception {
 
         runCompiler("int a a := 1;");
-        assertEquals("variable a : program 1 a ! ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : program 1 2_a ! ; program", visitor.getForthSource());
     }
 
     @Test
