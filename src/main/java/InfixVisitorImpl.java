@@ -46,7 +46,15 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitFunction(@NotNull InfixParser.FunctionContext ctx) {
-        //TODO check that funciotn name isnt' bieng used by variable.
+        String functionName = ctx.ID().getText();
+
+        for (VariableSymbol variableSymbol : variableSymbols) {
+            if (variableSymbol.getName().equals(functionName)) {
+                new SemanticError(parser, ctx, ctx.ID().getSymbol(), "function name "+ ctx.ID().getText() +" cannot be the same as a variables, please change one.");
+            }
+        }
+
+
         String formatString = ": %s { %s } %s ;";
         String name = ctx.funcName.getText();
         String arguments = visit(ctx.funcArgs());

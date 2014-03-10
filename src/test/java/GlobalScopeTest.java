@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 import symboltable.AbstractScope;
@@ -19,13 +20,14 @@ public class GlobalScopeTest {
     public void beAbleToStoreAndResolveVariable() {
         AbstractScope scope = createScope();
 
-        scope.define(new VariableSymbol("a", InfixLexer.INTTYPE));
-        Symbol symbol = scope.resolve("a");
+        scope.define(new VariableSymbol("a", InfixLexer.INTTYPE, 1));
+        VariableSymbol symbol = (VariableSymbol) scope.resolve("a");
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(symbol.getName()).isEqualTo("a");
         softly.assertThat(symbol.getType()).isEqualTo(InfixLexer.INTTYPE);
         softly.assertThat(symbol).isInstanceOf(VariableSymbol.class);
+        softly.assertThat(symbol.getCompiledVariableName()).isEqualTo("1_a");
         softly.assertAll();
 
         

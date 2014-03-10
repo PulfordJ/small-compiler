@@ -54,6 +54,13 @@ public class InfixVisitorImplTest {
     }
 
     @Test
+    public void testFunctionCanNotHaveVariableName() throws Exception {
+
+        runCompiler("def f(int a) {a * 2; } int f f(2);");
+        assertEquals("variable 1_a variable 3_f : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
+    }
+
+    @Test
     public void testWhileLoopCounter() throws Exception {
 
         runCompiler("int a while (a < 10) {a := a + 1; a;}");
