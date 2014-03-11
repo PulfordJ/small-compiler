@@ -2,9 +2,11 @@
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
 
-import static org.assertj.core.api.Assertions.*;/**
+import static org.assertj.core.api.Assertions.*;
+import static org.testng.AssertJUnit.assertEquals;
+
+/**
 /**
  * Created by john on 24/01/14.
  * Tests conversion to forth source
@@ -42,8 +44,8 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
     @Test
     public void testForErrorOnNonExistentFunctionCall() throws Exception {
         runCompiler("f(2);");
-        assertEquals("variable 1_a variable 3_f : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
-        assertErrorContains("zzzzzzzzLine 1 at position 0 function name f cannot be the same as a variables, please change one.");
+        assertEquals(": program 2 f . ; program", visitor.getForthSource());
+        assertErrorContains("Line 1 at position 0 No function by the name f.");
     }
 
 

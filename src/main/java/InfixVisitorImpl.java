@@ -80,15 +80,25 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     @Override
     public String visitFunctionCall(@NotNull InfixParser.FunctionCallContext ctx) {
         String formatString = "%s %s";
-
         String funcArgs = "";
+        String name = ctx.ID().getText();
+        boolean found = false;
+
+        for (FunctionSymbol functionSymbol : functionSymbols) {
+            if (functionSymbol.getName().equals(name)) {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "No function by the name "+ name +".");
+        }
 
         Iterator<InfixParser.ExprContext> it =  ctx.expr().iterator();
         while (it.hasNext()) {
             funcArgs += it.next().getText();
             funcArgs += " ";
         }
-        String name = ctx.ID().getText();
         if (!funcArgs.equals("")) {
         funcArgs = funcArgs.substring(0, funcArgs.length()-1);
             return String.format(formatString, funcArgs, name);
