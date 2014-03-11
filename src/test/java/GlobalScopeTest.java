@@ -28,7 +28,5 @@ public class GlobalScopeTest {
         softly.assertThat(symbol).isInstanceOf(VariableSymbol.class);
         softly.assertThat(symbol.getCompiledVariableName()).isEqualTo("1_a");
         softly.assertAll();
-
-        
     }
 }
