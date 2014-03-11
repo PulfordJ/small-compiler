@@ -1,4 +1,4 @@
-/*
+package org.antlr.v4.runtime;/*
  * [The "BSD license"]
  *  Copyright (c) 2012 Terence Parr
  *  Copyright (c) 2012 Sam Harwell

@@ -1,6 +1,5 @@
-import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import symboltable.AbstractScope;
 import symboltable.GlobalScope;
 import symboltable.Symbol;

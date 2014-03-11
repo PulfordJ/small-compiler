@@ -23,7 +23,7 @@ shadow {
 }
 
 ext.versions = [
-        junit: "4.10",
+        testng: "6.8.8",
 ]
 
 
@@ -35,7 +35,7 @@ repositories {
 dependencies {
     //compile group: "org.antlr", name: "antlr4-runtime", version: versions.antlr
     //antlr4 group: "org.antlr", name: "antlr4", version: versions.antlr
-    testCompile group: "junit", name: "junit", version: versions.junit
+    testCompile group: "org.testng", name: "testng", version: versions.testng
     testCompile 'org.assertj:assertj-core:1.5.0'
 }
 

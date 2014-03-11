@@ -1,42 +1,25 @@
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
 
 import java.io.*;
-import static org.junit.Assert.assertEquals;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by john on 24/01/14.
  * Tests conversion to forth source
  * Mostly self explanatory.
  */
-public class InfixVisitorImplTest {
+public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-    InfixVisitorImpl visitor;
-    //This was to access error stream, with object abstraction this doesn't appear to work, kept for posterity, 'failing' tests commented out.
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-    }
-
-
-    @After
+    @AfterMethod
     public void cleanUpStreams() {
         assertEquals("", errContent.toString());
         System.setOut(null);
         System.setErr(null);
-    }
-
-    public void runCompiler(String source) {
-       StringCompiler stringCompiler = new StringCompiler(source);
-        try {
-            visitor = stringCompiler.compile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -412,6 +395,7 @@ public class InfixVisitorImplTest {
         assertEquals(": program 3 2 + . ; program", visitor.getForthSource());
     }
 
+    @Test
     public void testInt() throws Exception {
         runCompiler("2;");
         assertEquals(": program 2 . ; program", visitor.getForthSource());
