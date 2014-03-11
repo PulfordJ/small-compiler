@@ -28,8 +28,15 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
 
         runCompiler("def f(int a) {a * 2; } int f f(2);");
         assertEquals("variable 1_a variable 3_f : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
-        //TODO change 12 to 1...
-        assertErrorContains("Line 12 at position 0 function name f cannot be the same as a variables, please change one.");
+        assertErrorContains("Line 1 at position 0 function name f cannot be the same as a variables, please change one.");
+    }
+
+    @Test
+    public void testVariableCanNotHaveFunctionName() throws Exception {
+
+        runCompiler("int f f(2); def f(int a) {a * 2; } ");
+        assertEquals("variable 2_f variable 1_a : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
+        assertErrorContains("Line 1 at position 12 function name f cannot be the same as a variables");
     }
 
 
