@@ -39,6 +39,13 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
         assertErrorContains("Line 1 at position 12 function name f cannot be the same as a variables");
     }
 
+    @Test
+    public void testForErrorOnNonExistentFunctionCall() throws Exception {
+        runCompiler("f(2);");
+        assertEquals("variable 1_a variable 3_f : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
+        assertErrorContains("zzzzzzzzLine 1 at position 0 function name f cannot be the same as a variables, please change one.");
+    }
+
 
 
 
