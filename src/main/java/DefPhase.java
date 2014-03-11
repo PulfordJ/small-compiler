@@ -14,9 +14,10 @@ public class DefPhase extends InfixBaseListener {
     private GlobalScope globalScope;
     private AbstractScope currentScope;
 
-    private List<VariableSymbol> variableSymbols = new ArrayList<VariableSymbol>();
+    private List<VariableSymbol> variableSymbols;
 
     boolean floatMode;
+    private ArrayList<FunctionSymbol> functionSymbols;
 
     public boolean hasFloat() {
         return floatMode;
@@ -29,6 +30,8 @@ public class DefPhase extends InfixBaseListener {
     @Override
     public void enterBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) {
         super.enterBoilerplate(ctx);
+        variableSymbols = new ArrayList<VariableSymbol>();
+        functionSymbols = new ArrayList<FunctionSymbol>();
         scopes = new ParseTreeProperty<AbstractScope>();
         GlobalScope.resetCounter();
         globalScope = new GlobalScope();
@@ -77,6 +80,14 @@ public class DefPhase extends InfixBaseListener {
     }
 
     @Override
+    public void exitFunction(@NotNull InfixParser.FunctionContext ctx) {
+        FunctionSymbol functionSymbol = new FunctionSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
+        currentScope.define(functionSymbol);
+        functionSymbols.add(functionSymbol);
+        scopes.put(ctx,currentScope);
+    }
+
+    @Override
     public void exitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
         //TODO change type to something more dynamic...
         VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
@@ -105,5 +116,9 @@ public class DefPhase extends InfixBaseListener {
 
     public List<VariableSymbol> getVariableSymbols() {
         return variableSymbols;
+    }
+
+    public ArrayList<FunctionSymbol> getFunctionSymbols() {
+        return functionSymbols;
     }
 }

@@ -2,14 +2,12 @@ import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import symboltable.AbstractScope;
+import symboltable.FunctionSymbol;
 import symboltable.VariableSymbol;
 
 import javax.print.PrintException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +17,7 @@ import java.util.ListIterator;
  */
 public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     private final List<VariableSymbol> variableSymbols;
+    private final List<FunctionSymbol> functionSymbols;
     String forthSource = "";
     InfixParser.BoilerplateContext rootCtx;
     private boolean floatMode;
@@ -28,15 +27,24 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     private final ParseTreeProperty<AbstractScope> scopes;
     AbstractScope currentScope;
 
-    public InfixVisitorImpl(ParseTreeProperty<AbstractScope> scopes, List<VariableSymbol> variableSymbols) {
+    public InfixVisitorImpl(ParseTreeProperty<AbstractScope> scopes, List<VariableSymbol> variableSymbols, ArrayList<FunctionSymbol> functionSymbols) {
         super();
         this.scopes = scopes;
         this.variableSymbols = variableSymbols;
+        this.functionSymbols = functionSymbols;
     }
 
 
     @Override
     public String visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
+        String variableName = ctx.ID().getText();
+
+        for (FunctionSymbol functionSymbol : functionSymbols) {
+            if (functionSymbol.getName().equals(variableName)) {
+                new SemanticError(parser, ctx, ctx.ID().getSymbol(), "variable name "+ variableName +" cannot be the same as a functions, please change one.");
+            }
+
+        }
 
         //String formatString = "0 { %s }";
 

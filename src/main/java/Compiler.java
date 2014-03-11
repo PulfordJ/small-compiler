@@ -58,7 +58,7 @@ abstract class Compiler {
         DefPhase def = new DefPhase();
         walker.walk(def, tree);
 
-        InfixVisitorImpl visitor = new InfixVisitorImpl(def.getScopes(), def.getVariableSymbols());
+        InfixVisitorImpl visitor = new InfixVisitorImpl(def.getScopes(), def.getVariableSymbols(), def.getFunctionSymbols());
 
         if (def.hasFloat()) {
             visitor.enableFloatMode();
