@@ -6,9 +6,11 @@ import org.testng.annotations.Test;
 
 import java.io.*;
 
-import static org.testng.Assert.assertEquals;
 
-import static org.assertj.core.api.Assertions.*;/**
+import static org.assertj.core.api.Assertions.*;
+import static org.testng.AssertJUnit.assertEquals;
+
+/**
  * Created by john on 24/01/14.
  * Tests conversion to forth source
  * Mostly self explanatory.
@@ -31,9 +33,22 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
 
     @Test
     public void testFunctionDefAndCallOneArgument() throws Exception {
-
         runCompiler("def f(int a) { a * 2; } f(2);");
         assertEquals("variable 1_a : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
+    }
+
+    @Test
+    public void testFunctionDefAndCallZeroArgument() throws Exception {
+
+        runCompiler("def f() { 2; } f();");
+        assertEquals(": f {  } 2 . ; : program f . ; program", visitor.getForthSource());
+    }
+
+    @Test
+    public void testFunctionDefAndCallTwoArgument() throws Exception {
+
+        runCompiler("def f(int a, int b) { a * b * 2; } f(2, 3);");
+        assertThat(visitor.getForthSource()).isEqualTo("variable 1_a variable 1_b : f { 1_a 1_b } 1_a @ 1_b @ * 2 * . ; : program 2 3 f . ; program");
     }
 
     @Test

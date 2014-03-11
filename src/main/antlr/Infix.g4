@@ -39,12 +39,12 @@ conditional : IF LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence RIGHTCURLY  #ifSta
 func : DEF funcName=ID LEFTPAREN funcArgs? RIGHTPAREN LEFTCURLY sequence RIGHTCURLY #function
      ;
 
-funcArgs : funcArgDeclaration+
+funcArgs : funcArgDeclaration (COMMA funcArgDeclaration)*
          ;
 funcArgDeclaration : valueType ID      #declareFuncArg
                    ;
 
-funcCall : ID LEFTPAREN expr(COMMA expr)* RIGHTPAREN #functionCall
+funcCall : ID LEFTPAREN (expr(COMMA expr)*)? RIGHTPAREN #functionCall
         ;
 
 

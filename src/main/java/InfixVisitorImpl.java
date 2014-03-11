@@ -65,7 +65,13 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
         String formatString = ": %s { %s } %s ;";
         String name = ctx.funcName.getText();
-        String arguments = visit(ctx.funcArgs());
+        String arguments;
+        if (ctx.funcArgs() != null) {
+            arguments = visit(ctx.funcArgs());
+        }
+        else {
+            arguments = "";
+        }
         String body = visit(ctx.sequence());
 
         return String.format(formatString, name, arguments, body);
@@ -82,11 +88,18 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
             funcArgs += it.next().getText();
             funcArgs += " ";
         }
-        funcArgs = funcArgs.substring(0, funcArgs.length()-1);
         String name = ctx.ID().getText();
+        if (!funcArgs.equals("")) {
+        funcArgs = funcArgs.substring(0, funcArgs.length()-1);
+            return String.format(formatString, funcArgs, name);
+        }
+        else {
+            //Noarguments, change format of string
+            formatString = "%s";
+            return String.format(formatString, name);
+        }
 
 
-        return String.format(formatString, funcArgs, name);
     }
 
     @Override

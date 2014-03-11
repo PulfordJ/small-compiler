@@ -41,4 +41,5 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
 
 
 
+
 }
