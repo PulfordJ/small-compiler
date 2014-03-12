@@ -17,7 +17,7 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitExprnop(@NotNull InfixParser.ExprnopContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -57,6 +57,14 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
+	@Override public T visitFloat(@NotNull InfixParser.FloatContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
 	@Override public T visitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -66,14 +74,6 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitFloat(@NotNull InfixParser.FloatContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

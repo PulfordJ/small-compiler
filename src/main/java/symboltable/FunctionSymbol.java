@@ -6,8 +6,8 @@ package symboltable;
 public class FunctionSymbol extends Symbol {
     int ctxId;
 
-    public FunctionSymbol(String a, int inttype, int ctxId) {
-        super(a, inttype);
+    public FunctionSymbol(String a, int ctxId) {
+        super(a);
         this.ctxId = ctxId;
     }
 }

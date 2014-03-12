@@ -27,28 +27,28 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
     @Test
     public void testTwoWhileLoops() throws Exception {
 
-        runCompiler("int a while (a < 10) {int a a := a + 1; a;}while (a < 10) {int a a := a + 1; a;}");
-        assertEquals("variable 2_a variable 3_a variable 4_a : program begin 2_a @ 10 < while 3_a @ 1 + 3_a ! 3_a @ . repeat begin 2_a @ 10 < while 4_a @ 1 + 4_a ! 4_a @ . repeat ; program", visitor.getForthSource());
+        runCompiler("int a while (a < 10) {a := a + 1; a;} a := 1; while (a < 10) {a := a + 1; a;}");
+        assertEquals("variable 2_a : program begin 2_a @ 10 < while 2_a @ 1 + 2_a ! 2_a @ . repeat 1 2_a ! begin 2_a @ 10 < while 2_a @ 1 + 2_a ! 2_a @ . repeat ; program", visitor.getForthSource());
     }
 
     @Test
     public void testFunctionDefAndCallOneArgument() throws Exception {
         runCompiler("def f(int a) { a * 2; } f(2);");
-        assertEquals("variable 1_a : f { 1_a } 1_a @ 2 * . ; : program 2 f . ; program", visitor.getForthSource());
+        assertEquals("variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
     }
 
     @Test
     public void testFunctionDefAndCallZeroArgument() throws Exception {
 
         runCompiler("def f() { 2; } f();");
-        assertEquals(": f {  } 2 . ; : program f . ; program", visitor.getForthSource());
+        assertEquals(": f 2 . ; : program f ; program", visitor.getForthSource());
     }
 
     @Test
     public void testFunctionDefAndCallTwoArgument() throws Exception {
 
         runCompiler("def f(int a, int b) { a * b * 2; } f(2, 3);");
-        assertThat(visitor.getForthSource()).isEqualTo("variable 1_a variable 1_b : f { 1_a 1_b } 1_a @ 1_b @ * 2 * . ; : program 2 3 f . ; program");
+        assertThat(visitor.getForthSource()).isEqualTo("variable 1_a variable 1_b : f 1_b ! 1_a ! 1_a @ 1_b @ * 2 * . ; : program 2 3 f ; program");
     }
 
     @Test
@@ -231,33 +231,6 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
         runCompiler("3 / 2 - 5;");
         assertEquals(": program 3 2 / 5 - . ; program", visitor.getForthSource());
     }
-
-    /** These tests fail to access the error stream via the new modularised compiler.
-
-    @Test
-    public void shouldGiveInformativeLackOfParenthesisMessage() throws Exception {
-
-        runCompiler("( 3 * 2");
-        assertEquals(": program line 1:7 Missing closing ')'\n", errContent.toString());
-    }
-
-    @Test
-    public void shouldGiveInformativeToManyOfParenthesisMessage() throws Exception {
-
-        runCompiler("( 3 * 2 ) )");
-        assertEquals(": program line 1:11 Too many parentheses\n", errContent.toString());
-    }
-
-    @Test
-    public void shouldGiveInformativeToManyOfParenthesisMessage2() throws Exception {
-
-        runCompiler("( 3 * 2 ) ) )");
-        //System.out.println("out" + outContent.toString());
-        //System.out.println("Err"+errContent.toString());
-        assertEquals(": program line 1:13 Too many parentheses\n", errContent.toString());
-    }
-
-    */
 
     @Test
     public void testPlusSignedNumber() throws Exception {

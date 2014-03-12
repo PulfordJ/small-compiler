@@ -15,12 +15,14 @@ import static org.testng.Assert.assertEquals;
  */
 public class CompilerShouldAbstract {
 
-    protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    protected final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    protected ByteArrayOutputStream outContent;
+    protected ByteArrayOutputStream errContent;
     InfixVisitorImpl visitor;
     //This was to access error stream, with object abstraction this doesn't appear to work, kept for posterity, 'failing' tests commented out.
     @BeforeMethod
     public void setUpStreams() {
+        outContent = new ByteArrayOutputStream();
+        errContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }

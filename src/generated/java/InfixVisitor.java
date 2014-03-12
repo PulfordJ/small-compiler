@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#exprnop}.
+	 * Visit a parse tree produced by {@link InfixParser#statementFunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprnop(@NotNull InfixParser.ExprnopContext ctx);
+	T visitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#subVariable}.
@@ -46,6 +46,13 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link InfixParser#float}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloat(@NotNull InfixParser.FloatContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link InfixParser#boolTrue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -58,13 +65,6 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#float}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFloat(@NotNull InfixParser.FloatContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#optionallySignedInt}.

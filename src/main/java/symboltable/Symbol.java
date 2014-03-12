@@ -5,18 +5,12 @@ package symboltable;
  */
 public class Symbol {
     private String name;
-    private int type;
 
-    public Symbol(String name, int type) {
+    public Symbol(String name) {
         this.name = name;
-        this.type = type;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getType() {
-        return type;
     }
 }

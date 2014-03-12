@@ -63,18 +63,24 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         }
 
 
-        String formatString = ": %s { %s } %s ;";
+        String formatString = ": %s %s %s ;";
         String name = ctx.funcName.getText();
         String arguments;
-        if (ctx.funcArgs() != null) {
-            arguments = visit(ctx.funcArgs());
-        }
-        else {
-            arguments = "";
-        }
         String body = visit(ctx.sequence());
 
-        return String.format(formatString, name, arguments, body);
+        if (ctx.funcArgs() != null) {
+            arguments = visit(ctx.funcArgs());
+            return String.format(": %s %s %s ;", name, arguments, body);
+        }
+        else {
+            return String.format(": %s %s ;", name, body);
+        }
+
+    }
+
+    @Override
+    public String visitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx) {
+        return visit(ctx.funcCall());
     }
 
     @Override
@@ -114,12 +120,15 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx) {
-        Iterator<InfixParser.FuncArgDeclarationContext> it =  ctx.funcArgDeclaration().iterator();
+        //Want to traverse in reverse order...
+        ListIterator<InfixParser.FuncArgDeclarationContext> it = ctx.funcArgDeclaration().listIterator(ctx.funcArgDeclaration().size());
 
-        String args = visit(it.next());
-        while (it.hasNext()) {
+        String args = visit(it.previous());
+        args += " !";
+        while (it.hasPrevious()) {
             args += " ";
-            args += visit(it.next());
+            args += visit(it.previous());
+            args += " !";
         }
 
         return args;
@@ -319,14 +328,24 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
         AbstractScope abstractScope = scopes.get(ctx);
         VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+
+        String compiledVariableName;
         //TODO CHECK IF VARIABLE EXISTS.
+        if (variableSymbol == null) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "variable name "+ ctx.ID().getText() +" not in scope, unresolvable.");
+            compiledVariableName = "NO_SUCH_VARIABLE";
+        }
+        else {
+            compiledVariableName =  variableSymbol.getCompiledVariableName();
+
+        }
         String formatString;
         if (floatMode) {
             formatString = "%s %s f!";
         } else {
             formatString = "%s %s !";
         }
-        return String.format(formatString, visit(ctx.expr()), variableSymbol.getCompiledVariableName());    //To change body of overridden methods use File | Settings | File Templates.
+        return String.format(formatString, visit(ctx.expr()), compiledVariableName);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
@@ -374,11 +393,20 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
         AbstractScope abstractScope = scopes.get(ctx);
         VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
-        String varName = variableSymbol.getCompiledVariableName();
+        String compiledVariableName;
+
+        if (variableSymbol == null) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "variable name "+ ctx.ID().getText() +" not in scope, unresolvable.");
+            compiledVariableName = "NO_SUCH_VARIABLE";
+        }
+        else {
+            compiledVariableName =  variableSymbol.getCompiledVariableName();
+
+        }
         if (floatMode) {
-            return varName + " f@";    //To change body of overridden methods use File | Settings | File Templates.
+            return compiledVariableName + " f@";    //To change body of overridden methods use File | Settings | File Templates.
         } else {
-            return varName + " @";    //To change body of overridden methods use File | Settings | File Templates.
+            return compiledVariableName + " @";    //To change body of overridden methods use File | Settings | File Templates.
         }
     }
 

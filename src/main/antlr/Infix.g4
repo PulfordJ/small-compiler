@@ -10,6 +10,7 @@ sequence : (declaration SEMICOLON?)* statement*
 
 statement : loop #statementnop
           | conditional #statementConditional
+          | funcCall SEMICOLON #statementFunction
           | assignment SEMICOLON #statementAssign
           | expr SEMICOLON #statementExpr
             ;
@@ -62,7 +63,6 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | parenedexpr                         #parensnop
      | ADD parenedexpr           #parensWithAdd
      | SUB parenedexpr           #parensWithMinus
-     | funcCall                  #exprnop
      ;
 
 // Parenthised expression seperated out in this grammar for modularity.

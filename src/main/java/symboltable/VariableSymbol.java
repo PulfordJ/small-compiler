@@ -8,8 +8,8 @@ import symboltable.Symbol;
 public class VariableSymbol extends Symbol {
     int ctxId;
 
-    public VariableSymbol(String a, int inttype, int ctxId) {
-        super(a, inttype);
+    public VariableSymbol(String a, int ctxId) {
+        super(a);
         this.ctxId = ctxId;
     }
 

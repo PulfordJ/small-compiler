@@ -56,7 +56,7 @@ public class DefPhase extends InfixBaseListener {
 
     @Override
     public void exitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
-        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
+        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), currentScope.getId());
         currentScope.define(variableSymbol);
         variableSymbols.add(variableSymbol);
     }
@@ -81,7 +81,7 @@ public class DefPhase extends InfixBaseListener {
 
     @Override
     public void exitFunction(@NotNull InfixParser.FunctionContext ctx) {
-        FunctionSymbol functionSymbol = new FunctionSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
+        FunctionSymbol functionSymbol = new FunctionSymbol(ctx.ID().getText(), currentScope.getId());
         currentScope.define(functionSymbol);
         functionSymbols.add(functionSymbol);
         scopes.put(ctx,currentScope);
@@ -90,7 +90,7 @@ public class DefPhase extends InfixBaseListener {
     @Override
     public void exitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
         //TODO change type to something more dynamic...
-        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), InfixLexer.INTTYPE, currentScope.getId());
+        VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), currentScope.getId());
         currentScope.define(variableSymbol);
         variableSymbols.add(variableSymbol);
         scopes.put(ctx, currentScope);

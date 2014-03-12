@@ -19,12 +19,12 @@ public class GlobalScopeTest {
     public void beAbleToStoreAndResolveVariable() {
         AbstractScope scope = createScope();
 
-        scope.define(new VariableSymbol("a", InfixLexer.INTTYPE, 1));
+        scope.define(new VariableSymbol("a", 1));
         VariableSymbol symbol = (VariableSymbol) scope.resolve("a");
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(symbol.getName()).isEqualTo("a");
-        softly.assertThat(symbol.getType()).isEqualTo(InfixLexer.INTTYPE);
+        //softly.assertThat(symbol.getType()).isEqualTo(InfixLexer.INTTYPE);
         softly.assertThat(symbol).isInstanceOf(VariableSymbol.class);
         softly.assertThat(symbol.getCompiledVariableName()).isEqualTo("1_a");
         softly.assertAll();

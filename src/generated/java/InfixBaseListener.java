@@ -16,13 +16,13 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterExprnop(@NotNull InfixParser.ExprnopContext ctx) { }
+	@Override public void enterStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitExprnop(@NotNull InfixParser.ExprnopContext ctx) { }
+	@Override public void exitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -81,6 +81,19 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterFloat(@NotNull InfixParser.FloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -101,19 +114,6 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterFloat(@NotNull InfixParser.FloatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
