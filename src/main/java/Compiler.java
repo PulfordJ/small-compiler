@@ -55,17 +55,16 @@ abstract class Compiler {
 
         //Initial walk to get declarations and check for float variables.
         ParseTreeWalker walker = new ParseTreeWalker();
-        DefPhase def = new DefPhase();
+        DefPhase def = new DefPhase(p);
         walker.walk(def, tree);
 
-        InfixVisitorImpl visitor = new InfixVisitorImpl(def.getScopes(), def.getVariableSymbols(), def.getFunctionSymbols());
+        InfixVisitorImpl visitor = new InfixVisitorImpl(p, def.getScopes(), def.getVariableSymbols(), def.getFunctionSymbols());
 
         if (def.hasFloat()) {
             visitor.enableFloatMode();
         }
 
         //Traverse the parser from the initial point with the visitor, the visitor being in charge of language translation.
-        visitor.addParser(p);
         visitor.visit(tree);
         return visitor;
     }

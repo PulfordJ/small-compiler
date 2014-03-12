@@ -1,8 +1,8 @@
 DOCUMENT:
-Build example program, including function, if, else, while...
 Increase source code documentaiton
 Increase target code documetnation
 Increase translatino documentation
 Expand on extra features.
 
 Test that variables in function calls exist..
+Test that variables in function calls..

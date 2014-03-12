@@ -29,7 +29,7 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
     public void whenFunctionUsesTheSameNameAsAVariable() throws Exception {
 
         runCompiler("def f(int a) {a * 2; } int f f(2);");
-        assertEquals("variable 1_a variable 3_f : f 1_a ! 1_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
+        assertEquals("variable 2_a variable 4_f : f 2_a ! 2_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
         assertErrorContains("Line 1 at position 0 function name f cannot be the same as a variables, please change one.");
     }
 
@@ -37,7 +37,7 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
     public void whenVariableUsesTheSameNameAsAFunction() throws Exception {
 
         runCompiler("int f f(2); def f(int a) {a * 2; } ");
-        assertEquals("variable 2_f variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
+        assertEquals("variable 2_f variable 3_a : f 3_a ! 3_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
         assertErrorContains("Line 1 at position 12 function name f cannot be the same as a variables");
     }
 
@@ -84,5 +84,26 @@ public class InfixVisitorImplShouldError extends CompilerShouldAbstract {
      runCompiler("( 3 * 2 ) ) )");
      assertErrorContains("Line 1 at position 10 mismatched input ')' expecting {';', '*', '/', '+', '-'}");
      }
+
+    @Test
+    public void whenFunctionCallUsesUndefinedVariable() throws Exception {
+        runCompiler("def f(int a) { a * 2; } f(a);");
+        assertEquals("variable 2_a : f 2_a ! 2_a @ 2 * . ; : program NO_SUCH_VARIABLE @ f ; program", visitor.getForthSource());
+        assertErrorContains("Line 1 at position 26 variable name a not in scope, unresolvable.");
+    }
+
+    @Test
+    public void whenSameVariableDeclaredTwiceInSameScope() throws Exception {
+        runCompiler("int a; int a;");
+        assertEquals("variable 2_a : program  ; program", visitor.getForthSource());
+        assertErrorContains("Line 1 at position 7 symbol with name a already in scope.");
+    }
+
+    @Test
+    public void whenSameFunctionDeclaredTwiceInSameScope() throws Exception {
+        runCompiler("def f(){}def f(){}");
+        assertEquals(": f  ; : f  ; : program  ; program", visitor.getForthSource());
+        assertErrorContains("Line 1 at position 9 symbol with name f already in scope.");
+    }
 
 }

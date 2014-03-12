@@ -1,8 +1,7 @@
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import symboltable.AbstractScope;
+import symboltable.Scope;
 import symboltable.GlobalScope;
-import symboltable.Symbol;
 import symboltable.VariableSymbol;
 
 /**
@@ -10,14 +9,14 @@ import symboltable.VariableSymbol;
  */
 public class GlobalScopeTest {
 
-    public AbstractScope createScope() {
+    public Scope createScope() {
         return new GlobalScope();
     }
 
 
     @Test
     public void beAbleToStoreAndResolveVariable() {
-        AbstractScope scope = createScope();
+        Scope scope = createScope();
 
         scope.define(new VariableSymbol("a", 1));
         VariableSymbol symbol = (VariableSymbol) scope.resolve("a");

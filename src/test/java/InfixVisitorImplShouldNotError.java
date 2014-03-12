@@ -34,19 +34,19 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
     @Test
     public void testFunctionDefAndCallOneArgument() throws Exception {
         runCompiler("def f(int a) { a * 2; } f(2);");
-        assertEquals("variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : f 2_a ! 2_a @ 2 * . ; : program 2 f ; program", visitor.getForthSource());
     }
 
     @Test
     public void testFunctionDefAndCallOneVariableArgument() throws Exception {
-        runCompiler("def f(int a) { a * 2; } f(a);");
-        assertEquals("variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 1_a @ f ; program", visitor.getForthSource());
+        runCompiler("def f(int a) { a * 2; } int a; f(a);");
+        assertEquals("variable 2_a variable 4_a : f 2_a ! 2_a @ 2 * . ; : program 4_a @ f ; program", visitor.getForthSource());
     }
 
     @Test
     public void testFunctionDefAndCallOneExpressionArgument() throws Exception {
         runCompiler("def f(int a) { a * 2; } f(1+2);");
-        assertEquals("variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 1 2 + f ; program", visitor.getForthSource());
+        assertEquals("variable 2_a : f 2_a ! 2_a @ 2 * . ; : program 1 2 + f ; program", visitor.getForthSource());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
     public void testFunctionDefAndCallTwoArgument() throws Exception {
 
         runCompiler("def f(int a, int b) { a * b * 2; } f(2, 3);");
-        assertThat(visitor.getForthSource()).isEqualTo("variable 1_a variable 1_b : f 1_b ! 1_a ! 1_a @ 1_b @ * 2 * . ; : program 2 3 f ; program");
+        assertThat(visitor.getForthSource()).isEqualTo("variable 2_a variable 2_b : f 2_b ! 2_a ! 2_a @ 2_b @ * 2 * . ; : program 2 3 f ; program");
     }
 
     @Test

@@ -1,7 +1,7 @@
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import symboltable.AbstractScope;
+import symboltable.Scope;
 import symboltable.FunctionSymbol;
 import symboltable.VariableSymbol;
 
@@ -24,14 +24,15 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     Parser parser;
 
 
-    private final ParseTreeProperty<AbstractScope> scopes;
-    AbstractScope currentScope;
+    private final ParseTreeProperty<Scope> scopes;
+    Scope currentScope;
 
-    public InfixVisitorImpl(ParseTreeProperty<AbstractScope> scopes, List<VariableSymbol> variableSymbols, ArrayList<FunctionSymbol> functionSymbols) {
+    public InfixVisitorImpl(InfixParser parser, ParseTreeProperty<Scope> scopes, List<VariableSymbol> variableSymbols, ArrayList<FunctionSymbol> functionSymbols) {
         super();
         this.scopes = scopes;
         this.variableSymbols = variableSymbols;
         this.functionSymbols = functionSymbols;
+        this.parser = parser;
     }
 
 
@@ -136,8 +137,8 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
-        AbstractScope abstractScope = scopes.get(ctx);
-        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+        Scope scope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) scope.resolve(ctx.ID().getText());
         return variableSymbol.getCompiledVariableName();
     }
     /*
@@ -288,12 +289,6 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         return "0";
     }
 
-    //This is to allow generation of the postscript parse tree at a later date.
-    public void addParser(Parser p) {
-        parser = p;
-    }
-
-
     /**
      * Prints the postscript parsetree to a .ps file with the given name
      *
@@ -312,8 +307,8 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) {
-        AbstractScope abstractScope = scopes.get(ctx);
-        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+        Scope scope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) scope.resolve(ctx.ID().getText());
 
         String compiledVariableName;
         //TODO CHECK IF VARIABLE EXISTS.
@@ -364,21 +359,29 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
     @Override
     public String visitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
-        AbstractScope abstractScope = scopes.get(ctx);
-        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
-        String varName = variableSymbol.getCompiledVariableName();
+        Scope scope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) scope.resolve(ctx.ID().getText());
+        String compiledVariableName;
+
+        if (variableSymbol == null) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "variable name "+ ctx.ID().getText() +" not in scope, unresolvable.");
+            compiledVariableName = "NO_SUCH_VARIABLE";
+        }
+        else {
+            compiledVariableName =  variableSymbol.getCompiledVariableName();
+        }
 
         if (floatMode) {
-            return "0e0 " + varName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+            return "0e0 " + compiledVariableName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
         } else {
-            return "0 " + varName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
+            return "0 " + compiledVariableName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
         }
     }
 
     @Override
     public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
-        AbstractScope abstractScope = scopes.get(ctx);
-        VariableSymbol variableSymbol = (VariableSymbol) abstractScope.resolve(ctx.ID().getText());
+        Scope scope = scopes.get(ctx);
+        VariableSymbol variableSymbol = (VariableSymbol) scope.resolve(ctx.ID().getText());
         String compiledVariableName;
 
         if (variableSymbol == null) {

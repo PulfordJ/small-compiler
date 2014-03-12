@@ -1,3 +1,4 @@
+import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import symboltable.*;
@@ -10,9 +11,14 @@ import java.util.List;
  */
 public class DefPhase extends InfixBaseListener {
     //Used to associate scopes with contexts for future parses.
-    private ParseTreeProperty<AbstractScope> scopes;
+    private ParseTreeProperty<Scope> scopes;
     private GlobalScope globalScope;
-    private AbstractScope currentScope;
+    private Scope currentScope;
+    private Parser parser;
+
+    public DefPhase(Parser parser) {
+        this.parser = parser;
+    }
 
     private List<VariableSymbol> variableSymbols;
 
@@ -23,7 +29,7 @@ public class DefPhase extends InfixBaseListener {
         return floatMode;
     }
 
-    public ParseTreeProperty<AbstractScope> getScopes() {
+    public ParseTreeProperty<Scope> getScopes() {
         return scopes;
     }
 
@@ -32,7 +38,7 @@ public class DefPhase extends InfixBaseListener {
         super.enterBoilerplate(ctx);
         variableSymbols = new ArrayList<VariableSymbol>();
         functionSymbols = new ArrayList<FunctionSymbol>();
-        scopes = new ParseTreeProperty<AbstractScope>();
+        scopes = new ParseTreeProperty<Scope>();
         GlobalScope.resetCounter();
         globalScope = new GlobalScope();
         currentScope = globalScope;
@@ -57,8 +63,12 @@ public class DefPhase extends InfixBaseListener {
     @Override
     public void exitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
         VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), currentScope.getId());
-        currentScope.define(variableSymbol);
-        variableSymbols.add(variableSymbol);
+        try {
+            currentScope.define(variableSymbol);
+            variableSymbols.add(variableSymbol);
+        } catch (Scope.SymbolNameAlreadyInScopeException e) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "symbol with name " + ctx.ID().getText() + " already in scope.");
+        }
     }
 
     @Override
@@ -80,18 +90,32 @@ public class DefPhase extends InfixBaseListener {
     }
 
     @Override
-    public void exitFunction(@NotNull InfixParser.FunctionContext ctx) {
-        FunctionSymbol functionSymbol = new FunctionSymbol(ctx.ID().getText(), currentScope.getId());
-        currentScope.define(functionSymbol);
+    public void enterFunction(@NotNull InfixParser.FunctionContext ctx) {
+        FunctionSymbol functionSymbol = new FunctionSymbol(ctx.ID().getText());
+        try {
+            currentScope.define(functionSymbol);
+        } catch (Scope.SymbolNameAlreadyInScopeException e) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "symbol with name " + ctx.ID().getText() + " already in scope.");
+        }
+        currentScope = new FunctionScope(currentScope);
         functionSymbols.add(functionSymbol);
-        scopes.put(ctx,currentScope);
+        scopes.put(ctx, currentScope);
+    }
+
+    @Override
+    public void exitFunction(@NotNull InfixParser.FunctionContext ctx) {
+        currentScope = currentScope.getParentScope();
     }
 
     @Override
     public void exitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) {
         //TODO change type to something more dynamic...
         VariableSymbol variableSymbol = new VariableSymbol(ctx.ID().getText(), currentScope.getId());
-        currentScope.define(variableSymbol);
+        try {
+            currentScope.define(variableSymbol);
+        } catch (Scope.SymbolNameAlreadyInScopeException e) {
+            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "symbol with name " + ctx.ID().getText() + " already in scope.");
+        }
         variableSymbols.add(variableSymbol);
         scopes.put(ctx, currentScope);
     }

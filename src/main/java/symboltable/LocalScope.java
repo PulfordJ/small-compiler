@@ -1,11 +1,11 @@
 package symboltable;
 
 /**
- * Created by john on 09/03/14.
+ * Scope subclass for a generic block of code.
  */
-public class LocalScope extends AbstractScope{
+public class LocalScope extends Scope {
 
-    public LocalScope(AbstractScope parentScope) {
+    public LocalScope(Scope parentScope) {
         super(parentScope);
     }
 }
