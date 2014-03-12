@@ -302,7 +302,7 @@ The following has been implemented;
     \item[Support for floating-point expressions as well as integers] \hfill
         Integers are converted into floats when floats are in the equation; the lexer is applied twice to achieve this.
     \item[Helpful and informative error messages]
-        Errors are underlined, unless found at the last line (Because those underlines are rarely useful.) In addition ANTLR4's condensed error messages have been reworded. ANTLR4 also has built in capabilities to continue checking for errors in the code despite running into one.
+        Due to the behaviour-driven development used for this software the best way to see what error cases are supported is to access src/test/java/CompilerShouldError.java. Each test function is written in human readable camel case.
     \item[Immune to whitespace]
        Whitespace doesn't matter, check the unit tests for whacky spacing examples. This required a specific structuring of the grammar because in antlr4 you cannot implicitly ignore whitespace inside terminals (Which is why there are no signed numbers as terminals). 
 \end{description}
