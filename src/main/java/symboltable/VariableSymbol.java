@@ -7,7 +7,7 @@ import symboltable.Symbol;
  */
 public class VariableSymbol extends Symbol {
     //Id of the scope this variable is within, used to generate unique names.
-    int ctxId;
+    private final int ctxId;
 
     /**
      * Constructor

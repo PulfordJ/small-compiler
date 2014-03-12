@@ -12,15 +12,7 @@ import java.util.Locale;
 public class NoSuchThingException extends RecognitionException {
 
 	public NoSuchThingException(@NotNull Parser recognizer) {
-        super(formatMessage(null, null), recognizer, recognizer.getInputStream(), recognizer._ctx);
+        super("", recognizer, recognizer.getInputStream(), recognizer._ctx);
 	}
 
-	@NotNull
-	private static String formatMessage(@Nullable String predicate, @Nullable String message) {
-		if (message != null) {
-			return message;
-		}
-
-		return String.format(Locale.getDefault(), "failed predicate: {%s}?", predicate);
-	}
 }

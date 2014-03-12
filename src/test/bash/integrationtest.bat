@@ -1,1 +1,1 @@
-more src/test/java/InfixVisitorImplShouldNotError.java | perl -ne "print \"$+{code} \"  if /(?<blah>assert).*\"(?<code>.*)\".*/" > example.fs
+more src/test/java/CompilerShouldCompileWithoutError.java | perl -ne "print \"$+{code} \"  if /(?<blah>assert).*\"(?<code>.*)\".*/" > example.fs

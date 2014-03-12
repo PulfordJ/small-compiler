@@ -1,8 +1,6 @@
 package symboltable;
 
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +12,12 @@ public class Scope {
     private static int nextId = 0;
 
     //Table of symbols within the scope.
-    private Map<String, Symbol> symbols;
+    private final Map<String, Symbol> symbols;
 
     //Unique id of this particular scope instance.
-    private int id;
+    private final int id;
     //The scope this scope lays within.
-    private Scope parentScope;
+    private final Scope parentScope;
 
     /**
      * Constructor

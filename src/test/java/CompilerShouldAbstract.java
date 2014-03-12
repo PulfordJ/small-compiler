@@ -1,6 +1,4 @@
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,7 +15,7 @@ public class CompilerShouldAbstract {
 
     protected ByteArrayOutputStream outContent;
     protected ByteArrayOutputStream errContent;
-    InfixVisitorImpl visitor;
+    SourceGenerationVisitor visitor;
     //This was to access error stream, with object abstraction this doesn't appear to work, kept for posterity, 'failing' tests commented out.
     @BeforeMethod
     public void setUpStreams() {

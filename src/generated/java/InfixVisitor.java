@@ -39,13 +39,6 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBoolExpr(@NotNull InfixParser.BoolExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#declareIntVariable}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixParser#float}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -114,6 +107,13 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatementnop(@NotNull InfixParser.StatementnopContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#declareVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclareVariable(@NotNull InfixParser.DeclareVariableContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#ifElseStatement}.

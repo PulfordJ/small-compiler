@@ -5,7 +5,7 @@ package symboltable;
  */
 public class Symbol {
     //Name of the symbol.
-    private String name;
+    private final String name;
 
     /**
      * Constructor.

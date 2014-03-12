@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**
- * Created with IntelliJ IDEA.
+ * The main class for the compiler.
  * User: john
  * Date: 1/24/14
  * Time: 12:32 PM
@@ -16,7 +16,7 @@ public class InfixRunner {
 
             //Run compiler.
             FileCompiler fileCompiler = new FileCompiler(args[0]);
-            InfixVisitorImpl visitor = fileCompiler.compile();
+            SourceGenerationVisitor visitor = fileCompiler.compile();
 
             //Save parse tree.
             visitor.outputPSGraphToFile(filepathWithoutExtention);

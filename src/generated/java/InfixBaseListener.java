@@ -68,19 +68,6 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterFloat(@NotNull InfixParser.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -205,6 +192,19 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitStatementnop(@NotNull InfixParser.StatementnopContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterDeclareVariable(@NotNull InfixParser.DeclareVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitDeclareVariable(@NotNull InfixParser.DeclareVariableContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

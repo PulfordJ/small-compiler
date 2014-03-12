@@ -49,14 +49,6 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitFloat(@NotNull InfixParser.FloatContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -130,6 +122,14 @@ public class InfixBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitStatementnop(@NotNull InfixParser.StatementnopContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitDeclareVariable(@NotNull InfixParser.DeclareVariableContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
