@@ -1,8 +1,10 @@
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import symboltable.Scope;
 import symboltable.FunctionSymbol;
+import symboltable.Symbol;
 import symboltable.VariableSymbol;
 
 import javax.print.PrintException;
@@ -17,7 +19,6 @@ import java.util.*;
  */
 public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     private final List<VariableSymbol> variableSymbols;
-    private final List<FunctionSymbol> functionSymbols;
     String forthSource = "";
     InfixParser.BoilerplateContext rootCtx;
     private boolean floatMode;
@@ -31,7 +32,6 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         super();
         this.scopes = scopes;
         this.variableSymbols = variableSymbols;
-        this.functionSymbols = functionSymbols;
         this.parser = parser;
     }
 
@@ -40,12 +40,12 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
     public String visitDeclareIntVariable(@NotNull InfixParser.DeclareIntVariableContext ctx) {
         String variableName = ctx.ID().getText();
 
-        for (FunctionSymbol functionSymbol : functionSymbols) {
-            if (functionSymbol.getName().equals(variableName)) {
+        Symbol symbol = currentScope.resolve(variableName);
+
+        if (symbol instanceof FunctionSymbol) {
                 new SemanticError(parser, ctx, ctx.ID().getSymbol(), "variable name "+ variableName +" cannot be the same as a functions, please change one.");
             }
 
-        }
 
         //String formatString = "0 { %s }";
 
@@ -89,15 +89,11 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         String formatString = "%s %s";
         String funcArgs = "";
         String name = ctx.ID().getText();
-        boolean found = false;
+        Symbol symbol = currentScope.resolve(name);
 
-        for (FunctionSymbol functionSymbol : functionSymbols) {
-            if (functionSymbol.getName().equals(name)) {
-                found = true;
-            }
-        }
 
-        if (!found) {
+
+        if (!(symbol instanceof FunctionSymbol)) {
             new SemanticError(parser, ctx, ctx.ID().getSymbol(), "No function by the name "+ name +".");
         }
 
