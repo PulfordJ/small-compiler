@@ -102,7 +102,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
 
         Iterator<InfixParser.ExprContext> it =  ctx.expr().iterator();
         while (it.hasNext()) {
-            funcArgs += it.next().getText();
+            funcArgs += visit(it.next());
             funcArgs += " ";
         }
         if (!funcArgs.equals("")) {
@@ -268,21 +268,7 @@ public class InfixVisitorImpl extends InfixBaseVisitor<String> {
         String left = visit(ctx.expr(0));
         String right = visit(ctx.expr(1));
 
-
-        switch (ctx.op.getType()) {
-            case InfixParser.EQUALS:
-                op = "=";
-                break;
-            case InfixParser.GREATERTHAN:
-                op = ">";
-                break;
-            case InfixParser.LESSTHAN:
-                op = "<";
-                break;
-            case InfixParser.NOTEQUALS:
-                op = "<>";
-                break;
-        }
+        op = ctx.op.getText();
        return String.format(formatString, left, right, op);
     }
 

@@ -20,7 +20,7 @@ assignment : ID ASSIGN expr              #assignVariable
            ;
 
 
-bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS) expr #boolExpr
+bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS|LESSTHANOREQUALS|GREATERTHANOREQUALS) expr #boolExpr
      | TRUE #boolTrue
      | FALSE #boolFalse
      | leftBool=bool op=(OR|AND) rightBool=bool #boolLogic
@@ -80,6 +80,8 @@ ASSIGN : ':=' ;
 EQUALS : '=' ;
 GREATERTHAN : '>' ;
 LESSTHAN : '<' ;
+LESSTHANOREQUALS : '<=' ;
+GREATERTHANOREQUALS : '>=' ;
 NOTEQUALS : '!=' ;
 MUL : '*' ;
 DIV : '/' ;

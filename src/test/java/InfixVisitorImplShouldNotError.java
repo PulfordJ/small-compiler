@@ -38,6 +38,18 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
     }
 
     @Test
+    public void testFunctionDefAndCallOneVariableArgument() throws Exception {
+        runCompiler("def f(int a) { a * 2; } f(a);");
+        assertEquals("variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 1_a @ f ; program", visitor.getForthSource());
+    }
+
+    @Test
+    public void testFunctionDefAndCallOneExpressionArgument() throws Exception {
+        runCompiler("def f(int a) { a * 2; } f(1+2);");
+        assertEquals("variable 1_a : f 1_a ! 1_a @ 2 * . ; : program 1 2 + f ; program", visitor.getForthSource());
+    }
+
+    @Test
     public void testFunctionDefAndCallZeroArgument() throws Exception {
 
         runCompiler("def f() { 2; } f();");
@@ -112,6 +124,13 @@ public class InfixVisitorImplShouldNotError extends CompilerShouldAbstract {
 
         runCompiler("int a\n a := 1;\nif (a = 1) {2;} else {3;}");
         assertEquals("variable 2_a : program 1 2_a ! 2_a @ 1 = if 2 . else 3 . endif ; program", visitor.getForthSource());
+    }
+
+    @Test
+    public void testTrueIfElseStatementWithScopedVariables() throws Exception {
+
+        runCompiler("int a\n a := 1;\nif (a = 1) {int a; a:= 1; a; 2;} else {int a; a := 2; a; 3;}");
+        assertEquals("variable 2_a variable 3_a variable 4_a : program 1 2_a ! 2_a @ 1 = if 1 3_a ! 3_a @ . 2 . else 2 4_a ! 4_a @ . 3 . endif ; program", visitor.getForthSource());
     }
 
     @Test
