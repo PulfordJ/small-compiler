@@ -103,7 +103,7 @@
 All possible tokens:
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   TOKEN &\Coloneqq &SEMICOLON\\% bad spacing
   &| &ASSIGN\\% bad spacing
   &| &EQUALS\\% bad spacing
@@ -136,12 +136,12 @@ All possible tokens:
   &| &FLOAT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 \newpage
 Each individual token:
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   SEMICOLON &\Coloneqq &';'\\% bad spacing
   ASSIGN &\Coloneqq &':='\\% bad spacing
   EQUALS &\Coloneqq &'='\\% bad spacing
@@ -174,7 +174,7 @@ Each individual token:
   FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; ( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 \begin{landscape}
 \subsubsection{Expressions}
 
@@ -223,12 +223,36 @@ A formal description of the target language is below note that extra language as
 
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   TOKEN &\Coloneqq &FLOATMUL\\% bad spacing
   &| &FLOATDIV\\% bad spacing
   &| &FLOATPLUS\\% bad spacing
   &| &FLOATMINUS\\% bad spacing
   &| &FLOATPOP\\% bad spacing
+  &| &FLOATPUSHTOADDRESS\\% bad spacing
+  &| &PUSHTOADDRESS\\% bad spacing
+  &| &EQUALS\\% bad spacing
+  &| &GREATERTHAN\\% bad spacing
+  &| &LESSTHAN\\% bad spacing
+  &| &LESSTHANOREQUALS\\% bad spacing
+  &| &GREATERTHANOREQUALS\\% bad spacing
+  &| &NOTEQUALS\\% bad spacing
+  &| &TRUE\\% bad spacing
+  &| &FALSE\\% bad spacing
+  &| &OR\\% bad spacing
+  &| &AND\\% bad spacing
+  &| &VARIABLEDEC\\% bad spacing
+  &| &ID\\% bad spacing
+  &| &FLOATVALUEOFVARIABLE\\% bad spacing
+  &| &VALUEOFVARIABLE\\% bad spacing
+  &| &IF\\% bad spacing
+  &| &ELSE\\% bad spacing
+  &| &ENDIF\\% bad spacing
+  &| &BEGIN\\% bad spacing
+  &| &WHILE\\% bad spacing
+  &| &REPEAT\\% bad spacing
+  &| &COLON\\% bad spacing
+  &| &SEMICOLON\\% bad spacing
   &| &MUL\\% bad spacing
   &| &DIV\\% bad spacing
   &| &PLUS\\% bad spacing
@@ -239,33 +263,57 @@ A formal description of the target language is below note that extra language as
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
   &| &SEPERATOR\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   MUL &\Coloneqq &'*'\\% bad spacing
   DIV &\Coloneqq &'\backslash'\\% bad spacing
   PLUS &\Coloneqq &'+'\\% bad spacing
   MINUS &\Coloneqq &'-'\\% bad spacing
   POP &\Coloneqq &'.'\\% bad spacing
+  EQUALS &\Coloneqq &'='\\% bad spacing
+  GREATERTHAN &\Coloneqq &'>'\\% bad spacing
+  LESSTHAN &\Coloneqq &'<'\\% bad spacing
+  LESSTHANOREQUALS &\Coloneqq &'<='\\% bad spacing
+  GREATERTHANOREQUALS &\Coloneqq &'>='\\% bad spacing
+  TRUE &\Coloneqq &'true'\\% bad spacing
+  FALSE &\Coloneqq &'false'\\% bad spacing
+  OR &\Coloneqq &'or'\\% bad spacing
+  AND &\Coloneqq &'and'\\% bad spacing
+  NOTEQUALS &\Coloneqq &'!='\\% bad spacing
   FLOATMUL &\Coloneqq &'f*'\\% bad spacing
   FLOATDIV &\Coloneqq &'f\backslash'\\% bad spacing
   FLOATPLUS &\Coloneqq &'f+'\\% bad spacing
   FLOATMINUS &\Coloneqq &'f-'\\% bad spacing
+  FLOATPUSHTOADDRESS &\Coloneqq &'f!'\\% bad spacing
+  PUSHTOADDRESS &\Coloneqq &'!'\\% bad spacing
+  VARIABLEDEC &\Coloneqq &'variable'\\% bad spacing
+  ID &\Coloneqq &[ \; A-z \; ]\\% bad spacing
+  FLOATVALUEOFVARIABLE &\Coloneqq &'f@'\\% bad spacing
+  VALUEOFVARIABLE &\Coloneqq &'@'\\% bad spacing
+  IF &\Coloneqq &'if'\\% bad spacing
+  ELSE &\Coloneqq &'else'\\% bad spacing
+  ENDIF &\Coloneqq &'endif'\\% bad spacing
+  BEGIN &\Coloneqq &'begin'\\% bad spacing
+  WHILE &\Coloneqq &'while'\\% bad spacing
+  REPEAT &\Coloneqq &'repeat'\\% bad spacing
+  COLON &\Coloneqq &':'\\% bad spacing
+  SEMICOLON &\Coloneqq &';'\\% bad spacing
   FLOATPOP &\Coloneqq &'f.'\\% bad spacing
   FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
   FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; ( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
   SEPERATOR &\Coloneqq &'\ '\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 \subsubsection{Expression}
 
 Whilst not strictly true I've modeled the grammar of Forth as one that will either except integer or float numbers. This is true from the perspective of this compiler but in reality there is the option of conversion to float within the forth language.
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   start &\Coloneqq & expr \; | \; floatexpr\\
   expr &\Coloneqq & expr \; expr \; PLUS\\
   &| &expr \; expr \; DIV\\% bad spacing
@@ -279,7 +327,7 @@ Whilst not strictly true I've modeled the grammar of Forth as one that will eith
   &| &floatexpr \; floatexpr \; FLOATMINUS\\% bad spacing
   &| &MINUS \; FLOAT\\% bad spacing
   &| &PLUS? \; FLOAT\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 \section{Translation}
 \subsection{Tokens}
 Rather than cover tokens seperately I simply cover their translation in the expression section for brevity.
@@ -292,7 +340,7 @@ There are also are two versions of the syntax directed translation. One when at 
 \subsubsection{Float Enabled Translation}
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
   Production & & Source &Target\\ \hline
   start &\Coloneqq & expr_{1}& expr_{1} \; SEPERATOR \; FLOATPOP\\
   expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATPLUS\\
@@ -305,14 +353,39 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &ADD? \; INT&FLOAT(INT'e0')\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0e0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
-\end{tabular}}
+\end{longtable}}
 
 \subsubsection{Float Disabled Translation}
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
   Production & & Source &Target\\ \hline
-  start &\Coloneqq & expr_{1}& expr_{1} \; SEPERATOR \; POP\\
+  start &\Coloneqq & func* \; sequence \; func*& \\
+  func &\Coloneqq & DEF \; ID \; LEFTPAREN \; funcArgs? \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
+  funcArgs &\Coloneqq & declaration \; (COMMA \; declaration)*& \\
+  declaration &\Coloneqq & valueType \; ID& \\
+  valueType &\Coloneqq & INTTYPE \; FLOATTYPE& \\
+  sequence &\Coloneqq & (declaration \; SEMICOLON?)* \; statement*& \\
+  statement &\Coloneqq & loop& \\
+  &| &conditional& \\% bad spacing
+  &| &funcCall \; SEMICOLON& \\% bad spacing
+  &| &assignment \; SEMICOLON& \\% bad spacing
+  bool &\Coloneqq & expr \; compOp \; expr& \\
+  &| &TRUE& \\% bad spacing
+  &| &FALSE& \\% bad spacing
+  &| &bool \; boolOp \; bool& \\% bad spacing
+  &| &LEFTPAREN \; BOOL \; RIGHTPAREN& \\% bad spacing
+  boolOp &\Coloneqq & (OR \; | \; AND)& \\
+  compOp &\Coloneqq & (EQUALS \; | \; GREATERTHAN \; | & \\
+  & & LESSTHAN \; | \; NOTEQUALS \; | \; & \\
+  & & LESSTHANOREQUALS \; | \; GREATERTHANOREQUALS)& \\
+  &| &expr \; SEMICOLON& \\% bad spacing
+  loop &\Coloneqq & WHILE \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
+  conditional &\Coloneqq & IF \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
+  &| & IF \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
+  & & ELSE \; LEFTCURLY \; SEQUENCE \; RIGHTCURLY& \\
+  funcCall &\Coloneqq & ID \; LEFTPAREN \; (expr \; (COMMA \; expr)*)? \; RIGHTPAREN& \\
+  assignment &\Coloneqq & ID \; ASSIGN \; expr& \\
   expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; PLUS\\
   &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; DIV\\% bad spacing
   &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MUL\\% bad spacing
@@ -321,7 +394,7 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &ADD? \; INT&INT\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
-\end{tabular}}
+\end{longtable}}
 
 %This could probably be merged into Expressions
 \section{Implementation}
