@@ -1,5 +1,4 @@
 import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 
 import java.io.*;
@@ -10,7 +9,7 @@ import java.lang.*;
  * An implementation of Compiler that creates CharStreams from opening a file.
  */
 public class FileCompiler extends Compiler {
-    String sourceFile;
+    private final String sourceFile;
 
     public FileCompiler(String sourceFile) {
         this.sourceFile = sourceFile;

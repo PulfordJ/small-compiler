@@ -1,22 +1,25 @@
 package symboltable;
 
 /**
- * Created by john on 09/03/14.
+ * A symbol, stored inside a scope.
  */
 public class Symbol {
-    private String name;
-    private int type;
+    //Name of the symbol.
+    private final String name;
 
-    public Symbol(String name, int type) {
+    /**
+     * Constructor.
+     * @param name name of the symbol.
+     */
+    public Symbol(String name) {
         this.name = name;
-        this.type = type;
     }
 
+    /**
+     * Getter
+     * @return name of the symbol.
+     */
     public String getName() {
         return name;
-    }
-
-    public int getType() {
-        return type;
     }
 }

@@ -3,16 +3,26 @@ package symboltable;
 import symboltable.Symbol;
 
 /**
- * Created by john on 09/03/14.
+ * Symbol subclass for a variable.
  */
 public class VariableSymbol extends Symbol {
-    int ctxId;
+    //Id of the scope this variable is within, used to generate unique names.
+    private final int ctxId;
 
-    public VariableSymbol(String a, int inttype, int ctxId) {
-        super(a, inttype);
+    /**
+     * Constructor
+     * @param name name of the variable
+     * @param ctxId id of the scope this variable is declared within.
+     */
+    public VariableSymbol(String name, int ctxId) {
+        super(name);
         this.ctxId = ctxId;
     }
 
+    /**
+     * The unique target code name for the symbol.
+     * @return the target code name.
+     */
     public String getCompiledVariableName() {
         return ctxId + "_" + getName();
     }

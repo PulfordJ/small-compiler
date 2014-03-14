@@ -10,7 +10,7 @@ public class UnderlineListener extends BaseErrorListener {
         return msg.matches("(.*)<EOF>(.*)");
     }
 
-    //Reformats the typical error message from an ANTLR4 compiler.
+    //Reformat the typical error message from an ANTLR4 compiler.
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
         //Potentially underline the error message.

@@ -68,5 +68,5 @@ task release(dependsOn: [build, shadowJar, genDocs]) {
 }
 
 test {
-include '**/*'
+    useTestNG()
 }

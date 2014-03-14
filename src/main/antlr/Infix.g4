@@ -10,6 +10,7 @@ sequence : (declaration SEMICOLON?)* statement*
 
 statement : loop #statementnop
           | conditional #statementConditional
+          | funcCall SEMICOLON #statementFunction
           | assignment SEMICOLON #statementAssign
           | expr SEMICOLON #statementExpr
             ;
@@ -18,8 +19,7 @@ statement : loop #statementnop
 assignment : ID ASSIGN expr              #assignVariable
            ;
 
-
-bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS) expr #boolExpr
+bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS|LESSTHANOREQUALS|GREATERTHANOREQUALS) expr #boolExpr
      | TRUE #boolTrue
      | FALSE #boolFalse
      | leftBool=bool op=(OR|AND) rightBool=bool #boolLogic
@@ -27,9 +27,9 @@ bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS) expr #boolExpr
      ;
 
 
-declaration : valueType ID      #declareIntVariable
+declaration : valueType ID      #declareVariable
              ;
-valueType : INTTYPE
+valueType : INTTYPE | FLOATTYPE
          ;
 
 conditional : IF LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence RIGHTCURLY  #ifStatement
@@ -62,7 +62,6 @@ expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | parenedexpr                         #parensnop
      | ADD parenedexpr           #parensWithAdd
      | SUB parenedexpr           #parensWithMinus
-     | funcCall                  #exprnop
      ;
 
 // Parenthised expression seperated out in this grammar for modularity.
@@ -80,6 +79,8 @@ ASSIGN : ':=' ;
 EQUALS : '=' ;
 GREATERTHAN : '>' ;
 LESSTHAN : '<' ;
+LESSTHANOREQUALS : '<=' ;
+GREATERTHANOREQUALS : '>=' ;
 NOTEQUALS : '!=' ;
 MUL : '*' ;
 DIV : '/' ;
@@ -90,6 +91,7 @@ RIGHTPAREN : ')' ;
 FLOATEXPONENT : 'e' ;
 FLOAT : INT FLOATEXPONENT (ADD|SUB)? INT ;
 INTTYPE : 'int' ;
+FLOATTYPE : 'float' ;
 //OPTIONALLYSIGNEDINT : (ADD|SUB)? INT ;
 INT : [0-9]+ ;
 WS : [ \t\r\n]+ -> skip ;

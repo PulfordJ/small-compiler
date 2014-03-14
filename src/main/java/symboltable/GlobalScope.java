@@ -1,9 +1,9 @@
 package symboltable;
 
 /**
- * Created by john on 09/03/14.
+ * Global sublclass implementation of Scope.
  */
-public class GlobalScope extends AbstractScope {
+public class GlobalScope extends Scope {
 
     public GlobalScope() {
         super(null);

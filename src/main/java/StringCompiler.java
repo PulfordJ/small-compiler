@@ -11,7 +11,7 @@ import java.lang.*;
  * An implementation of Compiler that creates CharStreams from a predefined string.
  */
 public class StringCompiler extends Compiler {
-    String source;
+    private final String source;
 
     public StringCompiler(String source) {
         this.source = source;

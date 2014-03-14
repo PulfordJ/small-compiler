@@ -1,1 +1,1 @@
-def f(int a) { a * 2; } f(2);
+def f(int a) {    int i;    i := 1;    while (i <= 10 and true) {        a * i;        i := i + 1;    }}int a while (a < 10) {    a := a + 1;     a;} a := 1; while (a < 10) {    a := a + 1;     a;}if (a = 1) {    int a;    a := 0;    a + 1;}a;f(a);

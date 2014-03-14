@@ -1,16 +1,5 @@
-handle symbol table of function names -> argument number AND TYPE!?!?!.
-
-
-Testing:
-Grep gforth code, put it together.
-
-ERROR HANDLING:
-Check variable in scope
-Check function exists.
-Handle symbol table typing.
-
 DOCUMENT:
 Increase source code documentaiton
 Increase target code documetnation
 Increase translatino documentation
-Expand on extra features.
+Expand on extra features, give overview (Including errors.)

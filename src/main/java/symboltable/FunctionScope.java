@@ -1,10 +1,10 @@
 package symboltable;
 
 /**
- * Created by john on 09/03/14.
+ * An implementation of scope for functions.
  */
-public class FunctionScope extends AbstractScope {
-    public FunctionScope(AbstractScope parentScope) {
+public class FunctionScope extends Scope {
+    public FunctionScope(Scope parentScope) {
         super(parentScope);
     }
 }
