@@ -66,3 +66,7 @@ apply plugin: 'pdflatex'
 
 task release(dependsOn: [build, shadowJar, genDocs]) {
 }
+
+test {
+include '**/*'
+}
