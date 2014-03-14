@@ -360,12 +360,14 @@ There are also are two versions of the syntax directed translation. One when at 
 {\setlength\tabcolsep{4pt}
 \begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
   Production & & Source &Target\\ \hline
-  start &\Coloneqq & func* \; sequence \; func*& \\
-  func &\Coloneqq & DEF \; ID \; LEFTPAREN \; funcArgs? \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
-  funcArgs &\Coloneqq & declaration \; (COMMA \; declaration)*& \\
-  declaration &\Coloneqq & valueType \; ID& \\
-  valueType &\Coloneqq & INTTYPE \; FLOATTYPE& \\
-  sequence &\Coloneqq & (declaration \; SEMICOLON?)* \; statement*& \\
+  start &\Coloneqq & func* \; sequence \; func*& declarationList \; functionList \; T[sequence] \\
+  func &\Coloneqq & DEF \; ID \; LEFTPAREN \; funcArgs? & functionList.append(COLON \; SEPERATOR \; ID \; SEPERATOR\\ 
+  & & RIGHTPAREN \; LEFTCURLY \; sequence&sequence \; SEMICOLON \; SEPERATOR)\\
+  & & RIGHTCURLY \; sequence \; RIGHTCURLY& \\
+  funcArgs &\Coloneqq & declaration \; (COMMA \; declaration)*& T[declaration_{1..n}] \\
+  declaration &\Coloneqq & valueType \; ID& scope.define(a) \; declarationList.append(VARIABLE \; SEPERATOR \; scope.resolve(a) )\\
+  valueType &\Coloneqq & INTTYPE \; FLOATTYPE&TODOREMOVETHIS \\
+  sequence &\Coloneqq & (declaration \; SEMICOLON?)* \; statement*& T[declaration_{1..n}] \; T[statement_{1..n}]\\
   statement &\Coloneqq & loop& \\
   &| &conditional& \\% bad spacing
   &| &funcCall \; SEMICOLON& \\% bad spacing
@@ -378,13 +380,22 @@ There are also are two versions of the syntax directed translation. One when at 
   boolOp &\Coloneqq & (OR \; | \; AND)& \\
   compOp &\Coloneqq & (EQUALS \; | \; GREATERTHAN \; | & \\
   & & LESSTHAN \; | \; NOTEQUALS \; | \; & \\
-  & & LESSTHANOREQUALS \; | \; GREATERTHANOREQUALS)& \\
+  & & LESSTHANOREQUALS \; |& \\
+  & & GREATERTHANOREQUALS)& \\
   &| &expr \; SEMICOLON& \\% bad spacing
-  loop &\Coloneqq & WHILE \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
-  conditional &\Coloneqq & IF \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
-  &| & IF \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY& \\
-  & & ELSE \; LEFTCURLY \; SEQUENCE \; RIGHTCURLY& \\
-  funcCall &\Coloneqq & ID \; LEFTPAREN \; (expr \; (COMMA \; expr)*)? \; RIGHTPAREN& \\
+  loop &\Coloneqq & WHILE \; LEFTPAREN \; bool& \\
+  & & RIGHTPAREN \; LEFTCURLY& \\
+  & & sequence \; RIGHTCURLY& \\
+  conditional &\Coloneqq & IF \; LEFTPAREN \; bool \\
+  & & RIGHTPAREN \; LEFTCURLY \\
+  & & sequence \; RIGHTCURLY& \\
+  &| & IF \; LEFTPAREN \; bool& \\
+  & & RIGHTPAREN \; LEFTCURLY& \\
+  & & sequence \; RIGHTCURLY& \\
+  & & ELSE \; LEFTCURLY& \\
+  & & SEQUENCE \; RIGHTCURLY& \\
+  funcCall &\Coloneqq & ID \; LEFTPAREN \\
+  & & (expr \; (COMMA \; expr)*)? \; RIGHTPAREN& \\
   assignment &\Coloneqq & ID \; ASSIGN \; expr& \\
   expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; PLUS\\
   &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; DIV\\% bad spacing
@@ -392,8 +403,10 @@ There are also are two versions of the syntax directed translation. One when at 
   &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MINUS\\% bad spacing
   &| &MINUS \; INT&MINUS \; INT\\% bad spacing
   &| &ADD? \; INT&INT\\% bad spacing
-  &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
-  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
+  &| &PLUS? \; LEFTPAREN \\
+  & & expr \; RIGHTPAREN&expr\\% bad spacing
+  &| &MINUS \; LEFTPAREN \\ 
+  & & expr \; RIGHTPAREN&'0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
 \end{longtable}}
 
 %This could probably be merged into Expressions
