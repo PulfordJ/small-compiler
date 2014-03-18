@@ -248,7 +248,7 @@ public class CompilerShouldCompileWithoutError extends CompilerShouldAbstract {
     @Test
     public void whenSignedNumberWithSpace2() throws Exception {
         runCompiler("- 2;");
-        assertEquals(": program -2 . ; program", visitor.getForthSource());
+        assertEquals(": program 0 2 - . ; program", visitor.getForthSource());
     }
 
     @Test
@@ -296,7 +296,7 @@ public class CompilerShouldCompileWithoutError extends CompilerShouldAbstract {
     @Test
     public void whenMinusSignedNumber() throws Exception {
         runCompiler("-20;");
-        assertEquals(": program -20 . ; program", visitor.getForthSource());
+        assertEquals(": program 0 20 - . ; program", visitor.getForthSource());
     }
 
     @Test
@@ -308,31 +308,31 @@ public class CompilerShouldCompileWithoutError extends CompilerShouldAbstract {
     @Test
     public void whenParensMinusNum() throws Exception {
         runCompiler("(-20);");
-        assertEquals(": program -20 . ; program", visitor.getForthSource());
+        assertEquals(": program 0 20 - . ; program", visitor.getForthSource());
     }
 
     @Test
     public void whenParensWithPlus() throws Exception {
         runCompiler("+(-20);");
-        assertEquals(": program -20 . ; program", visitor.getForthSource());
+        assertEquals(": program 0 20 - . ; program", visitor.getForthSource());
     }
 
     @Test
     public void whenParensWithMinus() throws Exception {
         runCompiler("-(-20);");
-        assertEquals(": program 0 -20 - . ; program", visitor.getForthSource());
+        assertEquals(": program 0 0 20 - - . ; program", visitor.getForthSource());
     }
 
     @Test
     public void whenFloatParensWithMinus() throws Exception {
         runCompiler("-(-20e0);");
-        assertEquals(": program 0e0 -20e0 f- f. ; program", visitor.getForthSource());
+        assertEquals(": program 0e0 0e0 20e0 f- f- f. ; program", visitor.getForthSource());
     }
 
     @Test
     public void whenParensPrecedence() throws Exception {
         runCompiler("(-20 + 30) / 2;");
-        assertEquals(": program -20 30 + 2 / . ; program", visitor.getForthSource());
+        assertEquals(": program 0 20 - 30 + 2 / . ; program", visitor.getForthSource());
     }
 
 

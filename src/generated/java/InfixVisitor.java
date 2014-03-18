@@ -18,18 +18,25 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#subVariable}.
+	 * Visit a parse tree produced by {@link InfixParser#unarySubExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubVariable(@NotNull InfixParser.SubVariableContext ctx);
+	T visitUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#parensWithMinus}.
+	 * Visit a parse tree produced by {@link InfixParser#unaryAddExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx);
+	T visitUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#factorFloat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorFloat(@NotNull InfixParser.FactorFloatContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#boolExpr}.
@@ -37,13 +44,6 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBoolExpr(@NotNull InfixParser.BoolExprContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#float}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFloat(@NotNull InfixParser.FloatContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#boolTrue}.
@@ -58,13 +58,6 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#optionallySignedInt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#function}.
@@ -86,13 +79,6 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParensnop(@NotNull InfixParser.ParensnopContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#valueType}.
@@ -179,25 +165,18 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBoolParened(@NotNull InfixParser.BoolParenedContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link InfixParser#parensWithAdd}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link InfixParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIfStatement(@NotNull InfixParser.IfStatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link InfixParser#factorInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorInt(@NotNull InfixParser.FactorIntContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#statementExpr}.
@@ -207,11 +186,11 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStatementExpr(@NotNull InfixParser.StatementExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#subFloat}.
+	 * Visit a parse tree produced by {@link InfixParser#factorID}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubFloat(@NotNull InfixParser.SubFloatContext ctx);
+	T visitFactorID(@NotNull InfixParser.FactorIDContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link InfixParser#sequence}.
@@ -235,9 +214,9 @@ public interface InfixVisitor<T> extends ParseTreeVisitor<T> {
 	T visitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link InfixParser#variable}.
+	 * Visit a parse tree produced by {@link InfixParser#factorParenedExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariable(@NotNull InfixParser.VariableContext ctx);
+	T visitFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx);
 }

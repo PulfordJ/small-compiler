@@ -19,26 +19,37 @@ public interface InfixListener extends ParseTreeListener {
 	void exitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#subVariable}.
+	 * Enter a parse tree produced by {@link InfixParser#unarySubExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubVariable(@NotNull InfixParser.SubVariableContext ctx);
+	void enterUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixParser#subVariable}.
+	 * Exit a parse tree produced by {@link InfixParser#unarySubExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubVariable(@NotNull InfixParser.SubVariableContext ctx);
+	void exitUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#parensWithMinus}.
+	 * Enter a parse tree produced by {@link InfixParser#unaryAddExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx);
+	void enterUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixParser#parensWithMinus}.
+	 * Exit a parse tree produced by {@link InfixParser#unaryAddExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx);
+	void exitUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#factorFloat}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactorFloat(@NotNull InfixParser.FactorFloatContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#factorFloat}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactorFloat(@NotNull InfixParser.FactorFloatContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#boolExpr}.
@@ -50,17 +61,6 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBoolExpr(@NotNull InfixParser.BoolExprContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link InfixParser#float}.
-	 * @param ctx the parse tree
-	 */
-	void enterFloat(@NotNull InfixParser.FloatContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixParser#float}.
-	 * @param ctx the parse tree
-	 */
-	void exitFloat(@NotNull InfixParser.FloatContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#boolTrue}.
@@ -83,17 +83,6 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link InfixParser#optionallySignedInt}.
-	 * @param ctx the parse tree
-	 */
-	void enterOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixParser#optionallySignedInt}.
-	 * @param ctx the parse tree
-	 */
-	void exitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#function}.
@@ -127,17 +116,6 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link InfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 */
-	void enterParensnop(@NotNull InfixParser.ParensnopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixParser#parensnop}.
-	 * @param ctx the parse tree
-	 */
-	void exitParensnop(@NotNull InfixParser.ParensnopContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#valueType}.
@@ -272,28 +250,6 @@ public interface InfixListener extends ParseTreeListener {
 	void exitBoolParened(@NotNull InfixParser.BoolParenedContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
-	 * @param ctx the parse tree
-	 */
-	void enterSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixParser#subOptionallySignedInt}.
-	 * @param ctx the parse tree
-	 */
-	void exitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link InfixParser#parensWithAdd}.
-	 * @param ctx the parse tree
-	 */
-	void enterParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InfixParser#parensWithAdd}.
-	 * @param ctx the parse tree
-	 */
-	void exitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link InfixParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -303,6 +259,17 @@ public interface InfixListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfStatement(@NotNull InfixParser.IfStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link InfixParser#factorInt}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactorInt(@NotNull InfixParser.FactorIntContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InfixParser#factorInt}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactorInt(@NotNull InfixParser.FactorIntContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#statementExpr}.
@@ -316,15 +283,15 @@ public interface InfixListener extends ParseTreeListener {
 	void exitStatementExpr(@NotNull InfixParser.StatementExprContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#subFloat}.
+	 * Enter a parse tree produced by {@link InfixParser#factorID}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubFloat(@NotNull InfixParser.SubFloatContext ctx);
+	void enterFactorID(@NotNull InfixParser.FactorIDContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixParser#subFloat}.
+	 * Exit a parse tree produced by {@link InfixParser#factorID}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubFloat(@NotNull InfixParser.SubFloatContext ctx);
+	void exitFactorID(@NotNull InfixParser.FactorIDContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link InfixParser#sequence}.
@@ -360,13 +327,13 @@ public interface InfixListener extends ParseTreeListener {
 	void exitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link InfixParser#variable}.
+	 * Enter a parse tree produced by {@link InfixParser#factorParenedExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariable(@NotNull InfixParser.VariableContext ctx);
+	void enterFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InfixParser#variable}.
+	 * Exit a parse tree produced by {@link InfixParser#factorParenedExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariable(@NotNull InfixParser.VariableContext ctx);
+	void exitFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx);
 }

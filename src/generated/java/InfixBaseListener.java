@@ -29,26 +29,39 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSubVariable(@NotNull InfixParser.SubVariableContext ctx) { }
+	@Override public void enterUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitSubVariable(@NotNull InfixParser.SubVariableContext ctx) { }
+	@Override public void exitUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
+	@Override public void enterUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
+	@Override public void exitUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFactorFloat(@NotNull InfixParser.FactorFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFactorFloat(@NotNull InfixParser.FactorFloatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -62,19 +75,6 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitBoolExpr(@NotNull InfixParser.BoolExprContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterFloat(@NotNull InfixParser.FloatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -101,19 +101,6 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -153,19 +140,6 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterParensnop(@NotNull InfixParser.ParensnopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitParensnop(@NotNull InfixParser.ParensnopContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -328,32 +302,6 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterIfStatement(@NotNull InfixParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -361,6 +309,19 @@ public class InfixBaseListener implements InfixListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitIfStatement(@NotNull InfixParser.IfStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFactorInt(@NotNull InfixParser.FactorIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFactorInt(@NotNull InfixParser.FactorIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -380,13 +341,13 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+	@Override public void enterFactorID(@NotNull InfixParser.FactorIDContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+	@Override public void exitFactorID(@NotNull InfixParser.FactorIDContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -432,13 +393,13 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterVariable(@NotNull InfixParser.VariableContext ctx) { }
+	@Override public void enterFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitVariable(@NotNull InfixParser.VariableContext ctx) { }
+	@Override public void exitFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

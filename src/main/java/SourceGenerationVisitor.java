@@ -267,15 +267,6 @@ public class SourceGenerationVisitor extends InfixBaseVisitor<String> {
         return visit(ctx.expr());
     }
 
-    @Override
-    public String visitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) {
-        //Convert signed parens into forms forth will understand.
-        String formatString = "0 %s -";
-        if (floatMode) {
-            formatString = "0e0 %s f-";
-        }
-        return String.format(formatString, visit(ctx.parenedexpr()));
-    }
 
     @Override
     public String visitBoolParened(@NotNull InfixParser.BoolParenedContext ctx) {
@@ -321,7 +312,7 @@ public class SourceGenerationVisitor extends InfixBaseVisitor<String> {
     }
 
     @Override
-    public String visitVariable(@NotNull InfixParser.VariableContext ctx) {
+    public String visitFactorID(@NotNull InfixParser.FactorIDContext ctx) {
         //Check whether variable exists in scope.
         Scope scope = scopes.get(ctx);
         VariableSymbol variableSymbol = (VariableSymbol) scope.resolve(ctx.ID().getText());
@@ -341,37 +332,21 @@ public class SourceGenerationVisitor extends InfixBaseVisitor<String> {
     }
 
     @Override
-    public String visitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
-        //Check whether variable exists in scope.
-        Scope scope = scopes.get(ctx);
-        VariableSymbol variableSymbol = (VariableSymbol) scope.resolve(ctx.ID().getText());
-        String compiledVariableName;
-        if (variableSymbol == null) {
-            new SemanticError(parser, ctx, ctx.ID().getSymbol(), "variable name " + ctx.ID().getText() + " not in scope, unresolvable.");
-            compiledVariableName = "NO_SUCH_VARIABLE";
-        } else {
-            compiledVariableName = variableSymbol.getCompiledVariableName();
-        }
-
-        if (floatMode) {
-            return "0e0 " + compiledVariableName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
-        } else {
-            return "0 " + compiledVariableName + " @ -";    //To change body of overridden methods use File | Settings | File Templates.
-        }
-    }
-
-    @Override
-    public String visitFloat(@NotNull InfixParser.FloatContext ctx) {
+    public String visitFactorFloat(@NotNull InfixParser.FactorFloatContext ctx) {
         return ctx.FLOAT().getText(); // Simply return the float.
     }
 
     @Override
-    public String visitSubFloat(@NotNull InfixParser.SubFloatContext ctx) {
-        return "-" + ctx.FLOAT().getText();
+    public String visitUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx) {
+        String formatString = "0 %s -";
+        if (floatMode) {
+            formatString = "0e0 %s f-";
+        }
+        return String.format(formatString, visit(ctx.factor()));
     }
 
     @Override
-    public String visitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) {
+    public String visitFactorInt(@NotNull InfixParser.FactorIntContext ctx) {
         //If prefixed with a plus sign remove it, forth can't deal with those expressions.
         //Note this only runs for what the parser considers terminal, meaning the second integer value for the FLOAT terminal remains unaffected, as intended.
         String textVal = ctx.INT().getText();
@@ -385,11 +360,6 @@ public class SourceGenerationVisitor extends InfixBaseVisitor<String> {
         } else {
             return textVal;
         }
-    }
-
-    @Override
-    public String visitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) {
-        return "-" + ctx.INT().getText();
     }
 
     @Override

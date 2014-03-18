@@ -116,17 +116,10 @@ public class DefPhase extends InfixBaseListener {
     }
 
     @Override
-    public void exitVariable(@NotNull InfixParser.VariableContext ctx) {
-        super.exitVariable(ctx);
+    public void exitFactorID(@NotNull InfixParser.FactorIDContext ctx) {
         //Associate current scope with this context, used in second pass.
         scopes.put(ctx, currentScope);
-    }
-
-    @Override
-    public void exitSubVariable(@NotNull InfixParser.SubVariableContext ctx) {
-        super.exitSubVariable(ctx);
-        //Associate current scope with this context, used in second pass.
-        scopes.put(ctx, currentScope);
+        super.exitFactorID(ctx);
     }
 
     @Override
@@ -161,19 +154,6 @@ public class DefPhase extends InfixBaseListener {
         scopes.put(ctx, currentScope);
     }
 
-    @Override
-    public void enterFloat(@NotNull InfixParser.FloatContext ctx) {
-        //Found float in code, set hasFloat to true.
-        hasFloat = true;
-        super.enterFloat(ctx);
-    }
-
-    @Override
-    public void enterSubFloat(@NotNull InfixParser.SubFloatContext ctx) {
-        //Found float in code, set hasFloat to true.
-        hasFloat = true;
-        super.enterSubFloat(ctx);
-    }
 
     @Override
     public void enterValueType(@NotNull InfixParser.ValueTypeContext ctx) {
@@ -183,5 +163,11 @@ public class DefPhase extends InfixBaseListener {
         }
 
         super.enterValueType(ctx);
+    }
+
+    @Override
+    public void enterFactorFloat(@NotNull InfixParser.FactorFloatContext ctx) {
+        hasFloat = true;
+        super.enterFactorFloat(ctx);
     }
 }

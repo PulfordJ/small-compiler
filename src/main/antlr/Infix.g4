@@ -22,7 +22,7 @@ assignment : ID ASSIGN expr              #assignVariable
 bool : expr op=(EQUALS|GREATERTHAN|LESSTHAN|NOTEQUALS|LESSTHANOREQUALS|GREATERTHANOREQUALS) expr #boolExpr
      | TRUE #boolTrue
      | FALSE #boolFalse
-     | leftBool=bool op=(OR|AND) rightBool=bool #boolLogic
+     | leftBool=bool op=(AND|OR) rightBool=bool #boolLogic
      | LEFTPAREN bool RIGHTPAREN #boolParened
      ;
 
@@ -53,16 +53,16 @@ loop: WHILE LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence RIGHTCURLY   #whileLoop
 
 expr : left=expr op=(MUL|DIV) right=expr #MulDivAddSub
      | left=expr op=(ADD|SUB) right=expr #MulDivAddSub
-     | ADD? ID                           #variable
-     | SUB ID                           #subVariable
-     | ADD? FLOAT                           #float
-     | SUB FLOAT                           #subFloat
-     | ADD? INT                 #optionallySignedInt
-     | SUB INT                 #subOptionallySignedInt
-     | parenedexpr                         #parensnop
-     | ADD parenedexpr           #parensWithAdd
-     | SUB parenedexpr           #parensWithMinus
+     | SUB factor            #unarySubExpr
+     | ADD? factor            #unaryAddExpr
      ;
+
+factor : ID         #factorID
+| FLOAT #factorFloat
+| INT #factorInt
+| parenedexpr #factorParenedExpr
+
+;
 
 // Parenthised expression seperated out in this grammar for modularity.
 parenedexpr : LEFTPAREN expr RIGHTPAREN           #parens
