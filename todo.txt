@@ -1,7 +1,0 @@
-DOCUMENT:
-Increase source code documentaiton
-Increase target code documetnation
-Increase translatino documentation
-Expand on extra features, give overview (Including errors.)
-
-Handle getting function arguments from function.
