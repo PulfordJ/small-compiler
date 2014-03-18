@@ -1,5 +1,6 @@
 /**
  * Created by john on 06/02/14.
+ * Utility methods that do not fit cleanly into existing classes.
  */
 public class Utilities {
     /**

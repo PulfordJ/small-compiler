@@ -16,6 +16,214 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementFunction(@NotNull InfixParser.StatementFunctionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitUnarySubExpr(@NotNull InfixParser.UnarySubExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitUnaryAddExpr(@NotNull InfixParser.UnaryAddExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFactorFloat(@NotNull InfixParser.FactorFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFactorFloat(@NotNull InfixParser.FactorFloatContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolExpr(@NotNull InfixParser.BoolExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolExpr(@NotNull InfixParser.BoolExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolTrue(@NotNull InfixParser.BoolTrueContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementAssign(@NotNull InfixParser.StatementAssignContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFunction(@NotNull InfixParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFunction(@NotNull InfixParser.FunctionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFunctionCall(@NotNull InfixParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFunctionCall(@NotNull InfixParser.FunctionCallContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFuncArgs(@NotNull InfixParser.FuncArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFuncArgs(@NotNull InfixParser.FuncArgsContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterValueType(@NotNull InfixParser.ValueTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitValueType(@NotNull InfixParser.ValueTypeContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterStatementnop(@NotNull InfixParser.StatementnopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementnop(@NotNull InfixParser.StatementnopContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterDeclareVariable(@NotNull InfixParser.DeclareVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitDeclareVariable(@NotNull InfixParser.DeclareVariableContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitIfElseStatement(@NotNull InfixParser.IfElseStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoolLogic(@NotNull InfixParser.BoolLogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoolLogic(@NotNull InfixParser.BoolLogicContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatementConditional(@NotNull InfixParser.StatementConditionalContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterMulDivAddSub(@NotNull InfixParser.MulDivAddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -29,39 +237,39 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterPrintExpr(@NotNull InfixParser.PrintExprContext ctx) { }
+	@Override public void enterBoolFalse(@NotNull InfixParser.BoolFalseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitPrintExpr(@NotNull InfixParser.PrintExprContext ctx) { }
+	@Override public void exitBoolFalse(@NotNull InfixParser.BoolFalseContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+	@Override public void enterAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitSubFloat(@NotNull InfixParser.SubFloatContext ctx) { }
+	@Override public void exitAssignVariable(@NotNull InfixParser.AssignVariableContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
+	@Override public void enterDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitParensWithMinus(@NotNull InfixParser.ParensWithMinusContext ctx) { }
+	@Override public void exitDeclareFuncArg(@NotNull InfixParser.DeclareFuncArgContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -81,65 +289,117 @@ public class InfixBaseListener implements InfixListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterNop(@NotNull InfixParser.NopContext ctx) { }
+	@Override public void enterBoolParened(@NotNull InfixParser.BoolParenedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitNop(@NotNull InfixParser.NopContext ctx) { }
+	@Override public void exitBoolParened(@NotNull InfixParser.BoolParenedContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterFloat(@NotNull InfixParser.FloatContext ctx) { }
+	@Override public void enterIfStatement(@NotNull InfixParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitFloat(@NotNull InfixParser.FloatContext ctx) { }
+	@Override public void exitIfStatement(@NotNull InfixParser.IfStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) { }
+	@Override public void enterFactorInt(@NotNull InfixParser.FactorIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitSubOptionallySignedInt(@NotNull InfixParser.SubOptionallySignedIntContext ctx) { }
+	@Override public void exitFactorInt(@NotNull InfixParser.FactorIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) { }
+	@Override public void enterStatementExpr(@NotNull InfixParser.StatementExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitParensWithAdd(@NotNull InfixParser.ParensWithAddContext ctx) { }
+	@Override public void exitStatementExpr(@NotNull InfixParser.StatementExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) { }
+	@Override public void enterFactorID(@NotNull InfixParser.FactorIDContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitOptionallySignedInt(@NotNull InfixParser.OptionallySignedIntContext ctx) { }
+	@Override public void exitFactorID(@NotNull InfixParser.FactorIDContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSequence(@NotNull InfixParser.SequenceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSequence(@NotNull InfixParser.SequenceContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBoilerplate(@NotNull InfixParser.BoilerplateContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterWhileLoop(@NotNull InfixParser.WhileLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitWhileLoop(@NotNull InfixParser.WhileLoopContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFactorParenedExpr(@NotNull InfixParser.FactorParenedExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

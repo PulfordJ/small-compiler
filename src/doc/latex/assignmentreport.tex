@@ -11,10 +11,11 @@
 \usepackage{array}
 \usepackage{txfonts}
 \usepackage{pdflscape}
+\usepackage{longtable}
 
 \newcommand\nonter[1]{\ensuremath{#1\negthinspace s}}
 
-\usepackage{syntax} 
+\usepackage{syntax}
 
 %\DefineBibliographyStrings{english}{%
 %  references = {References},
@@ -93,18 +94,40 @@
 \end{titlepage}
 
 \tableofcontents
-\begin{landscape}
 \section{Grammar}
 \subsection{Source}
 \setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
-\setlength{\grammarindent}{12em} % increase separation between LHS/RHS 
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS
 \subsubsection{Tokens}
 
 All possible tokens:
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
-  TOKEN &\Coloneqq &MUL\\% bad spacing
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  TOKEN &\Coloneqq &SEMICOLON\\% bad spacing
+  &| &ASSIGN\\% bad spacing
+  &| &WS\\% bad spacing
+  &| &EQUALS\\% bad spacing
+  &| &GREATERTHAN\\% bad spacing
+  &| &LESSTHAN\\% bad spacing
+  &| &LESSTHANOREQUALS\\% bad spacing
+  &| &GREATERTHANOREQUALS\\% bad spacing
+  &| &NOTEQUALS\\% bad spacing
+  &| &INTTYPE\\% bad spacing
+  &| &FLOATTYPE\\% bad spacing
+  &| &LEFTCURLY\\% bad spacing
+  &| &RIGHTCURLY\\% bad spacing
+  &| &IF\\% bad spacing
+  &| &TRUE\\% bad spacing
+  &| &FALSE\\% bad spacing
+  &| &OR\\% bad spacing
+  &| &AND\\% bad spacing
+  &| &ELSE\\% bad spacing
+  &| &WHILE\\% bad spacing
+  &| &DEF\\% bad spacing
+  &| &COMMA\\% bad spacing
+  &| &ID\\% bad spacing
+  &| &MUL\\% bad spacing
   &| &DIV\\% bad spacing
   &| &PLUS\\% bad spacing
   &| &MINUS\\% bad spacing
@@ -114,12 +137,34 @@ All possible tokens:
   &| &FLOAT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 \newpage
 Each individual token:
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  SEMICOLON &\Coloneqq &';'\\% bad spacing
+  ASSIGN &\Coloneqq &':='\\% bad spacing
+  EQUALS &\Coloneqq &'='\\% bad spacing
+  GREATERTHAN &\Coloneqq &'>'\\% bad spacing
+  LESSTHAN &\Coloneqq &'<'\\% bad spacing
+  LESSTHANOREQUALS &\Coloneqq &'<='\\% bad spacing
+  GREATERTHANOREQUALS &\Coloneqq &'>='\\% bad spacing
+  NOTEQUALS &\Coloneqq &'!='\\% bad spacing
+  INTTYPE &\Coloneqq &'int'\\% bad spacing
+  FLOATTYPE &\Coloneqq &'float'\\% bad spacing
+  LEFTCURLY &\Coloneqq &'\{'\\% bad spacing
+  RIGHTCURLY &\Coloneqq &'\}'\\% bad spacing
+  IF &\Coloneqq &'if'\\% bad spacing
+  TRUE &\Coloneqq &'true'\\% bad spacing
+  FALSE &\Coloneqq &'false'\\% bad spacing
+  OR &\Coloneqq &'or'\\% bad spacing
+  AND &\Coloneqq &'and'\\% bad spacing
+  ELSE &\Coloneqq &'else'\\% bad spacing
+  WHILE &\Coloneqq &'while'\\% bad spacing
+  DEF &\Coloneqq &'def'\\% bad spacing
+  COMMA &\Coloneqq &','\\% bad spacing
+  ID &\Coloneqq &[ \; A-z \; ]\\% bad spacing
   MUL &\Coloneqq &'*'\\% bad spacing
   DIV &\Coloneqq &'\backslash'\\% bad spacing
   PLUS &\Coloneqq &'+'\\% bad spacing
@@ -130,11 +175,37 @@ Each individual token:
   FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; ( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
-\end{tabular}}
+  WS &\Coloneqq &[ \; '\ ' \backslash t \backslash n \backslash r \; ]\\% bad spacing
+\end{longtable}}
+\begin{landscape}
 \subsubsection{Expressions}
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  start &\Coloneqq & func* \; sequence \; func*\\
+  func &\Coloneqq & DEF \; ID \; LEFTPAREN \; funcArgs? \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY\\
+  funcArgs &\Coloneqq & declaration \; (COMMA \; declaration)*\\
+  declaration &\Coloneqq & valueType \; ID\\
+  valueType &\Coloneqq & INTTYPE \; FLOATTYPE\\
+  sequence &\Coloneqq & (declaration \; SEMICOLON?)* \; statement*\\
+  statement &\Coloneqq & loop\\
+  &| &conditional\\% bad spacing
+  &| &funcCall \; SEMICOLON\\% bad spacing
+  &| &assignment \; SEMICOLON\\% bad spacing
+  bool &\Coloneqq & expr \; compOp \; expr\\
+  &| &TRUE\\% bad spacing
+  &| &FALSE\\% bad spacing
+  &| &bool \; boolOp \; bool\\% bad spacing
+  &| &LEFTPAREN \; BOOL \; RIGHTPAREN\\% bad spacing
+  boolOp &\Coloneqq & (OR \; | \; AND)\\
+  compOp &\Coloneqq & (EQUALS \; | \; GREATERTHAN \; | \; LESSTHAN \; | \; NOTEQUALS \; | \; LESSTHANOREQUALS \; | \; GREATERTHANOREQUALS)\\
+  &| &expr \; SEMICOLON\\% bad spacing
+  loop &\Coloneqq & WHILE \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY\\
+  conditional &\Coloneqq & IF \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY\\
+  &| & IF \; LEFTPAREN \; bool \; RIGHTPAREN \; LEFTCURLY \; sequence \; RIGHTCURLY\\
+  & & ELSE \; LEFTCURLY \; SEQUENCE \; RIGHTCURLY\\
+  funcCall &\Coloneqq & ID \; LEFTPAREN \; (expr \; (COMMA \; expr)*)? \; RIGHTPAREN\\
+  assignment &\Coloneqq & ID \; ASSIGN \; expr\\
   expr &\Coloneqq & expr \; PLUS \; expr\\
   &| &expr \; DIV \; expr\\% bad spacing
   &| &expr \; MUL \; expr\\% bad spacing
@@ -145,114 +216,490 @@ Each individual token:
   &| &PLUS? \; INT\\% bad spacing
   &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
   &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN\\% bad spacing
-\end{tabular}}
+\end{longtable}}
 \subsection{Target Language}
-A formal description of the target language is below note that extra language aspects such as loops and conditional statements are not mentioned as the compile will never convert any of the source language into such tokens / statements.
+A formal description of the target language is below. Note that this is an abstracted view of Forth, there are in reality many more aspects to the grammar but this is what we're interested in.
 
 %Provide a formalisation of the target language in (E)BNF.
 \subsubsection{Tokens}
 
-
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   TOKEN &\Coloneqq &FLOATMUL\\% bad spacing
   &| &FLOATDIV\\% bad spacing
   &| &FLOATPLUS\\% bad spacing
   &| &FLOATMINUS\\% bad spacing
   &| &FLOATPOP\\% bad spacing
+  &| &FLOATPUSHTOADDRESS\\% bad spacing
+  &| &PUSHTOADDRESS\\% bad spacing
+  &| &EQUALS\\% bad spacing
+  &| &GREATERTHAN\\% bad spacing
+  &| &LESSTHAN\\% bad spacing
+  &| &LESSTHANOREQUALS\\% bad spacing
+  &| &GREATERTHANOREQUALS\\% bad spacing
+  &| &NOTEQUALS\\% bad spacing
+  &| &TRUE\\% bad spacing
+  &| &FALSE\\% bad spacing
+  &| &OR\\% bad spacing
+  &| &AND\\% bad spacing
+  &| &VARIABLEDEC\\% bad spacing
+  &| &ID\\% bad spacing
+  &| &FLOATVALUEOFVARIABLE\\% bad spacing
+  &| &VALUEOFVARIABLE\\% bad spacing
+  &| &IF\\% bad spacing
+  &| &ELSE\\% bad spacing
+  &| &ENDIF\\% bad spacing
+  &| &BEGIN\\% bad spacing
+  &| &WHILE\\% bad spacing
+  &| &UNDERSCORE\\% bad spacing
+  &| &REPEAT\\% bad spacing
+  &| &COLON\\% bad spacing
+  &| &SEMICOLON\\% bad spacing
   &| &MUL\\% bad spacing
   &| &DIV\\% bad spacing
   &| &PLUS\\% bad spacing
   &| &MINUS\\% bad spacing
   &| &POP\\% bad spacing
+  &| &PROGRAM\\% bad spacing
   &| &FLOATEXPONENT\\% bad spacing
   &| &FLOAT\\% bad spacing
   &| &INT\\% bad spacing
   &| &DIGIT\\% bad spacing
-  &| &SEPERATOR\\% bad spacing
-\end{tabular}}
+  &| &SEP\\% bad spacing
+\end{longtable}}
 
 
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
   MUL &\Coloneqq &'*'\\% bad spacing
   DIV &\Coloneqq &'\backslash'\\% bad spacing
   PLUS &\Coloneqq &'+'\\% bad spacing
   MINUS &\Coloneqq &'-'\\% bad spacing
   POP &\Coloneqq &'.'\\% bad spacing
+  EQUALS &\Coloneqq &'='\\% bad spacing
+  GREATERTHAN &\Coloneqq &'>'\\% bad spacing
+  LESSTHAN &\Coloneqq &'<'\\% bad spacing
+  LESSTHANOREQUALS &\Coloneqq &'<='\\% bad spacing
+  GREATERTHANOREQUALS &\Coloneqq &'>='\\% bad spacing
+  TRUE &\Coloneqq &'true'\\% bad spacing
+  FALSE &\Coloneqq &'false'\\% bad spacing
+  OR &\Coloneqq &'or'\\% bad spacing
+  AND &\Coloneqq &'and'\\% bad spacing
+  NOTEQUALS &\Coloneqq &'!='\\% bad spacing
   FLOATMUL &\Coloneqq &'f*'\\% bad spacing
   FLOATDIV &\Coloneqq &'f\backslash'\\% bad spacing
   FLOATPLUS &\Coloneqq &'f+'\\% bad spacing
   FLOATMINUS &\Coloneqq &'f-'\\% bad spacing
+  FLOATPUSHTOADDRESS &\Coloneqq &'f!'\\% bad spacing
+  PUSHTOADDRESS &\Coloneqq &'!'\\% bad spacing
+  VARIABLEDEC &\Coloneqq &'variable'\\% bad spacing
+  ID &\Coloneqq &[ \; A-z \; ]\\% bad spacing
+  FLOATVALUEOFVARIABLE &\Coloneqq &'f@'\\% bad spacing
+  VALUEOFVARIABLE &\Coloneqq &'@'\\% bad spacing
+  IF &\Coloneqq &'if'\\% bad spacing
+  ELSE &\Coloneqq &'else'\\% bad spacing
+  ENDIF &\Coloneqq &'endif'\\% bad spacing
+  BEGIN &\Coloneqq &'begin'\\% bad spacing
+  WHILE &\Coloneqq &'while'\\% bad spacing
+  REPEAT &\Coloneqq &'repeat'\\% bad spacing
+  COLON &\Coloneqq &':'\\% bad spacing
+  PROGRAM &\Coloneqq &'program'\\% bad spacing
+  SEMICOLON &\Coloneqq &';'\\% bad spacing
   FLOATPOP &\Coloneqq &'f.'\\% bad spacing
+  UNDERSCORE &\Coloneqq &'\_'\\% bad spacing
   FLOATEXPONENT &\Coloneqq &'e'\\% bad spacing
   FLOAT &\Coloneqq &INT \; FLOATEXPONENT \; ( \; MINUS \; | \; PLUS \; )? \; INT\\% bad spacing
   INT &\Coloneqq &DIGIT \; DIGIT+\\% bad spacing
   DIGIT &\Coloneqq &[ \; 0-9 \; ]\\% bad spacing
-  SEPERATOR &\Coloneqq &'\ '\\% bad spacing
-\end{tabular}}
+  SEP &\Coloneqq &'\ '\\% bad spacing
+\end{longtable}}
 \subsubsection{Expression}
 
 Whilst not strictly true I've modeled the grammar of Forth as one that will either except integer or float numbers. This is true from the perspective of this compiler but in reality there is the option of conversion to float within the forth language.
 
+\begin{equation} 
+\begin{aligned}
+    \textit{start } \Coloneqq \textit{ (variableDef SEP)* (functiondDef SEP)* COLON SEP PROGRAM SEP sequence SEP SEMICOLON SEP PROGRAM}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{variableDef } \Coloneqq \textit{ VARIABLE DIGIT UNDERSCORE ID}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{functionDef } \Coloneqq \textit{ COLON SEP ID SEP sequence SEP SEMICOLON SEP}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{sequence } \Coloneqq \textit{ loop | conditional | printExpr | assignment}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{loop } \Coloneqq \textit{ BEGIN SEP bool SEP WHILE SEP sequence SEP REPEAT }
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{conditional } \Coloneqq \textit{ bool SEP IF SEP sequence SEP ENDIF}\\
+    \textit{conditional } \Coloneqq \textit{ bool SEP IF SEP sequence SEP ELSE SEP sequence ENDIF}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{bool } \Coloneqq \textit{ bool SEP bool SEP boolOp}\\
+    \textit{bool } \Coloneqq \textit{ expr SEP expr SEP compOp}\\
+    \textit{bool } \Coloneqq \textit{ -1}\\
+    \textit{bool } \Coloneqq \textit{ 0}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{boolOp } \Coloneqq \textit{ AND | OR}\\
+    \textit{compOp } \Coloneqq \textit{ EQUALS | GREATERTHAN | LESSTHAN | NOTEQUALS | LESSTHANOREQUALS}
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{printExpr } \Coloneqq \textit{ expr SEP POP }
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{assignment } \Coloneqq \textit{ DIGIT UNDERSCORE ID SEP VALUEOFVARIABLE SEP expr}
+\end{aligned}
+\end{equation}
+
+For when float variable types or float values exist in the token stream the above parse translations turn into:
+
+\begin{equation} 
+\begin{aligned}
+    \textit{printExpr } \Coloneqq \textit{ expr SEP FLOATPOP }
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    \textit{assignment } \Coloneqq \textit{ DIGIT UNDERSCORE ID SEP FLOATVALUEOFVARIABLE SEP expr}
+\end{aligned}
+\end{equation}
+
+%bool
+%expr
+
+In addition expressions are either integer or float following the same rules:
+
 {\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
-  start &\Coloneqq & expr \; | \; floatexpr\\
-  expr &\Coloneqq & expr \; expr \; PLUS\\
-  &| &expr \; expr \; DIV\\% bad spacing
-  &| &expr \; expr \; MUL\\% bad spacing
-  &| &expr \; expr \; MINUS\\% bad spacing
-  &| &MINUS \; INT\\% bad spacing
-  &| &PLUS? \; INT\\% bad spacing
-  floatexpr &\Coloneqq & floatexpr \; floatexpr \; FLOATPLUS\\
-  &| &floatexpr \; floatexpr \; FLOATDIV\\% bad spacing
-  &| &floatexpr \; floatexpr \; FLOATMUL\\% bad spacing
-  &| &floatexpr \; floatexpr \; FLOATMINUS\\% bad spacing
-  &| &MINUS \; FLOAT\\% bad spacing
-  &| &PLUS? \; FLOAT\\% bad spacing
-\end{tabular}}
+\begin{longtable}{>{$}l<{$}>{$}r<{$}>{$}l<{$}}
+  expr &\Coloneqq & intexpr \; | \; floatexpr\\
+  intexpr &\Coloneqq & intexpr \; SEP \; intexpr \; SEP \; PLUS\\
+  &| &intexpr \; SEP \; intexpr \; SEP \; DIV\\% bad spacing
+  &| &intexpr \; SEP \; intexpr \; SEP \; MUL\\% bad spacing
+  &| &intexpr \; SEP \; intexpr \; SEP \; MINUS\\% bad spacing
+  &| &'0e0' \; SEP \; intFactor \; SEP \; MINUS\\% bad spacing
+  &| &PLUS? \; intFactor\\% bad spacing
+  floatexpr &\Coloneqq & floatexpr \; SEP \; floatexpr \; SEP \; FLOATPLUS\\
+  &| &floatexpr \; SEP \; floatexpr \; SEP \; FLOATDIV\\% bad spacing
+  &| &floatexpr \; SEP \; floatexpr \; SEP \; FLOATMUL\\% bad spacing
+  &| &floatexpr \; SEP \; floatexpr \; SEP \; FLOATMINUS\\% bad spacing
+  &| &'0e0' \; SEP \; floatFactor \; SEP \; MINUS\\% bad spacing
+  &| &PLUS? \; floatFactor\\% bad spacing
+  intFactor &\Coloneqq & INT\\% bad spacing\\% bad spacing\\
+  &| &DIGIT \; UNDERSCORE \; ID \; SEP \; POP\\% bad spacing
+  floatFactor &\Coloneqq & FLOAT\\% bad spacing\\
+  &| &DIGIT \; UNDERSCORE \; ID \; SEP \; FLOATPOP\\% bad spacing
+\end{longtable}}
 \section{Translation}
 \subsection{Tokens}
-Rather than cover tokens seperately I simply cover their translation in the expression section for brevity. 
+Rather than cover tokens seperately I simply cover their translation in the expression section for brevity.
 \subsection{Expression}
 
-The rule tables follow. The first column signifies the production rule. The second is how it is represented in the source language. The third is the semantic rule for that particular representation i.e the order the nodes are visited and the output of that production rule traversal which results in a Forth compatible grammar. The terminals in this column refer to forth terminals. Non-terminals refer to the source language. (Although both languages have the exact same terminals).
+The rules for translation follow. The left hand side is the production rule (with the parent omitted where sensible). The right hand side shows the semantics behind how it is translated. For the sake of brevity when a token is simply taken as part of the forth language my translation label is simply the parent of the production rule (without the T () notation, to indicate that it is not recursive).
 
-There are also are two versions of the syntax directed translation. One when at least one floating number exists in the source and one when they do not.
+Where translation is obviously transitive omissions have been made. For example
 
-\subsubsection{Float Enabled Translation}
+\begin{equation} 
+\begin{aligned}
+    \textit{statement }\rightarrow \textit{ conditional}
+\end{aligned}
+\end{equation}
 
-{\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
-  Production & & Source &Target\\ \hline
-  start &\Coloneqq & expr_{1}& expr_{1} \; SEPERATOR \; FLOATPOP\\
-  expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATPLUS\\
-  &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATDIV\\% bad spacing
-  &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMUL\\% bad spacing
-  &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; FLOATMINUS\\% bad spacing
-  &| &MINUS \; FLOAT&MINUS \;FLOAT\\% bad spacing
-  &| &ADD? \; FLOAT&FLOAT\\% bad spacing
-  &| &MINUS \; INT&MINUS \; FLOAT(INT'e0')\\% bad spacing
-  &| &ADD? \; INT&FLOAT(INT'e0')\\% bad spacing
-  &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
-  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0e0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
-\end{tabular}}
+This translation is simply determined by the matching conditional sub tree, therefore those sub trees are listed and this is omited.
 
-\subsubsection{Float Disabled Translation}
+There are also are two versions of the syntax directed translation. One when at least one floating number exists in the source, or where one variable is of type float, and one when they do not.
 
-{\setlength\tabcolsep{4pt}
-\begin{tabular}{>{$}l<{$}>{$}r<{$}>{$}l<{$}|>{$}l<{$}}
-  Production & & Source &Target\\ \hline
-  start &\Coloneqq & expr_{1}& expr_{1} \; SEPERATOR \; POP\\
-  expr &\Coloneqq & expr_{1} \; PLUS \; expr_{2}& expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; PLUS\\
-  &| &expr_{1} \; DIV \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; DIV\\% bad spacing
-  &| &expr_{1} \; MUL \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MUL\\% bad spacing
-  &| &expr_{1} \; MINUS \; expr_{2}&expr_{1} \; SEPERATOR \; expr_{2} \; SEPERATOR \; MINUS\\% bad spacing
-  &| &MINUS \; INT&MINUS \; INT\\% bad spacing
-  &| &ADD? \; INT&INT\\% bad spacing
-  &| &PLUS? \; LEFTPAREN \; expr \; RIGHTPAREN&expr\\% bad spacing
-  &| &MINUS \; LEFTPAREN \; expr \; RIGHTPAREN&'0' \; SEPERATOR \; expr \; SEPERATOR \; - \\% bad spacing
-\end{tabular}}
+\begin{equation} 
+\begin{aligned}
+    T( \textit{func* sequence func*}) = \textit{declarationList SEP functionList SEP T(sequence)} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{DEF WS ID LEFTPAREN funcArgs? RIGHTPAREN LEFTCURLY sequence RIGHTCURLY})\\
+    = \textit{functionList.append(COLON SEP ID SEP) SEP T(sequence) SEP SEMICOLON SEP} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{assignment SEMICOLON})\\
+    = \textit{T(assignment)} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{funcCall SEMICOLON})\\
+    = \textit{T(funcCall)} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{declaration}_{1} \textit{ (COMMA declaration}_{2} \textit{)*}) = \textit{T(declaration) SEP}_{1..n}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{valueType ID}) = \textit{scope.define(a) declarationList.append(VARIABLE SEP scope.resolve(a)} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{INTTYPE FLOATTYPE}) = \epsilon \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{(declaration SEMICOLON?)* statement*}) = \textit{T(declaration}_{1..n} \textit{) T(statement}_{1..n} \textit{)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{WHILE LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence RIGHTCURLY})\\
+    = \textit{BEGIN SEP T(bool) SEP WHILE SEP T(sequence) SEP REPEAT} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{IF LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence}_{1} \textit{ RIGHTCURLY })\\
+    = \textit{T(bool) SEP IF SEP T(sequence}_{1} \textit{) SEP ENDIF} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{IF LEFTPAREN bool RIGHTPAREN LEFTCURLY sequence}_{1} \textit{ RIGHTCURLY ELSE LEFTCURLY sequence}_{2} \textit{ RIGHTCURLY})\\
+    = \textit{T(bool) SEP IF SEP T(sequence}_{1} \textit{) SEP ELSE SEP T(sequence}_{2} \textit{) SEP ENDIF} \\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{ID LEFTPAREN (expr}_{1} \textit{ (COMMA expr}_{2} \textit{)*)? RIGHTPAREN})
+    = \textit{T(expr) SEP}_{1..n} \textit{ ID}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{ADD? factor})
+    = \textit{T(factor)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{LEFTPAREN expr RIGHTPAREN})
+    = \textit{T(expr)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{INT})
+    = \textit{INT}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{FLOAT})
+    = \textit{FLOAT}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ compOp expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP T(compOp)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{bool}_{1} \textit{ boolOp bool}_{2})
+    = \textit{T(bool}_{1} \textit{) SEP T(bool}_{2} \textit{) SEP T(boolOp)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{compOp} \rightarrow \textit{EQUALS | GREATERTHAN | LESSTHAN | NOTEQUALS | LESSTHANOREQUALS | GREATERTHANOREQUALS})\\
+    = \textit{compOp}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{boolOp} \rightarrow \textit{AND | OR})
+    = \textit{boolOp}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{TRUE})
+    = \textit{-1}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{FALSE})
+    = \textit{0}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{ID})
+    = \textit{scope.resolve(id) SEP VALUEOFVARIABLE}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{ID ASSIGN expr})
+    = \textit{scope.get(ID) SEP VALUEOFVARAIBLE SEP T(expr)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ MUL expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP MUL}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ DIV expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP DIV}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ PLUS expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP PLUS}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ MINUS expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP MINUS}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{MINUS factor}) = \textit{'0' SEP T(factor) SEP MINUS}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr SEMICOLON})
+    = \textit{T(expr) POP} \\
+\end{aligned}
+\end{equation}
+
+If a FLOATTYPE or FLOAT token is detected the following translations update the above.
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{ID})
+    = \textit{scope.resolve(id) SEP FLOATVALUEOFVARIABLE}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{ID ASSIGN expr})
+    = \textit{scope.get(ID) SEP FLOATVALUEOFVARAIBLE SEP T(expr)}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ MUL expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP FLOATMUL}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ DIV expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP FLOATDIV}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ PLUS expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP FLOATPLUS}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr}_{1} \textit{ MINUS expr}_{2})
+    = \textit{T(expr}_{1} \textit{) SEP T(expr}_{2} \textit{) SEP FLOATMINUS}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{MINUS factor}) = \textit{'0' SEP T(factor) SEP FLOATMINUS}\\
+\end{aligned}
+\end{equation}
+
+\begin{equation} 
+\begin{aligned}
+    T( \textit{expr SEMICOLON})
+    = \textit{T(expr) FLOATPOP} \\
+\end{aligned}
+\end{equation}
 
 %This could probably be merged into Expressions
 \section{Implementation}
@@ -273,7 +720,7 @@ java -jar build/distributions/small-compiler-unspecified-shadow.jar example.if
 
 \end{quotation}
 
-The compiler will generate two files. 
+The compiler will generate two files.
 \begin{quotation}
 <filename>.fs and <filename>.ps
 \end{quotation}
@@ -282,16 +729,16 @@ The former is the target code generated from the input file. The latter is a pos
 \end{landscape}
 \subsection{Tools}
 An ANTLR4 grammar was written and then compiled to generate a Parser and Lexer. Then the base visitor class was extended to generate the source string and control the order non-terminals were visited in. Graphing was also generated via ANTLR. Error handling was done by extending ANTLR's error handling classes and extending the \gls{CFG} with error catching. ANTLR4 grammar files have extensive enhancements over traditional grammars. Ignoring whitespace was achieved with one
-line. Precedence is implicit; ANTLR4 uses the first matching production rule when going left to right in the document. So by writing the * and / expressions out first they will always be compiled before a + or - expression.
+line. Precedence is implicit; ANTLR4 uses the first matching production rule when going left to right in the document. So by writing the * and / expressions out first they will always be compiled before a + or - expression. This is also how AND/OR expressions are resolved with boolean values.
 
-Less significantly other tools were applied but mainly applied to the work flow. 
+Less significantly other tools were applied but mainly applied to the work flow.
 \begin{itemize}
     \item JUnit was used for unit testing compiler output against target language output.
-    \item Gradle was used for the build script, it compiles the ANTLR files, then my java files, then unit tests them, packages up the program as a jar and finally runs it with my specified arguments. 
+    \item Gradle was used for the build script, it compiles the ANTLR files, then my java files, then unit tests them, packages up the program as a jar and finally runs it with my specified arguments.
     \item An awaiting-approval plugin for Gradle known as shadowJar which generates fat jars; jars that contain all of their dependencies.
     \item A crude attempt at an ANTLR4 plugin for Gradle from Github was transformed into an actual gradle plugin and used to facilitate the build script's existence.
     \item A equally crude attempt at an LaTeX plugin for Gradle from Github was transformed into an actual gradle plugin to facilitate the build script's existence (And improved upon).
-    \item These plugins implementations can be found inside buildSrc/. They were written when it became evident that LaTeX and ANTLR4 would be part of third year project build script, they'll be made open source once both deadlines have passed.
+    \item These plugins implementations can be found inside buildSrc/. They were written when it became evident that LaTeX and ANTLR4 would be part of the third year project build script, they'll be made open source once both deadlines have passed.
 \end{itemize}
 
 \subsection{Extended Features}
@@ -300,11 +747,20 @@ The following has been implemented;
     \item[A visual reading of a parse tree] \hfill
         Although as mentioned it is missing terminal types.
     \item[Support for floating-point expressions as well as integers] \hfill
-        Integers are converted into floats when floats are in the equation; the lexer is applied twice to achieve this.
+        Integers are converted into floats when floats or a variable with a float type are in the equation; two parses of the tree are ran to achieve this.
     \item[Helpful and informative error messages]
-        Errors are underlined, unless found at the last line (Because those underlines are rarely useful.) In addition ANTLR4's condensed error messages have been reworded. ANTLR4 also has built in capabilities to continue checking for errors in the code despite running into one.
+        Due to the behaviour-driven development used for this software the one way to see what error cases are supported is to access src/test/java/CompilerShouldError.java. Each test function is written in human readable camel case. However, I will give an overview of informative error cases here;
+        \begin{itemize}
+            \item Mismatched parenthesis messages.
+            \item Same variable declared twice in same scope.
+            \item Same function declared twice in same scope.
+            \item When variable name is used but not in scope.
+            \item Call to non-existent function.
+            \item When variable and function have the same name.
+        \end{itemize}
+        Note that there is no error for an uninitialised value the default value, of '0'/'0e0', built into gforth, was chosen, as all variables for this grammar are numbers.
     \item[Immune to whitespace]
-       Whitespace doesn't matter, check the unit tests for whacky spacing examples. This required a specific structuring of the grammar because in antlr4 you cannot implicitly ignore whitespace inside terminals (Which is why there are no signed numbers as terminals). 
+       Whitespace doesn't matter in most cases, although there must be a space between 'def' and a functions name, check the unit tests for whacky spacing examples. This required a specific structuring of the grammar because in antlr4 you cannot implicitly ignore whitespace inside terminals (Which is why there are no signed numbers as terminals).
 \end{description}
 
 Code has been divided, code inside:
@@ -313,7 +769,6 @@ src -> generated
 \end{quotation}
 Is generated by antlr during a build.
 
-
 Code that is inside:
 \begin{quotation}
 src -> main
@@ -321,7 +776,7 @@ src -> main
 \begin{quotation}
 src -> test
 \end{quotation}
-was written by me, this code also contains comments for further information.
+was written by me, this code also contains comments for further information. Some files have been renamed to give a better understanding of their purpose compared to the first assignment (Such as 'InfixVisitorImpl' being renamed to 'SourceGenerationVisitor').
 
 Code that is inside:
 \begin{quotation}
