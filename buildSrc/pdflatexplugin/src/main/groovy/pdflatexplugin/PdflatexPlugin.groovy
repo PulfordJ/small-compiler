@@ -72,9 +72,9 @@ public class PdflatexPlugin implements Plugin<Project> {
             if (!isLatexInstallled()) {
               throw new StopExecutionException('Latex is not installed. We skip the document!')
             }
-            tree = project.fileTree(dir: pdflatexSettings.stagingDirName)
-            tree.include '**/*.tex'
-            tree.each {File file ->
+            project.ext.set("tree", project.fileTree(dir: pdflatexSettings.stagingDirName))
+            project.tree.include '**/*.tex'
+            project.tree.each {File file ->
               compileLatex(file)
             }
             project.copyPdfToDocsFolder.execute()
