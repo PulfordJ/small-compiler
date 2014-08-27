@@ -9,9 +9,14 @@ mainClassName = "InfixRunner"
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url uri('../repo')
+        }
     }
     dependencies {
         classpath 'com.github.jengelman.gradle.plugins:shadow:0.8'
+        classpath group: 'com.johnpulford', name: 'antlr4plugin', version: '1.0-SNAPSHOT'
+        classpath group: 'com.johnpulford', name: 'pdflatexplugin', version: '1.0-SNAPSHOT'
     }
 }
 
